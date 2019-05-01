@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
-// import {Login} from '../../components/login';
+
+import Login from '../components/Login';
 
 export default () => (
   <React.Fragment>
@@ -9,7 +10,7 @@ export default () => (
     </Head>
 
     <div style={{ width: '100%', height: '100vh', overflow: 'hidden' }}>
-        <p>{`Please clear the p tag and replace with the <login />`}</p>
+        <Login />
     </div>
   </React.Fragment>
 );
