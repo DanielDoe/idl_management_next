@@ -1,10 +1,35 @@
-# Electron-Next-Boilerplate
-[![Build Status](https://img.shields.io/travis/shamofu/electron-next-boilerplate/master.svg?style=flat-square)](https://travis-ci.org/shamofu/electron-next-boilerplate) [![dependencies Status](https://img.shields.io/david/shamofu/electron-next-boilerplate.svg?style=flat-square)](https://david-dm.org/shamofu/electron-next-boilerplate) [![devDependencies Status](https://img.shields.io/david/dev/shamofu/electron-next-boilerplate.svg?style=flat-square)](https://david-dm.org/shamofu/electron-next-boilerplate?type=dev)
+<p align="center"><img src="https://i.imgur.com/PiEKeIZ.png"></p>
 
-A boilerplate for Electron + Next.
+## Usage
 
-## Notice
+### Create an App
 
-To keep up-to-date with advances in technologies, follow the project below.
+```bash
+# with `nextron`
+$ nextron init my-app --template with-javascript-ant-design
 
-- [Electron + Next.js](https://github.com/leo/electron-next-skeleton)
+# with npx
+$ npx create-nextron-app my-app --example with-javascript-ant-design
+
+# with yarn
+$ yarn create nextron-app my-app --example with-javascript-ant-design
+```
+
+### Use it
+
+```bash
+$ cd my-app
+
+# Install dependencies
+$ yarn (or `npm install`)
+
+# Run development mode
+$ yarn dev (or `npm run dev`)
+
+# Build packages
+$ yarn build (or `npm run build`)
+```
+
+## Resources
+
+http://ant.design
