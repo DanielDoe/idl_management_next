@@ -1,0 +1,11 @@
+# output
+/dist
+/app/renderer/.next
+/app/renderer/out
+/.coverage
+
+# dependencies
+/node_modules
+
+# logs
+*.log

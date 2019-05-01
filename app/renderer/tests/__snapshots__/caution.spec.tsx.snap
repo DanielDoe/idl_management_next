@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`page Caution 1`] = `
+Array [
+  <h1>
+    Hello!
+  </h1>,
+  <p>
+    You're welcome.
+  </p>,
+  <a
+    href="/start"
+    onClick={[Function]}
+  >
+    Back
+  </a>,
+]
+`;
