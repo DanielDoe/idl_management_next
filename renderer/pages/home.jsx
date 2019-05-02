@@ -1,8 +1,10 @@
+
 import React from "react";
 import Head from "next/head";
 import { Row, Col } from "antd";
 import "../components/login/login.css";
 import { Login } from "../components/login/login";
+
 
 export default () => (
   <React.Fragment>
@@ -22,6 +24,7 @@ export default () => (
           </div>
         </Col>
       </Row>
+
     </div>
   </React.Fragment>
 );
