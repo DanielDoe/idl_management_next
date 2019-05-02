@@ -20,6 +20,8 @@
     "build": "node nextron/nextron.js build"
   },
   "dependencies": {
+    "@material-ui/core": "^3.9.3",
+    "@material-ui/icons": "^3.0.2",
     "antd": "^3.16.6",
     "electron-store": "^3.2.0",
     "next": "8.1.0",

@@ -1,0 +1,15 @@
+.login-container {
+  background-color: #34adff;
+  background-image: -webkit-linear-gradient(128deg, #34adff 35%, #4cbfff 35%);
+  /* height: 100%; */
+}
+
+.login-container-style{
+  width: 60%;
+  margin: 50% auto;
+  height: 20rem;
+  padding: 7rem 1rem 1rem 1rem;
+  /* border: 1px solid white;
+  border-radius: 0.5rem; */
+  /* background-image: -webkit-linear-gradient(128deg, #34adff 35%, #4cbfff 35%); */
+}
