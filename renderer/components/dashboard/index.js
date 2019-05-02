@@ -3,6 +3,7 @@ import { Router, Switch, Route, Link } from 'react-router-dom';
 // import { NotFound } from './Errors'
 
 import { createMemoryHistory } from 'history';
+import CenterPage from '../centers'
 import { First, Second, Third } from './routePages';
 import Dashboard from './dashboard';
 
@@ -42,7 +43,7 @@ export default class extends Component {
 				exact: true,
 				path: '/center',
 				name: 'Centers',
-				component: First,
+				component: CenterPage,
 				icon: 'All mail',
 			},
 			{

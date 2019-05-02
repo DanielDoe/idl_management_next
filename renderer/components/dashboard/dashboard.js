@@ -95,6 +95,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Paper from '@material-ui/core/Paper';
 import { First, Second, Third } from './routePages';
+import CenterPage from '../centers';
 
 const drawerWidth = 240;
 
@@ -189,6 +190,8 @@ class Dashboard extends React.Component {
 				return <Second />;
 			case '/third':
 				return <Third />;
+				case '/center':
+				return <CenterPage />;	
 		}
 	}
 
