@@ -1,0 +1,192 @@
+.add-new-center{
+    background-color: green;
+    color: #fff;
+    border-color: green;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+    -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}
+
+#center {
+    height: 95%;
+    width: 95%;
+    background:white;
+    /* border: 1px solid #dddddd; */
+    margin: 30px auto;
+}
+
+/*=================================================================================================
+ = center list
+=================================================================================================*/
+#center .center-list {
+    width: calc(100% - 0rem);
+    height: 100%;
+    border-right: 1px solid #DDDDDD;
+    padding: 1.25rem 2rem 0;
+}
+
+.center-list h2 {
+    padding-bottom: 0.5rem;
+}
+
+.center-list .table-container {
+    height: calc(100% - 2.6rem);
+    background-color: #FFFFFF;
+    border-radius: 0.25rem;
+    border: 1px solid #DDDDDD;
+}
+
+.center-list .center-list-table {
+    border-radius: 0;
+    border-collapse: collapse;
+}
+
+.center-list-table thead th {
+    border-radius: 0;
+    background-color: #1976D2;
+    color: #FFFFFF;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    padding: 1rem 0.45rem;
+    text-align: center;
+}
+
+.center-list-table tbody td {
+    padding: 0.75rem 0.45rem;
+    text-align: center;
+}
+
+.center-list-table tbody * {
+    font-family: 'Roboto-Regular', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+.center-list-table .ant-pagination.ant-table-pagination {
+    margin: 1rem 1rem 0;
+}
+
+.center-list-table .ant-pagination.ant-table-pagination .ant-pagination-item.ant-pagination-item-active {
+    background-color: #2196F3;
+    border-color: #2196F3;
+}
+
+.center-list-table tbody tr td:last-of-type {
+    width: 10rem;
+}
+
+.center-list-table .action-column {
+    width: 100%;
+}
+
+.center-list-table .action-column button {
+    width: 4rem;
+    margin: 0 0.275rem;
+    height: 1.5rem;
+    border: 1px solid transparent;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.center-list-table .action-column button.delete {
+    border-color: #D32F2F;
+    color: #D32F2F;
+}
+
+.center-list-table .action-column button.edit {
+    border-color: #2196F3;
+    background-color: #2196F3;
+    color: #FFFFFF;
+    transition: 100ms;
+}
+
+.center-list-table .action-column button.edit:hover {
+    border-color: #1976D2;
+    background-color: #1976D2;
+}
+
+
+/*=================================================================================================
+ = New center
+=================================================================================================*/
+#center .new-center {
+    height: 100%;
+    width: 20rem;
+    padding: 0rem 1rem 0;
+}
+
+.new-center h2 {
+    font-size: 1.25rem;
+    color: #666666;
+    text-align: center;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid #999999;
+    margin-bottom: 2rem;
+}
+
+.new-center label {
+    font-size: 0.9rem;
+    display: block;
+    color: #AAAAAA;
+    margin-bottom: 0.6rem;
+}
+
+.new-center .form-input {
+    width: 100%;
+    display: block;
+    height: 2.5rem;
+    padding: 0 0.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.25rem;
+    border: 2px solid #DDDDDD;
+    background-color: #FFFFFF;
+    transition: 80ms;
+}
+
+.new-center .form-input:focus {
+    border-color: #AAAAAA;
+}
+
+.new-center .form-input:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.new-center button {
+    display: block;
+    width: calc(100% - 2rem);
+    background-color: #2196F3;
+    height: 2.5rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 0.25rem;
+    color: #FFFFFF;
+    font-family: 'Roboto-Medium', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    margin: 0 1rem;
+    cursor: pointer;
+    transition: 100ms;
+}
+
+.new-center button:hover, .new-center button:focus {
+    background-color: #1976D2;
+}
+
+.new-center .cancel-button {
+    margin-top: 1rem;
+    border: 1px solid #2196F3;
+    background: transparent;
+    color: #2196F3;
+}
+
+.center-search-container {
+    float: right;
+    width: 100%;
+    text-align: center;
+}
+
+.filter-options {
+    margin-bottom: 1rem;
+}
+
+.ant-tabs:not(.ant-tabs-vertical)>.ant-tabs-content>.ant-tabs-tabpane #center {
+    height: 100%;
+}
