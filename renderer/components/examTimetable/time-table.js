@@ -2,11 +2,12 @@ import React from 'react'
 import events from './events'
 import BigCalendar from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
-
+import moment from 'moment'
+import 'react-big-calendar/lib/css/react-big-calendar.css'
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.less'
 
 const DragAndDropCalendar = withDragAndDrop(BigCalendar)
-
+const localizer = BigCalendar.momentLocalizer(moment)
 class ExamTimeTable extends React.Component {
   constructor(props) {
     super(props)
@@ -59,32 +60,32 @@ class ExamTimeTable extends React.Component {
   }
 
   newEvent(event) {
-    // let idList = this.state.events.map(a => a.id)
-    // let newId = Math.max(...idList) + 1
-    // let hour = {
-    //   id: newId,
-    //   title: 'New Event',
-    //   allDay: event.slots.length == 1,
-    //   start: event.start,
-    //   end: event.end,
-    // }
-    // this.setState({
-    //   events: this.state.events.concat([hour]),
-    // })
+    let idList = this.state.events.map(a => a.id)
+    let newId = Math.max(...idList) + 1
+    let hour = {
+      id: newId,
+      title: 'New Event',
+      allDay: event.slots.length == 1,
+      start: event.start,
+      end: event.end,
+    }
+    this.setState({
+      events: this.state.events.concat([hour]),
+    })
   }
 
   render() {
     return (
       <DragAndDropCalendar
         selectable
-        localizer={this.props.localizer}
+        localizer={localizer}
         events={this.state.events}
         onEventDrop={this.moveEvent}
         resizable
         onEventResize={this.resizeEvent}
         onSelectSlot={this.newEvent}
         onDragStart={console.log}
-        defaultView={BigCalendar.Views.MONTH}
+        defaultView={BigCalendar.Views.WEEK}
         defaultDate={new Date(2015, 3, 12)}
       />
     )
