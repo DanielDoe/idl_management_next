@@ -16,9 +16,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import ListItemText from '@material-ui/core/ListItemText';;
 import Paper from '@material-ui/core/Paper';
 import { First, Second, Third } from './routePages';
 import CenterPage from '../centers';
@@ -26,6 +24,9 @@ import Programme from '../programmes';
 import Course from '../courses';
 import Venue from '../venue';
 import User from '../users';
+import CenterMgnt from '../centerManagement';
+import Teaching from '../teachingTimetable';
+import ExamTable from '../examTimetable';
 
 const drawerWidth = 240;
 
@@ -115,13 +116,13 @@ class Dashboard extends React.Component {
 	renderContent() {
 		switch (this.props.location.pathname) {
 			case '/':
-				return <First />;
-			case '/first':
-				return <First />;
-			case '/second':
-				return <Second />;
-			case '/third':
-				return <Third />;
+				return <CenterMgnt />;
+			case '/exam':
+				return <ExamTable />;
+			case '/center_m':
+				return <CenterMgnt />;
+			case '/teaching':
+				return <Teaching />;
 			case '/center':
 				return <CenterPage />;
 				case '/venue':
