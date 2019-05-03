@@ -95,7 +95,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Paper from '@material-ui/core/Paper';
 import { First, Second, Third } from './routePages';
-import CenterPage from '../centers';
+import CenterPage from '../centers/center';
 
 const drawerWidth = 240;
 

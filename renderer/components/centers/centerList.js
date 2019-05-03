@@ -1,5 +1,6 @@
 import React from 'react';
 import { Input, Table } from 'antd';
+import CenterContext from './center-context';
 
 const Search = Input.Search;
 
@@ -7,18 +8,22 @@ export default class CenterList extends React.Component{
     constructor(props) {
         super(props)
         // this.handleSelector = this.handleSelector.bind(this);
-        this.state = {
-          dataSource: [],
-        };
-
-        this.state.dataSource = this.props.dataSource;
+        
     }
+
+    static contextType = CenterContext;
+
 
     componentWillReceiveProps(nextProps) {
         this.setState({
             dataSource: nextProps.dataSource
         });
     }
+
+    componentDidMount() {
+      console.log("Context: ", this.context)
+    }
+    
     
     onSearch = e => {
         const value = e.target.value.toLowerCase()
@@ -29,11 +34,20 @@ export default class CenterList extends React.Component{
     }
 
     render(){
+        const dataSource = this.context.centers.map((elem, id) => {
+            return {
+                ...elem,
+                key: id,
+                sn: id + 1
+            }
+        })
+
+        console.log(dataSource);
+
         const columns = [
-                { title: 'Session', dataIndex: 'session_count', key: 'session_count' },
-                { title: 'Snack', dataIndex: 'snack_count', key: 'snack_count' },
-                // { title: 'Lunch', dataIndex: 'lunch_count', key: 'lunch_count' },
-                { title: 'Amount', dataIndex: 'amount', key: 'amount' },
+                { title: 'SN', dataIndex: 'sn', key: 'sn' },
+                { title: 'Center', dataIndex: 'name', key: 'name' },
+                { title: 'Code', dataIndex: 'code', key: 'code' },
                 {
                     title: ' ',
                     render: (text, record) => (
@@ -56,13 +70,13 @@ export default class CenterList extends React.Component{
             return (
                 <div className="center-list column">
                     <div className="list-container">
-                    <h2>List of Configurations</h2>
+                    <h2>List of Centers</h2>
                     <div className="table-container">
                         <Table
                             className="center-list-table"
                             // bordered
                             // loading={(dataSource.length !== 0) ? false : true}
-                            dataSource={this.state.dataSource}
+                            dataSource={dataSource}
                             columns={columns} />
                     </div>
                 </div>
