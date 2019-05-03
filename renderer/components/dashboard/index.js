@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import { Router, Switch, Route, Link } from 'react-router-dom';
 // import { NotFound } from './Errors'
-
+import MailIcon from '@material-ui/icons/Mail';
 import { createMemoryHistory } from 'history';
 import CenterPage from '../centers'
 import { First, Second, Third } from './routePages';
+import Domain from '@material-ui/icons/Domain';
+import Group from '@material-ui/icons/Group';
+import LibraryBooks from '@material-ui/icons/LibraryBooks';
+import LocationCity from '@material-ui/icons/LocationCity';
+import ListAlt from '@material-ui/icons/ListAlt';
+import Settings from '@material-ui/icons/Settings';
+import CalendarToday from '@material-ui/icons/CalendarToday';
+import DateRange from '@material-ui/icons/DateRange';
 import Dashboard from './dashboard';
 
 const history = createMemoryHistory();
@@ -18,7 +26,7 @@ export default class extends Component {
 				path: '/exam',
 				name: 'Exam Timetable',
 				component: First,
-				icon: 'All mail',
+				icon: DateRange,
 			},
 			{
 				key: 2,
@@ -26,7 +34,7 @@ export default class extends Component {
 				path: '/teaching',
 				name: 'Teaching Timetable',
 				component: Second,
-				icon: 'Trash',
+				icon: DateRange,
 			},
 			{
 				key: 3,
@@ -34,7 +42,7 @@ export default class extends Component {
 				path: '/center_m',
 				name: 'Center Management',
 				component: Third,
-				icon: 'Spam',
+				icon: Settings,
 			},
 		],
 		sub_routes: [
@@ -44,36 +52,43 @@ export default class extends Component {
 				path: '/center',
 				name: 'Centers',
 				component: CenterPage,
-				icon: 'All mail',
+				icon: LocationCity,
 			},
 			{
 				key: 2,
 				exact: true,
-				path: '/programme',
-				name: 'Programmes',
+				path: '/venue',
+				name: 'Venue',
 				component: Second,
-				icon: 'Trash',
+				icon: Domain,
 			},
 			{
 				key: 3,
 				exact: true,
-				path: '/course',
-				name: 'Courses',
-				component: Third,
-				icon: 'Spam',
+				path: '/programme',
+				name: 'Programmes',
+				component: Second,
+				icon: ListAlt,
 			},
 			{
 				key: 4,
 				exact: true,
+				path: '/course',
+				name: 'Courses',
+				component: Third,
+				icon: LibraryBooks,
+			},
+			{
+				key: 5,
+				exact: true,
 				path: '/users',
 				name: 'Users',
 				component: Third,
-				icon: 'Spam',
+				icon: Group,
 			},
 		]
 	};
 
-	//<Route component={NotFound} />
 
 	render() {
 		const { routes, sub_routes } = this.state;
@@ -81,11 +96,7 @@ export default class extends Component {
 		return (
 			<Router history={history}>
 				<Switch>
-					<Dashboard routes={routes} sub_routes={sub_routes}>
-						<Route path="/first" render={() => <First />} />
-						<Route path="/second" render={() => <Second />} />
-						<Route path="/third" render={() => <Third />} />
-					</Dashboard>
+					<Dashboard routes={routes} sub_routes={sub_routes}/>
 				</Switch>
 			</Router>
 		);

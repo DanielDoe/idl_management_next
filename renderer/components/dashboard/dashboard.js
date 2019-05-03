@@ -1,77 +1,3 @@
-// import React from 'react';
-// import { Layout, Menu, Icon } from "antd";
-// import { Link } from 'react-router-dom';
-// import { First, Second, Third } from './routePages';
-// import "./dashboard.css";
-
-// const { Header, Sider, Content } = Layout;
-
-// export default class Dashboard extends React.Component {
-//   state = {
-//     collapsed: false,
-//   };
-
-//   toggle = () => {
-//     this.setState({
-//       collapsed: !this.state.collapsed,
-//     });
-//   };
-
-//   	renderContent(){
-// 		switch (this.props.location.pathname) {
-// 			case '/first':
-// 				return <First/>
-// 			case '/second':
-// 				return <Second />
-// 		}
-// 	}
-
-//   render() {
-//     return (
-//       <div id="#components-layout-demo-custom-trigger">
-//         <Layout style={{ width: "100%", height: "100vh" }}>
-//           <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
-//             <div className="logo" />
-//             <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
-//               <Menu.Item key="1">
-//                 <Icon type="user" />
-//                 <Link to="/first">First</Link>
-//               </Menu.Item>
-//               <Menu.Item key="2">
-//                 <Icon type="video-camera" />
-//                 <Link to="/second"><span>Second</span></Link>
-//               </Menu.Item>
-//               <Menu.Item key="3">
-//                 <Icon type="upload" />
-//                 <span>nav 3</span>
-//               </Menu.Item>
-//             </Menu>
-//           </Sider>
-//           <Layout>
-//             <Header style={{ background: "#fff", padding: 0 }}>
-//               <Icon
-//                 className="trigger"
-//                 type={this.state.collapsed ? "menu-unfold" : "menu-fold"}
-//                 onClick={this.toggle}
-//               />
-//             </Header>
-//             <Content
-//               style={{
-//                 margin: "24px 16px",
-//                 padding: 24,
-//                 background: "#fff",
-//                 minHeight: 280,
-//               }}
-//             >
-//               {this.renderContent()}
-//             </Content>
-//           </Layout>
-//         </Layout>
-//       </div>
-//     );
-//   }
-// }
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -95,15 +21,19 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Paper from '@material-ui/core/Paper';
 import { First, Second, Third } from './routePages';
-import CenterPage from '../centers/center';
+import CenterPage from '../centers';
+import Programme from '../programmes';
+import Course from '../courses';
+import Venue from '../venue';
+import User from '../users';
 
 const drawerWidth = 240;
 
 const styles = theme => ({
 	root: {
 		display: 'flex',
-		width: "100%",
-		height: "100vh"
+		width: '100%',
+		height: '100vh',
 	},
 	appBar: {
 		zIndex: theme.zIndex.drawer + 1,
@@ -163,10 +93,10 @@ const styles = theme => ({
 	},
 	sidemenu: {
 		...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-	paddingBottom: theme.spacing.unit * 2,
-	height: "90%",
-	}
+		paddingTop: theme.spacing.unit * 2,
+		paddingBottom: theme.spacing.unit * 2,
+		height: '90%',
+	},
 });
 
 class Dashboard extends React.Component {
@@ -184,14 +114,24 @@ class Dashboard extends React.Component {
 
 	renderContent() {
 		switch (this.props.location.pathname) {
+			case '/':
+				return <First />;
 			case '/first':
 				return <First />;
 			case '/second':
 				return <Second />;
 			case '/third':
 				return <Third />;
-				case '/center':
-				return <CenterPage />;	
+			case '/center':
+				return <CenterPage />;
+				case '/venue':
+				return <Venue />;
+			case '/programme':
+				return <Programme />;
+			case '/course':
+				return <Course />;
+			case '/users':
+				return <User />;
 		}
 	}
 
@@ -245,8 +185,14 @@ class Dashboard extends React.Component {
 					<Divider />
 					<List>
 						{routes.map((elem, index) => (
-							<ListItem button key={elem.key} component={Link} to={elem.path} selected={elem.path===this.props.location.pathname}>
-								<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+							<ListItem
+								button
+								key={elem.key}
+								component={Link}
+								to={elem.path}
+								selected={elem.path === this.props.location.pathname}
+							>
+								<ListItemIcon><elem.icon /></ListItemIcon>
 								<ListItemText primary={elem.name} />
 							</ListItem>
 						))}
@@ -254,8 +200,14 @@ class Dashboard extends React.Component {
 					<Divider />
 					<List>
 						{sub_routes.map((elem, index) => (
-							<ListItem button key={elem.key} component={Link} to={elem.path} selected={elem.path===this.props.location.pathname}>
-								<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+							<ListItem
+								button
+								key={elem.key}
+								component={Link}
+								to={elem.path}
+								selected={elem.path === this.props.location.pathname}
+							>
+								<ListItemIcon><elem.icon /></ListItemIcon>
 								<ListItemText primary={elem.name} />
 							</ListItem>
 						))}
@@ -263,9 +215,9 @@ class Dashboard extends React.Component {
 				</Drawer>
 				<main className={classes.content}>
 					<div className={classes.toolbar} />
-						<Paper className={classes.sidemenu} elevation={1}>	
-							{this.renderContent()}
-						</Paper>	
+					<Paper className={classes.sidemenu} elevation={1}>
+						{this.renderContent()}
+					</Paper>
 				</main>
 			</div>
 		);

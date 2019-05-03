@@ -1,5 +1,5 @@
-import Center from './center';
+import Center from './center'
 
 export default () => {
-    return <Center />;
+    return <Center />
 }

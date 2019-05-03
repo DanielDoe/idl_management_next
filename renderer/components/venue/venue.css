@@ -1,4 +1,4 @@
-.add-new-center{
+.add-new-venue{
     background-color: green;
     color: #fff;
     border-color: green;
@@ -7,7 +7,7 @@
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
 }
 
-#center {
+#venue {
     height: 95%;
     width: 95%;
     background:white;
@@ -16,32 +16,32 @@
 }
 
 /*=================================================================================================
- = center list
+ = venue list
 =================================================================================================*/
-#center .center-list {
+#venue .venue-list {
     width: calc(100% - 0rem);
     height: 100%;
     /* border-right: 1px solid #DDDDDD; */
     padding: 1.25rem 2rem 0;
 }
 
-.center-list h2 {
+.venue-list h2 {
     padding-bottom: 0.5rem;
 }
 
-.center-list .table-container {
+.venue-list .table-container {
     height: calc(100% - 2.6rem);
     background-color: #FFFFFF;
     border-radius: 0.25rem;
     border: 1px solid #DDDDDD;
 }
 
-.center-list .center-list-table {
+.venue-list .venue-list-table {
     border-radius: 0;
     border-collapse: collapse;
 }
 
-.center-list-table thead th {
+.venue-list-table thead th {
     border-radius: 0;
     background-color: #1976D2;
     color: #FFFFFF;
@@ -50,33 +50,33 @@
     text-align: center;
 }
 
-.center-list-table tbody td {
+.venue-list-table tbody td {
     padding: 0.75rem 0.45rem;
     text-align: center;
 }
 
-.center-list-table tbody * {
+.venue-list-table tbody * {
     font-family: 'Roboto-Regular', 'Roboto', 'Helvetica', 'Arial', sans-serif;
 }
 
-.center-list-table .ant-pagination.ant-table-pagination {
+.venue-list-table .ant-pagination.ant-table-pagination {
     margin: 1rem 1rem 0;
 }
 
-.center-list-table .ant-pagination.ant-table-pagination .ant-pagination-item.ant-pagination-item-active {
+.venue-list-table .ant-pagination.ant-table-pagination .ant-pagination-item.ant-pagination-item-active {
     background-color: #2196F3;
     border-color: #2196F3;
 }
 
-.center-list-table tbody tr td:last-of-type {
+.venue-list-table tbody tr td:last-of-type {
     width: 10rem;
 }
 
-.center-list-table .action-column {
+.venue-list-table .action-column {
     width: 100%;
 }
 
-.center-list-table .action-column button {
+.venue-list-table .action-column button {
     width: 4rem;
     margin: 0 0.275rem;
     height: 1.5rem;
@@ -87,34 +87,34 @@
     font-size: 0.875rem;
 }
 
-.center-list-table .action-column button.delete {
+.venue-list-table .action-column button.delete {
     border-color: #D32F2F;
     color: #D32F2F;
 }
 
-.center-list-table .action-column button.edit {
+.venue-list-table .action-column button.edit {
     border-color: #2196F3;
     background-color: #2196F3;
     color: #FFFFFF;
     transition: 100ms;
 }
 
-.center-list-table .action-column button.edit:hover {
+.venue-list-table .action-column button.edit:hover {
     border-color: #1976D2;
     background-color: #1976D2;
 }
 
 
 /*=================================================================================================
- = New center
+ = New venue
 =================================================================================================*/
-#center .new-center {
+#venue .new-venue {
     height: 100%;
     width: 80%;
     margin: 0rem auto;
 }
 
-.new-center h2 {
+.new-venue h2 {
     font-size: 1.25rem;
     color: #666666;
     text-align: center;
@@ -123,14 +123,14 @@
     margin-bottom: 2rem;
 }
 
-.new-center label {
+.new-venue label {
     font-size: 0.9rem;
     display: block;
     color: #AAAAAA;
     margin-bottom: 0.6rem;
 }
 
-.new-center .form-input {
+.new-venue .form-input {
     width: 100%;
     display: block;
     height: 2.5rem;
@@ -142,16 +142,16 @@
     transition: 80ms;
 }
 
-.new-center .form-input:focus {
+.new-venue .form-input:focus {
     border-color: #AAAAAA;
 }
 
-.new-center .form-input:disabled {
+.new-venue .form-input:disabled {
     opacity: 0.7;
     cursor: not-allowed;
 }
 
-.new-center button {
+.new-venue button {
     display: block;
     width: calc(100% - 2rem);
     background-color: #2196F3;
@@ -166,18 +166,18 @@
     transition: 100ms;
 }
 
-.new-center button:hover, .new-center button:focus {
+.new-venue button:hover, .new-venue button:focus {
     background-color: #1976D2;
 }
 
-.new-center .cancel-button {
+.new-venue .cancel-button {
     margin-top: 1rem;
     border: 1px solid #2196F3;
     background: transparent;
     color: #2196F3;
 }
 
-.center-search-container {
+.venue-search-container {
     float: right;
     width: 100%;
     text-align: center;
@@ -187,6 +187,6 @@
     margin-bottom: 1rem;
 }
 
-.ant-tabs:not(.ant-tabs-vertical)>.ant-tabs-content>.ant-tabs-tabpane #center {
+.ant-tabs:not(.ant-tabs-vertical)>.ant-tabs-content>.ant-tabs-tabpane #venue {
     height: 100%;
 }

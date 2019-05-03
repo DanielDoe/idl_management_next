@@ -1,4 +1,4 @@
-.add-new-center{
+.add-new-user{
     background-color: green;
     color: #fff;
     border-color: green;
@@ -7,7 +7,7 @@
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
 }
 
-#center {
+#user {
     height: 95%;
     width: 95%;
     background:white;
@@ -16,32 +16,32 @@
 }
 
 /*=================================================================================================
- = center list
+ = user list
 =================================================================================================*/
-#center .center-list {
+#user .user-list {
     width: calc(100% - 0rem);
     height: 100%;
     /* border-right: 1px solid #DDDDDD; */
     padding: 1.25rem 2rem 0;
 }
 
-.center-list h2 {
+.user-list h2 {
     padding-bottom: 0.5rem;
 }
 
-.center-list .table-container {
+.user-list .table-container {
     height: calc(100% - 2.6rem);
     background-color: #FFFFFF;
     border-radius: 0.25rem;
     border: 1px solid #DDDDDD;
 }
 
-.center-list .center-list-table {
+.user-list .user-list-table {
     border-radius: 0;
     border-collapse: collapse;
 }
 
-.center-list-table thead th {
+.user-list-table thead th {
     border-radius: 0;
     background-color: #1976D2;
     color: #FFFFFF;
@@ -50,33 +50,33 @@
     text-align: center;
 }
 
-.center-list-table tbody td {
+.user-list-table tbody td {
     padding: 0.75rem 0.45rem;
     text-align: center;
 }
 
-.center-list-table tbody * {
+.user-list-table tbody * {
     font-family: 'Roboto-Regular', 'Roboto', 'Helvetica', 'Arial', sans-serif;
 }
 
-.center-list-table .ant-pagination.ant-table-pagination {
+.user-list-table .ant-pagination.ant-table-pagination {
     margin: 1rem 1rem 0;
 }
 
-.center-list-table .ant-pagination.ant-table-pagination .ant-pagination-item.ant-pagination-item-active {
+.user-list-table .ant-pagination.ant-table-pagination .ant-pagination-item.ant-pagination-item-active {
     background-color: #2196F3;
     border-color: #2196F3;
 }
 
-.center-list-table tbody tr td:last-of-type {
+.user-list-table tbody tr td:last-of-type {
     width: 10rem;
 }
 
-.center-list-table .action-column {
+.user-list-table .action-column {
     width: 100%;
 }
 
-.center-list-table .action-column button {
+.user-list-table .action-column button {
     width: 4rem;
     margin: 0 0.275rem;
     height: 1.5rem;
@@ -87,50 +87,50 @@
     font-size: 0.875rem;
 }
 
-.center-list-table .action-column button.delete {
+.user-list-table .action-column button.delete {
     border-color: #D32F2F;
     color: #D32F2F;
 }
 
-.center-list-table .action-column button.edit {
+.user-list-table .action-column button.edit {
     border-color: #2196F3;
     background-color: #2196F3;
     color: #FFFFFF;
     transition: 100ms;
 }
 
-.center-list-table .action-column button.edit:hover {
+.user-list-table .action-column button.edit:hover {
     border-color: #1976D2;
     background-color: #1976D2;
 }
 
 
 /*=================================================================================================
- = New center
+ = New user
 =================================================================================================*/
-#center .new-center {
+#user .new-user {
     height: 100%;
     width: 80%;
     margin: 0rem auto;
 }
 
-.new-center h2 {
+.new-user h2 {
     font-size: 1.25rem;
     color: #666666;
-    text-align: center;
+    text-align: user;
     padding-bottom: 0.25rem;
     border-bottom: 1px solid #999999;
     margin-bottom: 2rem;
 }
 
-.new-center label {
+.new-user label {
     font-size: 0.9rem;
     display: block;
     color: #AAAAAA;
     margin-bottom: 0.6rem;
 }
 
-.new-center .form-input {
+.new-user .form-input {
     width: 100%;
     display: block;
     height: 2.5rem;
@@ -142,16 +142,16 @@
     transition: 80ms;
 }
 
-.new-center .form-input:focus {
+.new-user .form-input:focus {
     border-color: #AAAAAA;
 }
 
-.new-center .form-input:disabled {
+.new-user .form-input:disabled {
     opacity: 0.7;
     cursor: not-allowed;
 }
 
-.new-center button {
+.new-user button {
     display: block;
     width: calc(100% - 2rem);
     background-color: #2196F3;
@@ -166,27 +166,27 @@
     transition: 100ms;
 }
 
-.new-center button:hover, .new-center button:focus {
+.new-user button:hover, .new-user button:focus {
     background-color: #1976D2;
 }
 
-.new-center .cancel-button {
+.new-user .cancel-button {
     margin-top: 1rem;
     border: 1px solid #2196F3;
     background: transparent;
     color: #2196F3;
 }
 
-.center-search-container {
+.user-search-container {
     float: right;
     width: 100%;
-    text-align: center;
+    text-align: user;
 }
 
 .filter-options {
     margin-bottom: 1rem;
 }
 
-.ant-tabs:not(.ant-tabs-vertical)>.ant-tabs-content>.ant-tabs-tabpane #center {
+.ant-tabs:not(.ant-tabs-vertical)>.ant-tabs-content>.ant-tabs-tabpane #user {
     height: 100%;
 }

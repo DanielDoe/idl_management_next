@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import CenterAppBar from "./center-appbar";
 import { Row, Col } from "antd";
 import CenterContext from "./center-context";
 import { AddCenters } from "./newCenter";
@@ -53,7 +52,7 @@ export default () => {
             <Col span={16} style={{ height: "100%" }}>
               <CenterList />
             </Col>
-            <Col span={8} style={{ height: "100%" }}>
+            <Col span={8} style={{ height: "100%", borderLeft: "1px solid rgba(0,0,0,0.12)" }}>
               <AddCenters />
             </Col>
           </Row>

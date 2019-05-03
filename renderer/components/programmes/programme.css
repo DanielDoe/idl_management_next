@@ -38,12 +38,12 @@
     color: #FFFFFF;
     font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', 'Helvetica', 'Arial', sans-serif;
     padding: 1rem 0.45rem;
-    text-align: programme;
+    text-align: center;
 }
 
 .programme-list-table tbody td {
     padding: 0.75rem 0.45rem;
-    text-align: programme;
+    text-align: center;
 }
 
 .programme-list-table tbody * {
@@ -109,7 +109,7 @@
 .new-programme h2 {
     font-size: 1.25rem;
     color: #666666;
-    text-align: programme;
+    text-align: center;
     padding-bottom: 0.25rem;
     border-bottom: 1px solid #999999;
     margin-bottom: 2rem;
@@ -172,7 +172,7 @@
 .programme-search-container {
     float: right;
     width: 100%;
-    text-align: programme;
+    text-align: center;
 }
 
 .filter-options {
