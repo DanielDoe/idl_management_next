@@ -48,7 +48,7 @@ export default () => {
             <Col span={16} style={{ height: "100%" }}>
               <ProgrammeList />
             </Col>
-            <Col span={8} style={{ height: "100%" }}>
+            <Col span={8} style={{ height: "100%", borderLeft: "1px solid rgba(0,0,0,0.12)" }}>
               <AddProgramme />
             </Col>
           </Row>
