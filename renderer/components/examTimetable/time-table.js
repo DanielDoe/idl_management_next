@@ -3,6 +3,7 @@ import eventELements from './events';
 import BigCalendar from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import moment from 'moment';
+import swal from 'sweetalert';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.less';
 
@@ -32,7 +33,13 @@ export default props => {
 	};
 
 	const handleSelect = ({ start, end }) => {
-		const title = window.prompt('New Event name');
+    let title = ''
+    swal("Enter schedule: ", {
+      content: "input",
+    })
+    .then((value) => {
+      title = value
+    });
 		if (title)
 			// this.setState({
 			//   events: [
@@ -44,7 +51,7 @@ export default props => {
 			//     },
 			//   ],
 			// })
-			setEvents(...events, { start, end, title });
+			setEvents([...events, { start, end, title }]);
 	};
 
 	const resizeEvent = ({ event, start, end }) => {
