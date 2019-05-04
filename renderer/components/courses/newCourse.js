@@ -30,24 +30,24 @@ class AddCourseForm extends React.Component {
       getFieldValue,
     } = this.props.form;
     const CourseNameError =
-      isFieldTouched("name") && getFieldError("name");
+      isFieldTouched("title") && getFieldError("title");
     const CourseCodeError =
       isFieldTouched("code") && getFieldError("code");
-    const CourseYearError = isFieldTouched("year") && getFieldError("year");
-    const CourseCapacityError = isFieldTouched("capacity") && getFieldError("capacity");
+    const CourseYearError = isFieldTouched("semester") && getFieldError("semester");
+    const CourseCapacityError = isFieldTouched("year") && getFieldError("year");
     // const othersError = getFieldError('otherSize');
 
-    const CourseName = getFieldValue("name");
+    const CourseName = getFieldValue("title");
     const CourseCode = getFieldValue("code");
-    const CourseYear = getFieldValue("year");
-    const CourseCapacity = getFieldValue("capacity");
+    const CourseYear = getFieldValue("semester");
+    const CourseCapacity = getFieldValue("year");
 
     const isEmpty = !CourseName || !CourseCode || !CourseYear || !CourseCapacity;
 
     return (
       <Form onSubmit={this.handleSubmit} className="column new-course">
         <h2>Add Course </h2>
-        <label htmlFor="new-course-name">Programe name</label>
+        <label htmlFor="new-course-name">Course title</label>
         <FormItem
           style={{ textAlign: "-webkit-course" }}
           hasFeedback
@@ -55,9 +55,9 @@ class AddCourseForm extends React.Component {
           validateStatus={CourseNameError ? "error" : ""}
           help={CourseNameError || ""}
         >
-          {getFieldDecorator("name", {
+          {getFieldDecorator("title", {
             rules: [
-              { required: true, message: "enter name!" },
+              { required: true, message: "enter title!" },
             ],
           })(
             <Input
@@ -87,7 +87,7 @@ class AddCourseForm extends React.Component {
             />
           )}
         </FormItem>
-        <label htmlFor="new-course-name">Year group</label>
+        <label htmlFor="new-course-name">Semester</label>
         <FormItem
           style={{ textAlign: "-webkit-Course" }}
           hasFeedback
@@ -95,9 +95,9 @@ class AddCourseForm extends React.Component {
           validateStatus={CourseYearError ? "error" : ""}
           help={CourseYearError || ""}
         >
-          {getFieldDecorator("year", {
+          {getFieldDecorator("semester", {
             rules: [
-              { required: true, message: "enter year group!" },
+              { required: true, message: "enter semester!" },
             ],
           })(
             <Input
@@ -106,7 +106,32 @@ class AddCourseForm extends React.Component {
             />
           )}
         </FormItem>
-        <label htmlFor="new-course-std-cap">Capacity</label>
+        <label htmlFor="new-course-std-cap">Year</label>
+        <FormItem
+          // style={{textAlign: '-webkit-Course'}}
+          hasFeedback
+          validateStatus={CourseCapacityError ? "error" : ""}
+          help={CourseCapacityError || ""}
+        >
+          {getFieldDecorator("year", {
+            rules: [
+              {
+                required: true,
+                type: "number",
+                message: "name year!",
+              },
+            ],
+          })(
+            <InputNumber
+              min={1}
+              max={5000}
+              style={{ width: "100%", marginRight: "0.5rem" }}
+              placeholder="e.g. 50"
+            />
+          )}
+        </FormItem>
+        
+        {/* <label htmlFor="new-course-std-cap">Capacity</label>
         <FormItem
           // style={{textAlign: '-webkit-Course'}}
           hasFeedback
@@ -129,7 +154,7 @@ class AddCourseForm extends React.Component {
               placeholder="e.g. 50"
             />
           )}
-        </FormItem>
+        </FormItem> */}
         <FormItem>
           <Button
             type="primary"

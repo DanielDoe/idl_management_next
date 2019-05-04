@@ -26,10 +26,10 @@ export default () => {
 
 	const columns = [
 		{ title: 'SN', dataIndex: 'sn', key: 'sn' },
-		{ title: 'Name', dataIndex: 'name', key: 'name' },
-		{ title: 'Code', dataIndex: 'code', key: 'code' },
-		{ title: 'Year', dataIndex: 'year', key: 'year' },
-		{ title: 'Capacity', dataIndex: 'capacity', key: 'capacity' },
+		{ title: 'Email', dataIndex: 'email', key: 'email' },
+		{ title: 'Password', dataIndex: 'password', key: 'password' },
+		{ title: 'Center', dataIndex: 'center', key: 'center' },
+		{ title: 'Status', dataIndex: 'status', key: 'status' },
 		{
 			title: ' ',
 			render: (text, record) => (

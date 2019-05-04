@@ -30,17 +30,17 @@ class AddUserForm extends React.Component {
       getFieldValue,
     } = this.props.form;
     const UserNameError =
-      isFieldTouched("name") && getFieldError("name");
+      isFieldTouched("email") && getFieldError("email");
     const UserCodeError =
-      isFieldTouched("code") && getFieldError("code");
-    const UserYearError = isFieldTouched("year") && getFieldError("year");
-    const UserCapacityError = isFieldTouched("capacity") && getFieldError("capacity");
+      isFieldTouched("password") && getFieldError("password");
+    const UserYearError = isFieldTouched("center") && getFieldError("center");
+    const UserCapacityError = isFieldTouched("status") && getFieldError("status");
     // const othersError = getFieldError('otherSize');
 
-    const UserName = getFieldValue("name");
-    const UserCode = getFieldValue("code");
-    const UserYear = getFieldValue("year");
-    const UserCapacity = getFieldValue("capacity");
+    const UserName = getFieldValue("email");
+    const UserCode = getFieldValue("password");
+    const UserYear = getFieldValue("center");
+    const UserCapacity = getFieldValue("status");
 
     const isEmpty = !UserName || !UserCode || !UserYear || !UserCapacity;
 
@@ -55,9 +55,9 @@ class AddUserForm extends React.Component {
           validateStatus={UserNameError ? "error" : ""}
           help={UserNameError || ""}
         >
-          {getFieldDecorator("name", {
+          {getFieldDecorator("email", {
             rules: [
-              { required: true, message: "enter name!" },
+              { required: true, message: "enter email!" },
             ],
           })(
             <Input
@@ -73,7 +73,7 @@ class AddUserForm extends React.Component {
           validateStatus={UserCodeError ? "error" : ""}
           help={UserCodeError || ""}
         >
-          {getFieldDecorator("code", {
+          {getFieldDecorator("password", {
             rules: [
               {
                 required: true,
@@ -95,9 +95,9 @@ class AddUserForm extends React.Component {
           validateStatus={UserYearError ? "error" : ""}
           help={UserYearError || ""}
         >
-          {getFieldDecorator("year", {
+          {getFieldDecorator("center", {
             rules: [
-              { required: true, message: "enter year group!" },
+              { required: true, message: "enter center!" },
             ],
           })(
             <Input
@@ -113,7 +113,7 @@ class AddUserForm extends React.Component {
           validateStatus={UserCapacityError ? "error" : ""}
           help={UserCapacityError || ""}
         >
-          {getFieldDecorator("capacity", {
+          {getFieldDecorator("status", {
             rules: [
               {
                 required: true,

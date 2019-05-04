@@ -26,10 +26,11 @@ export default () => {
 
 	const columns = [
 		{ title: 'SN', dataIndex: 'sn', key: 'sn' },
-		{ title: 'Name', dataIndex: 'name', key: 'name' },
-		{ title: 'Code', dataIndex: 'code', key: 'code' },
+		{ title: 'Course Title', dataIndex: 'title', key: 'title' },
+		{ title: 'Course Code', dataIndex: 'code', key: 'code' },
+		{ title: 'Semester', dataIndex: 'semester', key: 'semester' },
 		{ title: 'Year', dataIndex: 'year', key: 'year' },
-		{ title: 'Capacity', dataIndex: 'capacity', key: 'capacity' },
+		// { title: 'Capacity', dataIndex: 'capacity', key: 'capacity' },
 		{
 			title: ' ',
 			render: (text, record) => (
