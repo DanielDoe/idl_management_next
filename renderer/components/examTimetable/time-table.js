@@ -1,95 +1,74 @@
-import React from 'react'
-import events from './events'
-import BigCalendar from 'react-big-calendar'
-import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
-import moment from 'moment'
-import 'react-big-calendar/lib/css/react-big-calendar.css'
-import 'react-big-calendar/lib/addons/dragAndDrop/styles.less'
+import React, { useState, useEffect, useContext } from "react";
+import eventELements from "./events";
+import BigCalendar from "react-big-calendar";
+import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
+import moment from "moment";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import "react-big-calendar/lib/addons/dragAndDrop/styles.less";
 
-const DragAndDropCalendar = withDragAndDrop(BigCalendar)
-const localizer = BigCalendar.momentLocalizer(moment)
-class ExamTimeTable extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      events: events,
-    }
+const DragAndDropCalendar = withDragAndDrop(BigCalendar);
+const localizer = BigCalendar.momentLocalizer(moment);
 
-    this.moveEvent = this.moveEvent.bind(this)
-    this.newEvent = this.newEvent.bind(this)
-  }
+export default props => {
+  const [events, setEvents] = useState(eventELements);
 
-  moveEvent({ event, start, end, isAllDay: droppedOnAllDaySlot }) {
-    const { events } = this.state
-
-    const idx = events.indexOf(event)
-    let allDay = event.allDay
+  const moveEvent = ({ event, start, end, isAllDay: droppedOnAllDaySlot }) => {
+    const idx = events.indexOf(event);
+    let allDay = event.allDay;
 
     if (!event.allDay && droppedOnAllDaySlot) {
-      allDay = true
+      allDay = true;
     } else if (event.allDay && !droppedOnAllDaySlot) {
-      allDay = false
+      allDay = false;
     }
 
-    const updatedEvent = { ...event, start, end, allDay }
+    const updatedEvent = { ...event, start, end, allDay };
 
-    const nextEvents = [...events]
-    nextEvents.splice(idx, 1, updatedEvent)
+    const nextEvents = [...events];
+    nextEvents.splice(idx, 1, updatedEvent);
 
-    this.setState({
-      events: nextEvents,
-    })
-
+    setEvents(nextEvents);
     // alert(`${event.title} was dropped onto ${updatedEvent.start}`)
-  }
+  };
 
-  resizeEvent = ({ event, start, end }) => {
-    const { events } = this.state
-
+  const resizeEvent = ({ event, start, end }) => {
     const nextEvents = events.map(existingEvent => {
       return existingEvent.id == event.id
         ? { ...existingEvent, start, end }
-        : existingEvent
-    })
+        : existingEvent;
+    });
 
-    this.setState({
-      events: nextEvents,
-    })
+    setEvents(nextEvents);
 
     //alert(`${event.title} was resized to ${start}-${end}`)
-  }
+  };
 
-  newEvent(event) {
-    let idList = this.state.events.map(a => a.id)
-    let newId = Math.max(...idList) + 1
+  const newEvent = event => {
+    let idList = events.map(a => a.id);
+    let newId = Math.max(...idList) + 1;
     let hour = {
       id: newId,
-      title: 'New Event',
+      title: "New Event",
       allDay: event.slots.length == 1,
       start: event.start,
       end: event.end,
-    }
-    this.setState({
-      events: this.state.events.concat([hour]),
-    })
-  }
+    };
 
-  render() {
-    return (
-      <DragAndDropCalendar
-        selectable
-        localizer={localizer}
-        events={this.state.events}
-        onEventDrop={this.moveEvent}
-        resizable
-        onEventResize={this.resizeEvent}
-        onSelectSlot={this.newEvent}
-        onDragStart={console.log}
-        defaultView={BigCalendar.Views.WEEK}
-        defaultDate={new Date(2015, 3, 12)}
-      />
-    )
-  }
-}
+    setEvents(events.concat([hour]));
+  };
 
-export default ExamTimeTable
+  return (
+    <DragAndDropCalendar
+      selectable
+      localizer={localizer}
+      events={events}
+      onEventDrop={moveEvent}
+      resizable
+      onEventResize={resizeEvent}
+      onSelectSlot={() => newEvent()}
+      onDragStart={console.log}
+      defaultView={BigCalendar.Views.WEEK}
+      defaultDate={new Date(2015, 3, 12)}
+    />
+  );
+};
