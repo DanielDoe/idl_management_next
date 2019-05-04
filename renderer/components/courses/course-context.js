@@ -3,16 +3,22 @@ import React from "react";
 export default React.createContext({
   courses: [
     {
-      name: "Accra",
+      title: "Accra",
       code: "ACC",
+      semester: "One",
+      year: "1"
     },
     {
-      name: "Volta",
-      code: "VR",
+      title: "Accra",
+      code: "ACC",
+      semester: "One",
+      year: "1"
     },
     {
-      name: "Kumasi",
-      code: "KMA",
+      title: "Accra",
+      code: "ACC",
+      semester: "One",
+      year: "1"
     },
   ],
   addCourseElements: course => {},

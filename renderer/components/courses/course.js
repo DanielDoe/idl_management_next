@@ -8,16 +8,22 @@ import "./course.css";
 export default () => {
   const [courses, setCourses] = useState([
     {
-      name: "Accra",
+      title: "Accra",
       code: "ACC",
+      semester: "One",
+      year: "1"
     },
     {
-      name: "Volta",
-      code: "VR",
+      title: "Accra",
+      code: "ACC",
+      semester: "One",
+      year: "1"
     },
     {
-      name: "Kumasi",
-      code: "KMA",
+      title: "Accra",
+      code: "ACC",
+      semester: "One",
+      year: "1"
     },
   ]);
 
@@ -48,7 +54,7 @@ export default () => {
             <Col span={16} style={{ height: "100%" }}>
               <CourseList />
             </Col>
-            <Col span={8} style={{ height: "100%" }}>
+            <Col span={8} style={{ height: "100%", borderLeft: "1px solid rgba(0,0,0,0.12)" }}>
               <AddCourse />
             </Col>
           </Row>

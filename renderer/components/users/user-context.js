@@ -3,16 +3,22 @@ import React from "react";
 export default React.createContext({
   users: [
     {
-      name: "Accra",
-      code: "ACC",
+      email: "Accra",
+      password: "ACC",
+      center: "ACC",
+      status: "sumn",
     },
     {
-      name: "Volta",
-      code: "VR",
+      email: "Accra",
+      password: "ACC",
+      center: "ACC",
+      status: "sumn",
     },
     {
-      name: "Kumasi",
-      code: "KMA",
+      email: "Accra",
+      password: "ACC",
+      center: "ACC",
+      status: "sumn",
     },
   ],
   addUsersElements: user => {},

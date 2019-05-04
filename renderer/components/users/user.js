@@ -8,16 +8,22 @@ import "./user.css";
 export default () => {
   const [users, setUsers] = useState([
     {
-      name: "Accra",
-      code: "ACC",
+      email: "Accra",
+      password: "ACC",
+      center: "ACC",
+      status: "sumn"
     },
     {
-      name: "Volta",
-      code: "VR",
+      email: "Volta",
+      password: "VR",
+      center: "ACC",
+      status: "sumn",
     },
     {
-      name: "Kumasi",
-      code: "KMA",
+      email: "Kumasi",
+      password: "KMA",
+      center: "ACC",
+      status: "sumn",
     },
   ]);
 
