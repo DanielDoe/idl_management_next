@@ -16,7 +16,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';;
+import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import { First, Second, Third } from './routePages';
 import CenterPage from '../centers';
@@ -27,6 +27,7 @@ import User from '../users';
 import CenterMgnt from '../centerManagement';
 import Teaching from '../teachingTimetable';
 import ExamTable from '../examTimetable';
+import Allocation from '../allocations';
 
 const drawerWidth = 240;
 
@@ -125,12 +126,14 @@ class Dashboard extends React.Component {
 				return <Teaching />;
 			case '/center':
 				return <CenterPage />;
-				case '/venue':
+			case '/venue':
 				return <Venue />;
 			case '/programme':
 				return <Programme />;
 			case '/course':
 				return <Course />;
+			case '/allocation':
+				return <Allocation />;
 			case '/users':
 				return <User />;
 		}
@@ -193,7 +196,9 @@ class Dashboard extends React.Component {
 								to={elem.path}
 								selected={elem.path === this.props.location.pathname}
 							>
-								<ListItemIcon><elem.icon /></ListItemIcon>
+								<ListItemIcon>
+									<elem.icon />
+								</ListItemIcon>
 								<ListItemText primary={elem.name} />
 							</ListItem>
 						))}
@@ -208,7 +213,9 @@ class Dashboard extends React.Component {
 								to={elem.path}
 								selected={elem.path === this.props.location.pathname}
 							>
-								<ListItemIcon><elem.icon /></ListItemIcon>
+								<ListItemIcon>
+									<elem.icon />
+								</ListItemIcon>
 								<ListItemText primary={elem.name} />
 							</ListItem>
 						))}

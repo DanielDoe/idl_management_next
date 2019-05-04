@@ -11,8 +11,9 @@ import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import LocationCity from '@material-ui/icons/LocationCity';
 import ListAlt from '@material-ui/icons/ListAlt';
 import Settings from '@material-ui/icons/Settings';
-import CalendarToday from '@material-ui/icons/CalendarToday';
+import FolderOpen from '@material-ui/icons/FolderOpen';
 import DateRange from '@material-ui/icons/DateRange';
+import CollectionsBookmark from '@material-ui/icons/CollectionsBookmark';
 import Dashboard from './dashboard';
 
 const history = createMemoryHistory();
@@ -68,7 +69,7 @@ export default class extends Component {
 				path: '/programme',
 				name: 'Programmes',
 				component: Second,
-				icon: ListAlt,
+				icon: CollectionsBookmark,
 			},
 			{
 				key: 4,
@@ -80,6 +81,14 @@ export default class extends Component {
 			},
 			{
 				key: 5,
+				exact: true,
+				path: '/allocation',
+				name: 'Course Allocation',
+				component: Third,
+				icon: FolderOpen,
+			},
+			{
+				key: 6,
 				exact: true,
 				path: '/users',
 				name: 'Users',
