@@ -22,6 +22,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
+    "@sweetalert/with-react": "^0.1.1",
     "@zeit/next-less": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
     "antd": "^3.16.6",
@@ -35,7 +36,8 @@
     "react-big-calendar": "^0.20.4",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
-    "sweetalert": "^2.1.2"
+    "sweetalert": "^2.1.2",
+    "xlsx": "^0.14.3"
   },
   "devDependencies": {
     "@zeit/next-css": "^1.0.1",

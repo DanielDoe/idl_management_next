@@ -1,20 +1,37 @@
 import React from "react";
 
 export default React.createContext({
-  venue: [
+  // get request to the db for available venues
+  venues: [
     {
-      name: "Accra",
-      code: "ACC",
+      center: "Accra",
+      name: "Block 2",
+      capacity: 50
     },
     {
-      name: "Volta",
-      code: "VR",
+      center: "Accra",
+      name: "Block 2",
+      capacity: 50
     },
     {
-      name: "Kumasi",
-      code: "KMA",
+      center: "Accra",
+      name: "Block 2",
+      capacity: 50
     },
   ],
+  // get request to the db for available venues
+  centers: [{
+    name: "Accra",
+    code: "ACC",
+  },
+  {
+    name: "Volta",
+    code: "VR",
+  },
+  {
+    name: "Kumasi",
+    code: "KMA",
+  }],
   addVenueElements: venue => {},
   removeVenueElements: venue => {},
   updateVenueElements: venue => {}

@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Input, Table } from 'antd';
 import VenueContext from './venue-context';
+import swal from '@sweetalert/with-react'
+import VenueEdit from "./venueEdit";
 
 const Search = Input.Search;
 
-export default () => {
+export default (props) => {
 	const [context, setContext] = useState(useContext(VenueContext));
     
 	useEffect(() => {
@@ -16,7 +18,19 @@ export default () => {
 	// 	const newData = this.props.dataSource.filter(s => s.session_counr.search(value) !== -1);
 	// 	this.setState({ dataSource: newData });
 	// };
-	const dataSource = context.venues.map((elem, id) => {
+
+	const updatedVales = values => {
+		return values;
+	}
+
+	const editView = record => {
+		swal({
+			content: <VenueEdit update={updatedVales}  fields={record} />,
+			buttons: true,
+		});
+	}
+	console.log("Data: ", props.venues);
+	const dataSource = props.venues.map((elem, id) => {
 		return {
 			...elem,
 			key: id,
@@ -26,18 +40,18 @@ export default () => {
 
 	const columns = [
 		{ title: 'SN', dataIndex: 'sn', key: 'sn' },
-		{ title: 'Name', dataIndex: 'name', key: 'name' },
-		{ title: 'Code', dataIndex: 'code', key: 'code' },
-		{ title: 'Year', dataIndex: 'year', key: 'year' },
+		{ title: 'Center', dataIndex: 'center', key: 'center' },
+		{ title: 'Room', dataIndex: 'name', key: 'name' },
+		// { title: 'Year', dataIndex: 'year', key: 'year' },
 		{ title: 'Capacity', dataIndex: 'capacity', key: 'capacity' },
 		{
 			title: ' ',
 			render: (text, record) => (
 				<div className="action-column grid">
-					<button className="edit column" onClick={() => this.props.onEditClicked(record)}>
+					<button className="edit column" onClick={() => editView(record)}>
 						Edit
 					</button>
-					<button className="delete column" onClick={() => this.props.onDeleteClicked(record)}>
+					<button className="delete column" onClick={() => context.removeVenueElements(record)}>
 						Delete
 					</button>
 				</div>

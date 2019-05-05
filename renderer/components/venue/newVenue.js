@@ -1,9 +1,9 @@
 import React from "react";
-import VenueContext from './venue-context';
+import VenueContext from "./venue-context";
 import { Form, Icon, Input, Button, Checkbox, Select, InputNumber } from "antd";
 
-const FormItem = Form.Item
-
+const FormItem = Form.Item;
+const Option = Select.Option;
 class AddVenueForm extends React.Component {
   static contextType = VenueContext;
 
@@ -17,8 +17,21 @@ class AddVenueForm extends React.Component {
     });
   };
 
-  hasErrors (fieldsError) {
-    return Object.keys(fieldsError).some(field => fieldsError[field])
+  hasErrors(fieldsError) {
+    return Object.keys(fieldsError).some(field => fieldsError[field]);
+  }
+
+  renderCenterData = () => {
+    const centers = this.context.centers.map((element, index) => {
+      // console.log(element.name);
+      return (
+        <Option value={element.name} key={element.name}>
+          {element.name}
+        </Option>
+      )
+    })
+
+    return centers
   }
 
   render() {
@@ -29,25 +42,25 @@ class AddVenueForm extends React.Component {
       isFieldTouched,
       getFieldValue,
     } = this.props.form;
-    const VenueNameError =
-      isFieldTouched("name") && getFieldError("name");
-    const VenueCodeError =
-      isFieldTouched("code") && getFieldError("code");
-    const VenueYearError = isFieldTouched("year") && getFieldError("year");
-    const VenueCapacityError = isFieldTouched("capacity") && getFieldError("capacity");
+    
+    const VenueCodeError = isFieldTouched("center") && getFieldError("center");
+    const VenueNameError = isFieldTouched("name") && getFieldError("name");
+    // const VenueYearError = isFieldTouched("year") && getFieldError("year");
+    const VenueCapacityError =
+      isFieldTouched("capacity") && getFieldError("capacity");
     // const othersError = getFieldError('otherSize');
 
+    const VenueCode = getFieldValue("center");
     const VenueName = getFieldValue("name");
-    const VenueCode = getFieldValue("code");
-    const VenueYear = getFieldValue("year");
+    // const VenueYear = getFieldValue("year");
     const VenueCapacity = getFieldValue("capacity");
 
-    const isEmpty = !VenueName || !VenueCode || !VenueYear || !VenueCapacity;
+    const isEmpty = !VenueName || !VenueCode || !VenueCapacity;
 
     return (
       <Form onSubmit={this.handleSubmit} className="column new-venue">
         <h2>Add Venue </h2>
-        <label htmlFor="new-venue-name">Programe name</label>
+        <label htmlFor="new-venue-name">Center</label>
         <FormItem
           // style={{ textAlign: "-webkit-venue" }}
           hasFeedback
@@ -55,25 +68,22 @@ class AddVenueForm extends React.Component {
           validateStatus={VenueNameError ? "error" : ""}
           help={VenueNameError || ""}
         >
-          {getFieldDecorator("name", {
-            rules: [
-              { required: true, message: "enter name!" },
-            ],
+          {getFieldDecorator("center", {
+            rules: [{ required: true, message: "enter name!" }],
           })(
-            <Input
-              style={{ width: "100%" }}
-              placeholder="e.g. "
-            />
+            <Select placeholder="eg. Accra" style={{ width: '100%' }}>
+              {this.renderCenterData()}
+            </Select>
           )}
         </FormItem>
-        <label htmlFor="new-venue-std-cap">Venue code</label>
+        <label htmlFor="new-venue-std-cap">Venue name</label>
         <FormItem
           // style={{textAlign: '-webkit-Venue'}}
           hasFeedback
           validateStatus={VenueCodeError ? "error" : ""}
           help={VenueCodeError || ""}
         >
-          {getFieldDecorator("code", {
+          {getFieldDecorator("name", {
             rules: [
               {
                 required: true,
@@ -82,27 +92,8 @@ class AddVenueForm extends React.Component {
             ],
           })(
             <Input
-              style={{ width: "100%", marginRight: "0.5rem" }}
+              style={{ width: "100%"}}
               placeholder="e.g. 50"
-            />
-          )}
-        </FormItem>
-        <label htmlFor="new-venue-name">Year group</label>
-        <FormItem
-          style={{ textAlign: "-webkit-venue" }}
-          hasFeedback
-          // label="Username"
-          validateStatus={VenueYearError ? "error" : ""}
-          help={VenueYearError || ""}
-        >
-          {getFieldDecorator("year", {
-            rules: [
-              { required: true, message: "enter year group!" },
-            ],
-          })(
-            <Input
-              style={{ width: "100%" }}
-              placeholder="e.g. "
             />
           )}
         </FormItem>
@@ -137,7 +128,7 @@ class AddVenueForm extends React.Component {
             // className=""
             style={{ margin: "20px auto", width: "100%", backgroundColor: "" }}
             htmlType="submit"
-            disabled={this.hasErrors(getFieldsError())}
+            disabled={this.hasErrors(getFieldsError()) && isEmpty}
           >
             Add Venue
           </Button>
@@ -147,4 +138,4 @@ class AddVenueForm extends React.Component {
   }
 }
 
-export const AddVenue = Form.create({ name: "normal_login" })(AddVenueForm);
+export const AddVenue = Form.create({ name: "venues" })(AddVenueForm);
