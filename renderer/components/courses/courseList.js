@@ -4,7 +4,7 @@ import CourseContext from './course-context';
 
 const Search = Input.Search;
 
-export default () => {
+export default (props) => {
 	const [context, setContext] = useState(useContext(CourseContext));
     
 	useEffect(() => {
@@ -16,7 +16,7 @@ export default () => {
 	// 	const newData = this.props.dataSource.filter(s => s.session_counr.search(value) !== -1);
 	// 	this.setState({ dataSource: newData });
 	// };
-	const dataSource = context.courses.map((elem, id) => {
+	const dataSource = props.courses.map((elem, id) => {
 		return {
 			...elem,
 			key: id,
@@ -35,10 +35,10 @@ export default () => {
 			title: ' ',
 			render: (text, record) => (
 				<div className="action-column grid">
-					<button className="edit column" onClick={() => this.props.onEditClicked(record)}>
+					<button className="edit column" onClick={() => props.onValueEditted(record)}>
 						Edit
 					</button>
-					<button className="delete column" onClick={() => this.props.onDeleteClicked(record)}>
+					<button className="delete column" onClick={() => context.removeCourseElements(record)}>
 						Delete
 					</button>
 				</div>

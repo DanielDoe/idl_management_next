@@ -4,7 +4,7 @@ import ProgrammeContext from './programme-context';
 
 const Search = Input.Search;
 
-export default () => {
+export default (props) => {
 	const [context, setContext] = useState(useContext(ProgrammeContext));
     
 	useEffect(() => {
@@ -16,7 +16,7 @@ export default () => {
 	// 	const newData = this.props.dataSource.filter(s => s.session_counr.search(value) !== -1);
 	// 	this.setState({ dataSource: newData });
 	// };
-	const dataSource = context.programmes.map((elem, id) => {
+	const dataSource = props.programmes.map((elem, id) => {
 		return {
 			...elem,
 			key: id,
@@ -26,7 +26,7 @@ export default () => {
 
 	const columns = [
 		{ title: 'SN', dataIndex: 'sn', key: 'sn' },
-		{ title: 'Name', dataIndex: 'name', key: 'name' },
+		{ title: 'Programme name', dataIndex: 'name', key: 'name' },
 		{ title: 'Code', dataIndex: 'code', key: 'code' },
 		{ title: 'Year', dataIndex: 'year', key: 'year' },
 		{ title: 'Capacity', dataIndex: 'capacity', key: 'capacity' },
@@ -34,10 +34,10 @@ export default () => {
 			title: ' ',
 			render: (text, record) => (
 				<div className="action-column grid">
-					<button className="edit column" onClick={() => this.props.onEditClicked(record)}>
+					<button className="edit column" onClick={() => props.onValueEditted(record)}>
 						Edit
 					</button>
-					<button className="delete column" onClick={() => this.props.onDeleteClicked(record)}>
+					<button className="delete column" onClick={() => context.removeProgrammeElements(record)}>
 						Delete
 					</button>
 				</div>

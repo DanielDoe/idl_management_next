@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Input, Table } from 'antd';
 import VenueContext from './venue-context';
-import swal from '@sweetalert/with-react'
-import VenueEdit from "./venueEdit";
+// import swal from '@sweetalert/with-react'
 
 const Search = Input.Search;
 
@@ -19,17 +18,6 @@ export default (props) => {
 	// 	this.setState({ dataSource: newData });
 	// };
 
-	const updatedVales = values => {
-		return values;
-	}
-
-	const editView = record => {
-		swal({
-			content: <VenueEdit update={updatedVales}  fields={record} />,
-			buttons: true,
-		});
-	}
-	console.log("Data: ", props.venues);
 	const dataSource = props.venues.map((elem, id) => {
 		return {
 			...elem,
@@ -48,7 +36,7 @@ export default (props) => {
 			title: ' ',
 			render: (text, record) => (
 				<div className="action-column grid">
-					<button className="edit column" onClick={() => editView(record)}>
+					<button className="edit column" onClick={() => props.onVenueEditted(record)}>
 						Edit
 					</button>
 					<button className="delete column" onClick={() => context.removeVenueElements(record)}>

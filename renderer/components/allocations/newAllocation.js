@@ -1,150 +1,129 @@
-import React from "react";
+import React from 'react';
 import AllocationContext from './allocation-context';
-import { Form, Icon, Input, Button, Checkbox, Select, InputNumber } from "antd";
+import { Form, Icon, Input, Button, Checkbox, Select, InputNumber } from 'antd';
 
-const FormItem = Form.Item
-
+const FormItem = Form.Item;
+const Option = Select.Option;
 class AddAllocationForm extends React.Component {
-  static contextType = AllocationContext;
+	static contextType = AllocationContext;
+	constructor(props) {
+		super(props);
 
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        this.context.addAllocationElements(values);
-        console.log("Received values of form: ", values);
-      }
-    });
+		this.state = {
+			selectedItems: [],
+		};
+	}
+
+	handleChange = selectedItems => {
+		this.setState({ selectedItems });
+		console.log(selectedItems);
+	};
+
+	handleSubmit = e => {
+		e.preventDefault();
+		this.props.form.validateFields((err, values) => {
+			if (!err) {
+				this.context.addAllocationElements(values);
+				console.log('Received values of form: ', values);
+			}
+		});
   };
-
-  hasErrors (fieldsError) {
-    return Object.keys(fieldsError).some(field => fieldsError[field])
+  
+  renderProgrammeData = () => {
+    
   }
 
-  render() {
-    const {
-      getFieldDecorator,
-      getFieldsError,
-      getFieldError,
-      isFieldTouched,
-      getFieldValue,
-    } = this.props.form;
-    const AllocationNameError =
-      isFieldTouched("name") && getFieldError("name");
-    const AllocationCodeError =
-      isFieldTouched("code") && getFieldError("code");
-    const AllocationYearError = isFieldTouched("year") && getFieldError("year");
-    const AllocationCapacityError = isFieldTouched("capacity") && getFieldError("capacity");
-    // const othersError = getFieldError('otherSize');
+	hasErrors(fieldsError) {
+		return Object.keys(fieldsError).some(field => fieldsError[field]);
+	}
 
-    const AllocationName = getFieldValue("name");
-    const AllocationCode = getFieldValue("code");
-    const AllocationYear = getFieldValue("year");
-    const AllocationCapacity = getFieldValue("capacity");
+	render() {
+		const { selectedItems } = this.state;
+		const filteredOptions = this.context.courses.filter(o => !selectedItems.includes(o));
+		const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, getFieldValue } = this.props.form;
+		const AllocationNameError = isFieldTouched('name') && getFieldError('name');
+		const AllocationCodeError = isFieldTouched('code') && getFieldError('code');
+		//const AllocationYearError = isFieldTouched('year') && getFieldError('year');
+		//	const AllocationCapacityError = isFieldTouched('capacity') && getFieldError('capacity');
+		// const othersError = getFieldError('otherSize');
 
-    const isEmpty = !AllocationName || !AllocationCode || !AllocationYear || !AllocationCapacity;
+		const AllocationName = getFieldValue('name');
+		const AllocationCode = getFieldValue('courses');
+		// const AllocationYear = getFieldValue('year');
+		// const AllocationCapacity = getFieldValue('capacity');
 
-    return (
-      <Form onSubmit={this.handleSubmit} className="column new-allocation">
-        <h2>Add Allocation </h2>
-        <label htmlFor="new-allocation-name">Programme</label>
-        <FormItem
-          style={{ textAlign: "-webkit-allocation" }}
-          hasFeedback
-          // label="Username"
-          validateStatus={AllocationNameError ? "error" : ""}
-          help={AllocationNameError || ""}
-        >
-          {getFieldDecorator("name", {
-            rules: [
-              { required: true, message: "enter name!" },
-            ],
-          })(
-            <Input
-              style={{ width: "100%" }}
-              placeholder="e.g. "
-            />
-          )}
-        </FormItem>
-        <label htmlFor="new-allocation-std-cap">Allocation code</label>
-        <FormItem
-          // style={{textAlign: '-webkit-Allocation'}}
-          hasFeedback
-          validateStatus={AllocationCodeError ? "error" : ""}
-          help={AllocationCodeError || ""}
-        >
-          {getFieldDecorator("code", {
-            rules: [
-              {
-                required: true,
-                message: "code!",
-              },
-            ],
-          })(
-            <Input
-              style={{ width: "100%", marginRight: "0.5rem" }}
-              placeholder="e.g. 50"
-            />
-          )}
-        </FormItem>
-        <label htmlFor="new-allocation-name">Year group</label>
-        <FormItem
-          style={{ textAlign: "-webkit-allocation" }}
-          hasFeedback
-          // label="Username"
-          validateStatus={AllocationYearError ? "error" : ""}
-          help={AllocationYearError || ""}
-        >
-          {getFieldDecorator("year", {
-            rules: [
-              { required: true, message: "enter year group!" },
-            ],
-          })(
-            <Input
-              style={{ width: "100%" }}
-              placeholder="e.g. "
-            />
-          )}
-        </FormItem>
-        <label htmlFor="new-allocation-std-cap">Capacity</label>
-        <FormItem
-          // style={{textAlign: '-webkit-Allocation'}}
-          hasFeedback
-          validateStatus={AllocationCapacityError ? "error" : ""}
-          help={AllocationCapacityError || ""}
-        >
-          {getFieldDecorator("capacity", {
-            rules: [
-              {
-                required: true,
-                type: "number",
-                message: "name year!",
-              },
-            ],
-          })(
-            <InputNumber
-              min={1}
-              max={5000}
-              style={{ width: "100%", marginRight: "0.5rem" }}
-              placeholder="e.g. 50"
-            />
-          )}
-        </FormItem>
-        <FormItem>
-          <Button
-            type="primary"
-            size={"large"}
-            // className=""
-            style={{ margin: "20px auto", width: "100%", backgroundColor: "" }}
-            htmlType="submit"
-            disabled={this.hasErrors(getFieldsError())}
-          >
-            Add Allocation
-          </Button>
-        </FormItem>
-      </Form>
-    );
-  }
+		const isEmpty = !AllocationName || !AllocationCode;
+		// || !AllocationYear || !AllocationCapacity;
+
+		return (
+			<Form onSubmit={this.handleSubmit} className="column new-allocation">
+				<h2>Add Allocation </h2>
+				<label htmlFor="new-allocation-name">Programme</label>
+				<FormItem
+					style={{ textAlign: '-webkit-allocation' }}
+					hasFeedback
+					// label="Username"
+					validateStatus={AllocationNameError ? 'error' : ''}
+					help={AllocationNameError || ''}
+				>
+					{getFieldDecorator('name', {
+						rules: [{ required: true, message: 'enter name!' }],
+					})(
+						<Select style={{ width: "100%"}} placeholder="Computer Engineering 1">
+              {this.context.programmes.map((elem, index) => {
+                return(
+                  <Option value={elem} key={elem}>{elem}</Option>
+                )
+              })}  
+						</Select>
+					)}
+				</FormItem>
+				<label htmlFor="new-allocation-std-cap">Courses</label>
+				<FormItem
+					// style={{textAlign: '-webkit-Allocation'}}
+					hasFeedback
+					validateStatus={AllocationCodeError ? 'error' : ''}
+					help={AllocationCodeError || ''}
+				>
+					{getFieldDecorator('courses', {
+						rules: [
+							{
+								required: true,
+								message: 'code!',
+							},
+						],
+						initialValue: selectedItems,
+					})(
+						<Select
+							mode="multiple"
+							placeholder="Inserted are removed"
+							// value={selectedItems}
+							onChange={this.handleChange}
+							style={{ width: '100%' }}
+						>
+							{filteredOptions.map(item => (
+								<Select.Option key={item} value={item}>
+									{item}
+								</Select.Option>
+							))}
+						</Select>
+					)}
+				</FormItem>
+				<FormItem>
+					<Button
+						type="primary"
+						size={'large'}
+						// className=""
+						style={{ margin: '20px auto', width: '100%', backgroundColor: '' }}
+						htmlType="submit"
+						disabled={this.hasErrors(getFieldsError())}
+					>
+						Add Allocation
+					</Button>
+				</FormItem>
+			</Form>
+		);
+	}
 }
 
-export const AddAllocation = Form.create({ name: "normal_login" })(AddAllocationForm);
+export const AddAllocation = Form.create({ name: 'normal_login' })(AddAllocationForm);
