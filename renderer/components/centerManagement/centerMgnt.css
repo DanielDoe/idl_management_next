@@ -1,0 +1,183 @@
+#centerMgnt {
+    height: 95%;
+    width: 95%;
+    background:white;
+    /* border: 1px solid #dddddd; */
+    margin: 30px auto;
+}
+
+/*=================================================================================================
+ = centerMgnt list
+=================================================================================================*/
+#centerMgnt .centerMgnt-list {
+    width: calc(100% - 0rem);
+    height: 100%;
+    /* border-right: 1px solid #DDDDDD; */
+    padding: 1.25rem 2rem 0;
+}
+
+.centerMgnt-list h2 {
+    padding-bottom: 0.5rem;
+}
+
+.centerMgnt-list .table-container {
+    height: calc(100% - 2.6rem);
+    background-color: #FFFFFF;
+    border-radius: 0.25rem;
+    border: 1px solid #DDDDDD;
+}
+
+.centerMgnt-list .centerMgnt-list-table {
+    border-radius: 0;
+    border-collapse: collapse;
+}
+
+.centerMgnt-list-table thead th {
+    border-radius: 0;
+    background-color: #1976D2;
+    color: #FFFFFF;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    padding: 1rem 0.45rem;
+    text-align: center;
+}
+
+.centerMgnt-list-table tbody td {
+    padding: 0.75rem 0.45rem;
+    text-align: center;
+}
+
+.centerMgnt-list-table tbody * {
+    font-family: 'Roboto-Regular', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+.centerMgnt-list-table .ant-pagination.ant-table-pagination {
+    margin: 1rem 1rem 0;
+}
+
+.centerMgnt-list-table .ant-pagination.ant-table-pagination .ant-pagination-item.ant-pagination-item-active {
+    background-color: #2196F3;
+    border-color: #2196F3;
+}
+
+.centerMgnt-list-table tbody tr td:last-of-type {
+    width: 10rem;
+}
+
+.centerMgnt-list-table .action-column {
+    width: 100%;
+}
+
+.centerMgnt-list-table .action-column button {
+    width: 4rem;
+    margin: 0 0.275rem;
+    height: 1.5rem;
+    border: 1px solid transparent;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.centerMgnt-list-table .action-column button.delete {
+    border-color: #D32F2F;
+    color: #D32F2F;
+}
+
+.centerMgnt-list-table .action-column button.edit {
+    border-color: #2196F3;
+    background-color: #2196F3;
+    color: #FFFFFF;
+    transition: 100ms;
+}
+
+.centerMgnt-list-table .action-column button.edit:hover {
+    border-color: #1976D2;
+    background-color: #1976D2;
+}
+
+
+/*=================================================================================================
+ = New centerMgnt
+=================================================================================================*/
+#centerMgnt .new-centerMgnt {
+    height: 100%;
+    width: 80%;
+    margin: 0rem auto;
+}
+
+.new-centerMgnt h2 {
+    font-size: 1.25rem;
+    color: #666666;
+    text-align: center;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid #999999;
+    margin-bottom: 2rem;
+}
+
+.new-centerMgnt label {
+    font-size: 0.9rem;
+    display: block;
+    color: #AAAAAA;
+    margin-bottom: 0.6rem;
+}
+
+.new-centerMgnt .form-input {
+    width: 100%;
+    display: block;
+    height: 2.5rem;
+    padding: 0 0.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.25rem;
+    border: 2px solid #DDDDDD;
+    background-color: #FFFFFF;
+    transition: 80ms;
+}
+
+.new-centerMgnt .form-input:focus {
+    border-color: #AAAAAA;
+}
+
+.new-centerMgnt .form-input:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.new-centerMgnt button {
+    display: block;
+    width: calc(100% - 2rem);
+    background-color: #2196F3;
+    height: 2.5rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 0.25rem;
+    color: #FFFFFF;
+    font-family: 'Roboto-Medium', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    margin: 0 1rem;
+    cursor: pointer;
+    transition: 100ms;
+}
+
+.new-centerMgnt button:hover, .new-centerMgnt button:focus {
+    background-color: #1976D2;
+}
+
+.new-centerMgnt .cancel-button {
+    margin-top: 1rem;
+    border: 1px solid #2196F3;
+    background: transparent;
+    color: #2196F3;
+}
+
+.centerMgnt-search-container {
+    float: right;
+    width: 100%;
+    text-align: center;
+}
+
+.filter-options {
+    margin-bottom: 1rem;
+}
+
+.ant-tabs:not(.ant-tabs-vertical)>.ant-tabs-content>.ant-tabs-tabpane #centerMgnt {
+    height: 100%;
+}

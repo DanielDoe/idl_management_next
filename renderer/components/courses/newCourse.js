@@ -44,7 +44,7 @@ class AddCourseForm extends React.Component {
 				title: nextProps.fieldData.title,
 				code: nextProps.fieldData.code,
 				semester: nextProps.fieldData.semester,
-				year: nextProps.fieldData.year,
+				programme: nextProps.fieldData.programme,
 			});
 			this.setState({ counter: -1 });
 		}
@@ -82,13 +82,13 @@ class AddCourseForm extends React.Component {
 		const CourseNameError = isFieldTouched('title') && getFieldError('title');
 		const CourseCodeError = isFieldTouched('code') && getFieldError('code');
 		const CourseYearError = isFieldTouched('semester') && getFieldError('semester');
-		const CourseCapacityError = isFieldTouched('year') && getFieldError('year');
+		const CourseCapacityError = isFieldTouched('programme') && getFieldError('programme');
 		// const othersError = getFieldError('otherSize');
 
 		const CourseName = getFieldValue('title');
 		const CourseCode = getFieldValue('code');
 		const CourseYear = getFieldValue('semester');
-		const CourseCapacity = getFieldValue('year');
+		const CourseCapacity = getFieldValue('programme');
 
 		const isEmpty = !CourseName || !CourseCode || !CourseYear || !CourseCapacity;
 
@@ -135,14 +135,14 @@ class AddCourseForm extends React.Component {
 						rules: [{ required: true, message: 'enter semester!' }],
 					})(<Input style={{ width: '100%' }} placeholder="e.g. 1" />)}
 				</FormItem>
-				<label htmlFor="new-course-std-cap">Year</label>
+				<label htmlFor="new-course-std-cap">Programme</label>
 				<FormItem
 					// style={{textAlign: '-webkit-Course'}}
 					hasFeedback
 					validateStatus={CourseCapacityError ? 'error' : ''}
 					help={CourseCapacityError || ''}
 				>
-					{getFieldDecorator('year', {
+					{getFieldDecorator('programme', {
 						rules: [
 							{
 								required: true,

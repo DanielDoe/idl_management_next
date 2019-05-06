@@ -28,6 +28,12 @@ import CenterMgnt from '../centerManagement';
 import Teaching from '../teachingTimetable';
 import ExamTable from '../examTimetable';
 import Allocation from '../allocations';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import Collapse from '@material-ui/core/Collapse';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import StarBorder from '@material-ui/icons/StarBorder';
+import Settings from '@material-ui/icons/Settings';
 
 const drawerWidth = 240;
 
@@ -104,6 +110,7 @@ const styles = theme => ({
 class Dashboard extends React.Component {
 	state = {
 		open: false,
+		dropdown: false,
 	};
 
 	handleDrawerOpen = () => {
@@ -112,6 +119,10 @@ class Dashboard extends React.Component {
 
 	handleDrawerClose = () => {
 		this.setState({ open: false });
+	};
+
+	handleClick = () => {
+		this.setState(state => ({ dropdown: !state.dropdown }));
 	};
 
 	renderContent() {
@@ -140,7 +151,7 @@ class Dashboard extends React.Component {
 	}
 
 	render() {
-		const { classes, theme, routes, sub_routes } = this.props;
+		const { classes, theme, routes, sub_routes, centerMgnt, dropdown } = this.props;
 
 		return (
 			<div className={classes.root}>
@@ -202,6 +213,31 @@ class Dashboard extends React.Component {
 								<ListItemText primary={elem.name} />
 							</ListItem>
 						))}
+						<ListItem button onClick={this.handleClick}>
+							<ListItemIcon>
+								<Settings />
+							</ListItemIcon>
+							<ListItemText inset primary="Center Config" />
+							{this.state.dropdown ? <ExpandLess /> : <ExpandMore />}
+						</ListItem>
+						<Collapse in={this.state.dropdown} timeout="auto" unmountOnExit>
+							<List component="div" disablePadding>
+								{centerMgnt.map((elem, index) => (
+									<ListItem
+										button
+										key={elem.key}
+										component={Link}
+										to={elem.path}
+										selected={elem.path === this.props.location.pathname}
+									>
+										<ListItemIcon>
+											<elem.icon />
+										</ListItemIcon>
+										<ListItemText primary={elem.name} />
+									</ListItem>
+								))}
+							</List>
+						</Collapse>
 					</List>
 					<Divider />
 					<List>

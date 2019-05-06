@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Input, Table } from 'antd';
-import AllocationContext from './allocation-context';
+import CenterMgntContext from './centerMgnt-context';
 
 const Search = Input.Search;
 
-export default () => {
-	const [context, setContext] = useState(useContext(AllocationContext));
+export default (props) => {
+	const [context, setContext] = useState(useContext(CenterMgntContext));
     
 	useEffect(() => {
 		console.log(context);
@@ -16,7 +16,7 @@ export default () => {
 	// 	const newData = this.props.dataSource.filter(s => s.session_counr.search(value) !== -1);
 	// 	this.setState({ dataSource: newData });
 	// };
-	const dataSource = context.allocations.map((elem, id) => {
+	const dataSource = props.centerMgnts.map((elem, id) => {
 		return {
 			...elem,
 			key: id,
@@ -26,18 +26,18 @@ export default () => {
 
 	const columns = [
 		{ title: 'SN', dataIndex: 'sn', key: 'sn' },
-		{ title: 'Course', dataIndex: 'name', key: 'name' },
-		// { title: 'year', dataIndex: 'code', key: 'code' },
-		{ title: 'Year', dataIndex: 'year', key: 'year' },
+		{ title: 'Course code', dataIndex: 'name', key: 'name' },
+		{ title: 'Course name', dataIndex: 'course', key: 'course' },
+		{ title: 'Programme', dataIndex: 'year', key: 'year' },
 		{ title: 'Capacity', dataIndex: 'capacity', key: 'capacity' },
 		{
 			title: ' ',
 			render: (text, record) => (
 				<div className="action-column grid">
-					<button className="edit column" onClick={() => this.props.onEditClicked(record)}>
+					<button className="edit column" onClick={() => props.onValueEditted(record)}>
 						Edit
 					</button>
-					<button className="delete column" onClick={() => this.props.onDeleteClicked(record)}>
+					<button className="delete column" onClick={() => context.removeCenterMgntElements(record)}>
 						Delete
 					</button>
 				</div>
@@ -46,11 +46,11 @@ export default () => {
 	];
 
 	return (
-		<div className="allocation-list column">
+		<div className="centerMgnt-list column">
 			<div className="list-container">
-				<h2>List of Allocations</h2>
+				<h2>Center-Courses Allocations</h2>
 				<div className="table-container">
-					<Table className="allocation-list-table" dataSource={dataSource} columns={columns} />
+					<Table className="centerMgnt-list-table" dataSource={dataSource} columns={columns} />
 				</div>
 			</div>
 		</div>
