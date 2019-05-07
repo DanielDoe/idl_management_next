@@ -1,6 +1,6 @@
 import React from 'react';
 import ProgrammeContext from './programme-context';
-import { Form, Icon, Input, Button, Checkbox, Select, InputNumber } from 'antd';
+import { Form, Icon, Input, Button, Row, Col, Select, InputNumber } from 'antd';
 
 const FormItem = Form.Item;
 
@@ -11,7 +11,11 @@ class AddProgrammeForm extends React.Component {
 
 		this.state = {
 			counter: 1,
+			year: null,
 		};
+
+		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	handleSubmit = e => {
@@ -44,7 +48,7 @@ class AddProgrammeForm extends React.Component {
 				name: nextProps.fieldData.name,
 				code: nextProps.fieldData.code,
 				year: nextProps.fieldData.year,
-				capacity: nextProps.fieldData.capacity,
+				initial: nextProps.fieldData.initial,
 			});
 			this.setState({ counter: -1 });
 		}
@@ -59,6 +63,10 @@ class AddProgrammeForm extends React.Component {
 		this.props.form.resetFields();
 		this.setState({ counter: 1 });
 	};
+
+	handleChange(value) {
+		this.setState({ year: value });
+	}
 
 	renderCancel() {
 		return this.props.editMode === false ? null : (
@@ -75,22 +83,40 @@ class AddProgrammeForm extends React.Component {
 		);
 	}
 
+	renderImport() {
+		return (
+			<button
+				type="button"
+				style={{ margin: '0px auto', width: '100%' }}
+				// onClick={() => {
+				// 	this.props.onCancel();
+				// 	this.handleReset();
+				// }}
+			>
+				Import
+			</button>
+		);
+	}
+
 	render() {
 		const header = this.props.editMode ? 'Edit' : 'New';
 		const buttonText = this.props.editMode ? 'Edit' : 'Add';
 		const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, getFieldValue } = this.props.form;
 		const programmeNameError = isFieldTouched('name') && getFieldError('name');
 		const programmeCodeError = isFieldTouched('code') && getFieldError('code');
+		const programmeInitialError = isFieldTouched('initial') && getFieldError('initial');
 		const programmeYearError = isFieldTouched('year') && getFieldError('year');
-		const programmeCapacityError = isFieldTouched('capacity') && getFieldError('capacity');
+		// const programmeCapacityError = isFieldTouched('capacity') && getFieldError('capacity');
 		// const othersError = getFieldError('otherSize');
 
 		const programmeName = getFieldValue('name');
 		const programmeCode = getFieldValue('code');
+		const programmeInitial = getFieldValue('initial');
 		const programmeYear = getFieldValue('year');
-		const programmeCapacity = getFieldValue('capacity');
+		// const programmeCapacity = getFieldValue('capacity');
 
-		const isEmpty = !programmeName || !programmeCode || !programmeYear || !programmeCapacity;
+		const isEmpty = !programmeName || !programmeCode || !programmeYear || !programmeInitial;
+		// || !programmeCapacity;
 
 		return (
 			<Form onSubmit={this.handleSubmit} className="column new-programme">
@@ -124,18 +150,44 @@ class AddProgrammeForm extends React.Component {
 					})(<Input style={{ width: '100%', marginRight: '0.5rem' }} placeholder="e.g. COE" />)}
 				</FormItem>
 				<label htmlFor="new-programme-name">Year group</label>
-				<FormItem
-					style={{ textAlign: '-webkit-programme' }}
-					hasFeedback
-					// label="Username"
-					validateStatus={programmeYearError ? 'error' : ''}
-					help={programmeYearError || ''}
-				>
-					{getFieldDecorator('year', {
-						rules: [{ required: true, message: 'enter year group!' }],
-					})(<InputNumber min={1} max={10} style={{ width: '100%' }} placeholder="e.g. 1" />)}
-				</FormItem>
-				<label htmlFor="new-programme-std-cap">Capacity</label>
+				<Row>
+					<Col span={12} style={{ paddingRight: '1rem' }}>
+						<FormItem
+							style={{ textAlign: '-webkit-programme' }}
+							hasFeedback
+							// label="Username"
+							validateStatus={programmeInitialError ? 'error' : ''}
+							help={programmeInitialError || ''}
+						>
+							{getFieldDecorator('initial', {
+								rules: [{ required: true, message: 'enter year group!' }],
+							})(<InputNumber min={1} max={10} style={{ width: '100%' }} placeholder="e.g. 1" />)}
+						</FormItem>
+					</Col>
+					<Col span={12} style={{ paddingLeft: '1rem' }}>
+						<FormItem
+							style={{ textAlign: '-webkit-programme' }}
+							hasFeedback
+							// label="Username"
+							validateStatus={programmeYearError ? 'error' : ''}
+							help={programmeYearError || ''}
+						>
+							{getFieldDecorator('year', {
+								rules: [{ required: true, message: 'enter year group!' }],
+							})(
+								<InputNumber
+									onChange={this.handleChange}
+									min={1}
+									max={10}
+									style={{ width: '100%' }}
+									placeholder="e.g. 1"
+								/>
+							)}
+						</FormItem>
+					</Col>
+				</Row>
+
+				{/* <label htmlFor="new-programme-std-cap">Capacity</label>
 				<FormItem
 					// style={{textAlign: '-webkit-programme'}}
 					hasFeedback
@@ -158,7 +210,7 @@ class AddProgrammeForm extends React.Component {
 							placeholder="e.g. 50"
 						/>
 					)}
-				</FormItem>
+				</FormItem> */}
 				<FormItem>
 					<Button
 						type="primary"
@@ -169,6 +221,24 @@ class AddProgrammeForm extends React.Component {
 						disabled={this.hasErrors(getFieldsError()) || isEmpty}
 					>
 						{buttonText + ' programme'}
+					</Button>
+				</FormItem>
+				<FormItem>
+					<Button
+						type="primary"
+						size={'large'}
+						style={{ margin: '0px auto', width: '100%' }}
+						onClick={() => {
+							this.props.onListUpload(this.state.year);
+							this.handleReset();
+						}}
+						// onClick={() => {
+						// 	this.props.onCancel();
+						// 	this.handleReset();
+						// }}
+						disabled={!programmeInitial || !programmeYear}
+					>
+						Import
 					</Button>
 				</FormItem>
 				{this.renderCancel()}

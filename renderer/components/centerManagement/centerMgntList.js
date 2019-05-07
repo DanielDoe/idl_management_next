@@ -48,7 +48,7 @@ export default (props) => {
 	return (
 		<div className="centerMgnt-list column">
 			<div className="list-container">
-				<h2>Center-Courses Allocations</h2>
+				<h2>Center Allocations</h2>
 				<div className="table-container">
 					<Table className="centerMgnt-list-table" dataSource={dataSource} columns={columns} />
 				</div>

@@ -26,14 +26,15 @@ export default props => {
 
   const renderAllocations = () => {
     return (
-      <div class="rowCard" style={{ height: "100%", overflowY: 'scroll'}}>
+      <div className="rowCard" style={{ height: "100%", width: "100%", overflowY: 'auto', border:"1px solid rgba(0,0,0,0.14)"}}>
         {props.allocations.map((element, index) => {
           return (
-            <div class="columnCard" key={element+index}>
-              <div class="cardView">
+            <div className="columnCard" key={element+index}>
+              <div className="cardView">
                 <h3>{element.name}</h3>
-                <p>Some text</p>
-                <p>Some text</p>
+                  {element.courses.map((elem, index) => {
+                    return <p key={elem+index}>{elem}</p>
+                  })}
               </div>
             </div>
           );

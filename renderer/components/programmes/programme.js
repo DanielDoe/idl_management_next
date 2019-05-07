@@ -3,9 +3,12 @@ import { Row, Col } from 'antd';
 import ProgrammeContext from './programme-context';
 import { AddProgramme } from './newProgramme';
 import ProgrammeList from './programmeList';
+import XLSX from 'xlsx';
 import './programme.css';
 
+
 export default () => {
+	const Dialog = require('electron').remote.dialog;
 	const [programmes, setProgrammes] = useState([
 		{
 			name: 'Computer Engineering',
@@ -36,10 +39,10 @@ export default () => {
 	const [fieldData, setfieldData] = useState([]);
 
 	const addProgrammeElements = programme => {
-		let newValues = [...venues, venue];
-		console.log('Venues: ', newValues);
-		setProgrammes(newValues);
-		// console.log("Adding Programmes", programme);
+		// let newValues = [...venues, venue];
+		// console.log('Venues: ', newValues);
+		// setProgrammes(newValues);
+		console.log("Adding Programmes", programme);
 	};
 
 	const removeProgrammeElements = programme => {
@@ -63,6 +66,37 @@ export default () => {
 		console.log('State updated!: ');
 	}, [programmes]);
 
+	const openFileDialog = year => {
+        console.log(year);
+        const o = Dialog.showOpenDialog({ properties: ['openFile'] });
+        const workbook = XLSX.readFile(o[0]);
+    
+        const first_worksheet = workbook.Sheets[workbook.SheetNames[0]];
+        const data = XLSX.utils.sheet_to_json(first_worksheet, { header: 1 });
+
+        const newData = data
+          .filter((array, i) => array.length > 0 && i > 0)
+          .map(element => {
+			// console.log(element);
+			addProgrammeElements({
+				code: element[0],
+				name: element[1]
+			})
+            // addStaff({
+            //   name: element[1],
+            //   member,
+            //   status: element[2],
+            // });
+            // return this.props.teacherAdded({
+            //     name: element[1],
+            //     member,
+            //     status: element[2],
+			// });
+			//add function here
+          });
+      }
+
+
 	return (
 		<ProgrammeContext.Provider
 			value={{
@@ -83,6 +117,7 @@ export default () => {
 								editMode={editMode}
 								onCancel={triggerEditmode}
 								fieldData={fieldData}
+								onListUpload={openFileDialog}
 								onValueEditted={onValueEditted}
 							/>
 						</Col>

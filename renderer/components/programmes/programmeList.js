@@ -1,21 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Input, Table } from 'antd';
+import { Input, Table, Row, Col } from 'antd';
 import ProgrammeContext from './programme-context';
 
 const Search = Input.Search;
 
-export default (props) => {
-	const [context, setContext] = useState(useContext(ProgrammeContext));
-    
-	useEffect(() => {
-		console.log(context);
-	}, [context]);
-
-	// onSearch = e => {
-	// 	const value = e.target.value.toLowerCase();
-	// 	const newData = this.props.dataSource.filter(s => s.session_counr.search(value) !== -1);
-	// 	this.setState({ dataSource: newData });
-	// };
+export default props => {
 	const dataSource = props.programmes.map((elem, id) => {
 		return {
 			...elem,
@@ -23,6 +12,39 @@ export default (props) => {
 			sn: id + 1,
 		};
 	});
+
+	const [context, setContext] = useState(useContext(ProgrammeContext));
+	const [dataSearch, setdataSearch] = useState(dataSource);
+
+	useEffect(() => {
+		// console.log('dataSource length: ', dataSource.length);
+		// console.log('dataSearch length: ', dataSearch.length);
+		// console.log('Table data: ', dataSearch.length == 0 ? dataSearch : dataSource);
+	}, [context]);
+
+	// onSearch = e => {
+	// 	const value = e.target.value.toLowerCase();
+	// 	const newData = this.props.dataSource.filter(s => s.session_counr.search(value) !== -1);
+	// 	this.setState({ dataSource: newData });
+	// };
+
+	// const renderSelectors = () => {
+	// 	return(
+	// 		<div>
+	// 		<Row>
+	// 		<Col span={8}></Col>
+	// 		</Row>
+	// 		</div>
+	// 	);
+	// }
+
+	const onSearch = e => {
+		// console.log(e.target.value)
+		const value = e.target.value.toLowerCase();
+		const newData = dataSource.filter(s => s.name.toLowerCase().search(value) !== -1);
+		// let newDataSource = (newData.length === 0) ? newData : data
+		setdataSearch(newData);
+	};
 
 	const columns = [
 		{ title: 'SN', dataIndex: 'sn', key: 'sn' },
@@ -46,11 +68,30 @@ export default (props) => {
 	];
 
 	return (
-		<div className="programme-list column">
-			<div className="list-container">
-				<h2>List of Programmes</h2>
-				<div className="table-container">
-					<Table className="programme-list-table" dataSource={dataSource} columns={columns} />
+		<div>
+			<div>
+				<Row>
+					<Col span={16} />
+					<Col span={8}>
+						<Search
+							placeholder="search for programme"
+							// size="large"
+							onChange={e => onSearch(e)}
+							style={{ width: '90%' }}
+						/>
+					</Col>
+				</Row>
+			</div>
+			<div className="programme-list column">
+				<div className="list-container">
+					<h2>List of Programmes</h2>
+					<div className="table-container">
+						<Table
+							className="programme-list-table"
+							dataSource={dataSearch.length == 0 ? dataSearch : dataSource}
+							columns={columns}
+						/>
+					</div>
 				</div>
 			</div>
 		</div>

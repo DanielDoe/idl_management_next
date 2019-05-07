@@ -1,21 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Input, Table } from 'antd';
+import { Input, Table, Row, Col } from 'antd';
 import CourseContext from './course-context';
 
 const Search = Input.Search;
 
-export default (props) => {
-	const [context, setContext] = useState(useContext(CourseContext));
-    
-	useEffect(() => {
-		console.log(context);
-	}, [context]);
-
-	// onSearch = e => {
-	// 	const value = e.target.value.toLowerCase();
-	// 	const newData = this.props.dataSource.filter(s => s.session_counr.search(value) !== -1);
-	// 	this.setState({ dataSource: newData });
-	// };
+export default props => {
 	const dataSource = props.courses.map((elem, id) => {
 		return {
 			...elem,
@@ -24,12 +13,35 @@ export default (props) => {
 		};
 	});
 
+	const [context, setContext] = useState(useContext(CourseContext));
+	const [dataSearch, setdataSearch] = useState(dataSource);
+
+	useEffect(() => {
+		console.log(context);
+	}, [context]);
+
+	const onSearch = e => {
+		// console.log(e.target.value)
+		const value = e.target.value.toLowerCase();
+		const newData = dataSource.filter(s => s.title.toLowerCase().search(value) !== -1);
+		// let newDataSource = (newData.length === 0) ? newData : data
+		setdataSearch(newData);
+	};
+
+	// const dataSource = props.courses.map((elem, id) => {
+	// 	return {
+	// 		...elem,
+	// 		key: id,
+	// 		sn: id + 1,
+	// 	};
+	// });
+
 	const columns = [
 		{ title: 'SN', dataIndex: 'sn', key: 'sn' },
 		{ title: 'Course Title', dataIndex: 'title', key: 'title' },
 		{ title: 'Course Code', dataIndex: 'code', key: 'code' },
 		{ title: 'Semester', dataIndex: 'semester', key: 'semester' },
-		{ title: 'Year', dataIndex: 'year', key: 'year' },
+		// { title: 'Year', dataIndex: 'year', key: 'year' },
 		// { title: 'Capacity', dataIndex: 'capacity', key: 'capacity' },
 		{
 			title: ' ',
@@ -47,11 +59,30 @@ export default (props) => {
 	];
 
 	return (
-		<div className="course-list column">
-			<div className="list-container">
-				<h2>List of Courses</h2>
-				<div className="table-container">
-					<Table className="course-list-table" dataSource={dataSource} columns={columns} />
+		<div>
+			<div>
+				<Row>
+					<Col span={16} />
+					<Col span={8}>
+						<Search
+							placeholder="search for programme"
+							// size="large"
+							onChange={e => onSearch(e)}
+							style={{ width: '90%' }}
+						/>
+					</Col>
+				</Row>
+			</div>
+			<div className="course-list column">
+				<div className="list-container">
+					<h2>List of Courses</h2>
+					<div className="table-container">
+						<Table
+							className="course-list-table"
+							dataSource={dataSearch.length == 0 ? dataSearch : dataSource}
+							columns={columns}
+						/>
+					</div>
 				</div>
 			</div>
 		</div>

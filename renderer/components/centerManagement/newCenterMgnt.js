@@ -3,6 +3,7 @@ import CenterMgntContext from './centerMgnt-context';
 import { Form, Icon, Input, Button, Checkbox, Select, InputNumber } from 'antd';
 
 const FormItem = Form.Item;
+const Option = Select.Option;
 
 class AddCenterMgntForm extends React.Component {
 	static contextType = CenterMgntContext;
@@ -12,6 +13,9 @@ class AddCenterMgntForm extends React.Component {
 		this.state = {
 			counter: 1,
 		};
+
+		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	handleSubmit = e => {
@@ -32,6 +36,10 @@ class AddCenterMgntForm extends React.Component {
 			}
 		});
 	};
+
+	handleChange(value) {
+		console.log(`selected ${value}`);
+	}
 
 	componentDidMount() {
 		// To disabled submit button at the beginning and checks validations.
@@ -105,9 +113,18 @@ class AddCenterMgntForm extends React.Component {
 				>
 					{getFieldDecorator('center', {
 						rules: [{ required: true, message: 'enter name!' }],
-					})(<Input style={{ width: '100%' }} placeholder="e.g. Computer Engineering" />)}
+					})(
+						<Select placeholder="e.g. Accra" style={{ width: '100%' }} onChange={this.handleChange}>
+							<Option value="jack">Jack</Option>
+							<Option value="lucy">Lucy</Option>
+							<Option value="disabled" disabled>
+								Disabled
+							</Option>
+							<Option value="Yiminghe">yiminghe</Option>
+						</Select>
+					)}
 				</FormItem>
-				<label htmlFor="new-centerMgnt-std-cap">Programmes</label>
+				<label htmlFor="new-centerMgnt-std-cap">Allocation Type</label>
 				<FormItem
 					// style={{textAlign: '-webkit-CenterMgnt'}}
 					hasFeedback
@@ -121,7 +138,41 @@ class AddCenterMgntForm extends React.Component {
 								message: 'code!',
 							},
 						],
-					})(<Input style={{ width: '100%', marginRight: '0.5rem' }} placeholder="e.g. COE" />)}
+					})(
+						<Select placeholder="e.g. programmes" style={{ width: '100%' }} onChange={this.handleChange}>
+							<Option value="jack">Jack</Option>
+							<Option value="lucy">Lucy</Option>
+							<Option value="disabled" disabled>
+								Disabled
+							</Option>
+							<Option value="Yiminghe">yiminghe</Option>
+						</Select>
+					)}
+				</FormItem>
+				<label htmlFor="new-centerMgnt-std-cap">Programmes/Courses</label>
+				<FormItem
+					// style={{textAlign: '-webkit-CenterMgnt'}}
+					hasFeedback
+					validateStatus={CenterMgntCodeError ? 'error' : ''}
+					help={CenterMgntCodeError || ''}
+				>
+					{getFieldDecorator('programmes', {
+						rules: [
+							{
+								required: true,
+								message: 'code!',
+							},
+						],
+					})(
+						<Select placeholder="e.g list of courses" style={{ width: '100%' }} onChange={this.handleChange}>
+							<Option value="jack">Jack</Option>
+							<Option value="lucy">Lucy</Option>
+							<Option value="disabled" disabled>
+								Disabled
+							</Option>
+							<Option value="Yiminghe">yiminghe</Option>
+						</Select>
+					)}
 				</FormItem>
 				<FormItem>
 					<Button

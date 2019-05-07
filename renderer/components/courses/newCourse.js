@@ -11,7 +11,11 @@ class AddCourseForm extends React.Component {
 
 		this.state = {
 			counter: 1,
+			semester: null
 		};
+
+		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	handleSubmit = e => {
@@ -44,7 +48,7 @@ class AddCourseForm extends React.Component {
 				title: nextProps.fieldData.title,
 				code: nextProps.fieldData.code,
 				semester: nextProps.fieldData.semester,
-				programme: nextProps.fieldData.programme,
+				// programme: nextProps.fieldData.programme,
 			});
 			this.setState({ counter: -1 });
 		}
@@ -59,6 +63,10 @@ class AddCourseForm extends React.Component {
 		this.props.form.resetFields();
 		this.setState({ counter: 1 });
 	};
+
+	handleChange(value) {
+        this.setState({ semester: value });
+      }
 
 	renderCancel() {
 		return this.props.editMode === false ? null : (
@@ -81,16 +89,17 @@ class AddCourseForm extends React.Component {
 		const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, getFieldValue } = this.props.form;
 		const CourseNameError = isFieldTouched('title') && getFieldError('title');
 		const CourseCodeError = isFieldTouched('code') && getFieldError('code');
-		const CourseYearError = isFieldTouched('semester') && getFieldError('semester');
-		const CourseCapacityError = isFieldTouched('programme') && getFieldError('programme');
+		const CourseSemesterError = isFieldTouched('semester') && getFieldError('semester');
+		// const CourseCapacityError = isFieldTouched('programme') && getFieldError('programme');
 		// const othersError = getFieldError('otherSize');
 
 		const CourseName = getFieldValue('title');
 		const CourseCode = getFieldValue('code');
-		const CourseYear = getFieldValue('semester');
-		const CourseCapacity = getFieldValue('programme');
+		const CourseSemester = getFieldValue('semester');
+		// const CourseCapacity = getFieldValue('programme');
 
-		const isEmpty = !CourseName || !CourseCode || !CourseYear || !CourseCapacity;
+		const isEmpty = !CourseName || !CourseCode || !CourseSemester 
+		// || !CourseCapacity;
 
 		return (
 			<Form onSubmit={this.handleSubmit} className="column new-course">
@@ -128,14 +137,15 @@ class AddCourseForm extends React.Component {
 					style={{ textAlign: '-webkit-Course' }}
 					hasFeedback
 					// label="Username"
-					validateStatus={CourseYearError ? 'error' : ''}
-					help={CourseYearError || ''}
+					validateStatus={CourseSemesterError ? 'error' : ''}
+					help={CourseSemesterError || ''}
 				>
 					{getFieldDecorator('semester', {
 						rules: [{ required: true, message: 'enter semester!' }],
-					})(<Input style={{ width: '100%' }} placeholder="e.g. 1" />)}
+					})(<InputNumber onChange={this.handleChange} min={1} max={10} style={{ width: '100%' }} placeholder="e.g. 1" />)}
 				</FormItem>
-				<label htmlFor="new-course-std-cap">Programme</label>
+				{/* 
+					<label htmlFor="new-course-std-cap">Programme</label>
 				<FormItem
 					// style={{textAlign: '-webkit-Course'}}
 					hasFeedback
@@ -159,8 +169,7 @@ class AddCourseForm extends React.Component {
 						/>
 					)}
 				</FormItem>
-
-				{/* <label htmlFor="new-course-std-cap">Capacity</label>
+<label htmlFor="new-course-std-cap">Capacity</label>
         <FormItem
           // style={{textAlign: '-webkit-Course'}}
           hasFeedback
@@ -194,6 +203,21 @@ class AddCourseForm extends React.Component {
 						disabled={this.hasErrors(getFieldsError())}
 					>
 						{buttonText + ' course'}
+					</Button>
+				</FormItem>
+				<FormItem>
+					<Button
+						type="primary"
+						size={'large'}
+						style={{ margin: '0px auto', width: '100%' }}
+						onClick={() => { this.props.onListUpload(this.state.semester); this.handleReset();}}
+						// onClick={() => {
+						// 	this.props.onCancel();
+						// 	this.handleReset();
+						// }}
+						disabled={!CourseSemester}
+					>
+						Import
 					</Button>
 				</FormItem>
 				{this.renderCancel()}

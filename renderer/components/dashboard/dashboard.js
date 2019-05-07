@@ -28,6 +28,7 @@ import CenterMgnt from '../centerManagement';
 import Teaching from '../teachingTimetable';
 import ExamTable from '../examTimetable';
 import Allocation from '../allocations';
+import CenterCourse from '../centerCourses/';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
@@ -145,6 +146,8 @@ class Dashboard extends React.Component {
 				return <Course />;
 			case '/allocation':
 				return <Allocation />;
+			case '/center_courses':
+				return <CenterMgnt />;
 			case '/users':
 				return <User />;
 		}
