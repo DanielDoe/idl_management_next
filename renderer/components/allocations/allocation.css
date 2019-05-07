@@ -181,3 +181,124 @@
 .ant-tabs:not(.ant-tabs-vertical)>.ant-tabs-content>.ant-tabs-tabpane #allocation {
     height: 100%;
 }
+
+.view-student-list {
+    padding: 20px;
+  }
+  
+  .student-list-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .student-card-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 31%;
+    height: 15rem;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 5px;
+    margin: 10px;
+    background-color:  #092a48
+  }
+  
+  .student-card-body-wrapper{
+    border-bottom-right-radius: 50%;
+    background-color: cornflowerblue;
+  }
+  .student-card-header-right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color:  #092a48;
+    padding: 10px;
+  
+  }
+  
+  .student-card-body{
+    display: flex;
+    flex-direction: row;
+    background-color: #FFF;
+    padding: 20px;
+    border-bottom-right-radius: 65%;
+    justify-content: space-between;
+    margin-top: -10px;
+  }
+  
+  
+  .student-card-header{
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      align-items: center;
+      background-color: #FFF;
+      padding: 20px;
+  }
+  
+  .white-text {
+    color: #FFF;
+  }
+  
+  .card-title{
+    font-size: 0.9rem;
+    display: block;
+  }
+  
+  .card-sub{
+    color: #00000008;
+  }
+  .student-card-item {
+    display: flex;
+    align-items: center;
+    color: #092a48;
+    
+  }
+  
+  .modal-header-text {
+    padding-right: 10rem;
+    font-size: 1.8rem;
+  }
+  
+  /* .alert-container {
+    
+  } */
+
+
+  /* Float four columns side by side */
+.columnCard {
+    float: left;
+    width: 30%;
+    padding: 10px;
+  }
+  
+  /* Remove extra left and right margins, due to padding */
+  .rowCard {margin: 0 -5px;}
+  
+  /* Clear floats after the columns */
+  .rowCard:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Responsive columns */
+  @media screen and (max-width: 500px) {
+    .columnCard {
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+    }
+  }
+  
+  /* Style the counter cards */
+  .cardView {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 5px auto;
+    width: 14rem;
+    height: 20rem;
+    text-align: center;
+    background-color: #f1f1f1;
+  }

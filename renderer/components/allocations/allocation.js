@@ -8,16 +8,40 @@ import './allocation.css';
 export default () => {
 	const [allocations, setAllocations] = useState([
 		{
-			name: 'Accra',
-			code: 'ACC',
+			name: 'Computer Engineering 1',
+			courses: ['Basic Electronics', 'C Programming', 'Database Systems'],
 		},
 		{
-			name: 'Volta',
-			code: 'VR',
+			name: 'Computer Engineering 2',
+			courses: ['Basic Electronics', 'C Programming', 'Database Systems'],
 		},
 		{
-			name: 'Kumasi',
-			code: 'KMA',
+			name: 'Computer Engineering',
+			courses: ['Basic Electronics', 'C Programming', 'Database Systems'],
+		},
+		{
+			name: 'Computer Engineering 1',
+			courses: ['Basic Electronics', 'C Programming', 'Database Systems'],
+		},
+		{
+			name: 'Computer Engineering 2',
+			courses: ['Basic Electronics', 'C Programming', 'Database Systems'],
+		},
+		{
+			name: 'Computer Engineering',
+			courses: ['Basic Electronics', 'C Programming', 'Database Systems'],
+		},
+		{
+			name: 'Computer Engineering 1',
+			courses: ['Basic Electronics', 'C Programming', 'Database Systems'],
+		},
+		{
+			name: 'Computer Engineering 2',
+			courses: ['Basic Electronics', 'C Programming', 'Database Systems'],
+		},
+		{
+			name: 'Computer Engineering',
+			courses: ['Basic Electronics', 'C Programming', 'Database Systems'],
 		},
 	]);
 	const [programmes, setprogrammes] = useState(['Computer Enginering 1', 'Computer Engineering 2', 'Computer Engineering 3']);
