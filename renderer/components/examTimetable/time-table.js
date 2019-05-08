@@ -81,6 +81,8 @@ export default props => {
 		console.log('updated events', updateEvent);
 	};
 
+	//make calender responsive!!!!
+
 	return (
 		<div>
 			<Modal title="Add new schedule" visible={visible} onOk={(e) => handleOk(e)} onCancel={(e) => handleCancel(e)}>
