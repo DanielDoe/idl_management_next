@@ -88,17 +88,17 @@ class AddCenterMgntForm extends React.Component {
 		const buttonText = this.props.editMode ? 'Edit' : 'Add';
 		const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, getFieldValue } = this.props.form;
 		const CenterMgntCenterError = isFieldTouched('center') && getFieldError('center');
-		const CenterMgntSelectionError = isFieldTouched('selection') && getFieldError('selection');
-		const CenterMgntSelectedError = isFieldTouched('selected') && getFieldError('selected');
+		// const CenterMgntSelectionError = isFieldTouched('selection') && getFieldError('selection');
+		const CenterMgntProgrammeError = isFieldTouched('programmes') && getFieldError('programmes');
 		const CenterMgntCapacityError = isFieldTouched('capacity') && getFieldError('capacity');
 		// const othersError = getFieldError('otherSize');
 
 		const CenterMgntCenter = getFieldValue('center');
-		const CenterMgntSelection = getFieldValue('selection');
-		const CenterMgntSelected = getFieldValue('selected');
+		// const CenterMgntSelection = getFieldValue('selection');
+		const CenterMgntProgrammes = getFieldValue('programmes');
 		const CenterMgntCapacity = getFieldValue('capacity');
 
-		const isEmpty = !CenterMgntCenter || !CenterMgntSelection || !CenterMgntSelected || !CenterMgntCapacity;
+		const isEmpty = !CenterMgntCenter || !CenterMgntProgrammes || !CenterMgntCapacity;
 
 		return (
 			<Form onSubmit={this.handleSubmit} className="column new-centerMgnt">
@@ -124,12 +124,12 @@ class AddCenterMgntForm extends React.Component {
 						</Select>
 					)}
 				</FormItem>
-				<label htmlFor="new-centerMgnt-std-cap">Allocation Type</label>
+				<label htmlFor="new-centerMgnt-std-cap">Programmes</label>
 				<FormItem
 					// style={{textAlign: '-webkit-CenterMgnt'}}
 					hasFeedback
-					validateStatus={CenterMgntSelectionError ? 'error' : ''}
-					help={CenterMgntSelectionError || ''}
+					validateStatus={CenterMgntProgrammeError ? 'error' : ''}
+					help={CenterMgntProgrammeError || ''}
 				>
 					{getFieldDecorator('programmes', {
 						rules: [
@@ -139,32 +139,11 @@ class AddCenterMgntForm extends React.Component {
 							},
 						],
 					})(
-						<Select placeholder="e.g. programmes" style={{ width: '100%' }} onChange={this.handleChange}>
-							<Option value="jack">Jack</Option>
-							<Option value="lucy">Lucy</Option>
-							<Option value="disabled" disabled>
-								Disabled
-							</Option>
-							<Option value="Yiminghe">yiminghe</Option>
-						</Select>
-					)}
-				</FormItem>
-				<label htmlFor="new-centerMgnt-std-cap">Programmes/Courses</label>
-				<FormItem
-					// style={{textAlign: '-webkit-CenterMgnt'}}
-					hasFeedback
-					validateStatus={CenterMgntSelectedError ? 'error' : ''}
-					help={CenterMgntSelectedError || ''}
-				>
-					{getFieldDecorator('programmes', {
-						rules: [
-							{
-								required: true,
-								message: 'code!',
-							},
-						],
-					})(
-						<Select placeholder="e.g list of courses" style={{ width: '100%' }} onChange={this.handleChange}>
+						<Select
+							placeholder="e.g list of courses"
+							style={{ width: '100%' }}
+							onChange={this.handleChange}
+						>
 							<Option value="jack">Jack</Option>
 							<Option value="lucy">Lucy</Option>
 							<Option value="disabled" disabled>

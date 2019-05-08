@@ -14,5 +14,5 @@ export default class MyDocument extends Document {
         </body>
       </html>
     );
-  }
+  }  
 };

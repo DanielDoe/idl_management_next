@@ -22,22 +22,6 @@ export default props => {
 		// console.log('Table data: ', dataSearch.length == 0 ? dataSearch : dataSource);
 	}, [context]);
 
-	// onSearch = e => {
-	// 	const value = e.target.value.toLowerCase();
-	// 	const newData = this.props.dataSource.filter(s => s.session_counr.search(value) !== -1);
-	// 	this.setState({ dataSource: newData });
-	// };
-
-	// const renderSelectors = () => {
-	// 	return(
-	// 		<div>
-	// 		<Row>
-	// 		<Col span={8}></Col>
-	// 		</Row>
-	// 		</div>
-	// 	);
-	// }
-
 	const onSearch = e => {
 		// console.log(e.target.value)
 		const value = e.target.value.toLowerCase();

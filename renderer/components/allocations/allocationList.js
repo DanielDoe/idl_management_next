@@ -39,19 +39,19 @@ export default props => {
         {props.allocations.map((element, index) => {
           return (
             <div key={element + index} className="skill-card">
-              <header class="skill-card__header">
+              <header className="skill-card__header">
                 <img
-                  class="skill-card__icon"
+                  className="skill-card__icon"
                   src={BookSelf}
                   alt="flaticon-bookself"
                 />
               </header>
-              <section class="skill-card__body">
-                <h2 class="skill-card__title">{element.name}</h2>
-                <span class="skill-card__duration">
+              <section className="skill-card__body">
+                <h2 className="skill-card__title">{element.name}</h2>
+                <span className="skill-card__duration">
                   {element.courses.length} Courses Found
                 </span>
-                <ul class="skill-card__knowledge">
+                <ul className="skill-card__knowledge">
                   {element.courses.map((elem, index) => {
                     return <li key={elem + index}>{elem}</li>;
                   })}
