@@ -87,18 +87,18 @@ class AddCenterMgntForm extends React.Component {
 		const header = this.props.editMode ? 'Edit' : 'New';
 		const buttonText = this.props.editMode ? 'Edit' : 'Add';
 		const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, getFieldValue } = this.props.form;
-		const CenterMgntNameError = isFieldTouched('center') && getFieldError('center');
-		const CenterMgntCodeError = isFieldTouched('programmes') && getFieldError('programmes');
-		// const CenterMgntYearError = isFieldTouched('year') && getFieldError('year');
-		// const CenterMgntCapacityError = isFieldTouched('capacity') && getFieldError('capacity');
+		const CenterMgntCenterError = isFieldTouched('center') && getFieldError('center');
+		const CenterMgntSelectionError = isFieldTouched('selection') && getFieldError('selection');
+		const CenterMgntSelectedError = isFieldTouched('selected') && getFieldError('selected');
+		const CenterMgntCapacityError = isFieldTouched('capacity') && getFieldError('capacity');
 		// const othersError = getFieldError('otherSize');
 
-		const CenterMgntName = getFieldValue('center');
-		const CenterMgntCode = getFieldValue('programmes');
-		// const CenterMgntYear = getFieldValue('year');
-		// const CenterMgntCapacity = getFieldValue('capacity');
+		const CenterMgntCenter = getFieldValue('center');
+		const CenterMgntSelection = getFieldValue('selection');
+		const CenterMgntSelected = getFieldValue('selected');
+		const CenterMgntCapacity = getFieldValue('capacity');
 
-		const isEmpty = !CenterMgntName || !CenterMgntCode || !CenterMgntYear || !CenterMgntCapacity;
+		const isEmpty = !CenterMgntCenter || !CenterMgntSelection || !CenterMgntSelected || !CenterMgntCapacity;
 
 		return (
 			<Form onSubmit={this.handleSubmit} className="column new-centerMgnt">
@@ -108,8 +108,8 @@ class AddCenterMgntForm extends React.Component {
 					style={{ textAlign: '-webkit-centerMgnt' }}
 					hasFeedback
 					// label="Username"
-					validateStatus={CenterMgntNameError ? 'error' : ''}
-					help={CenterMgntNameError || ''}
+					validateStatus={CenterMgntCenterError ? 'error' : ''}
+					help={CenterMgntCenterError || ''}
 				>
 					{getFieldDecorator('center', {
 						rules: [{ required: true, message: 'enter name!' }],
@@ -128,8 +128,8 @@ class AddCenterMgntForm extends React.Component {
 				<FormItem
 					// style={{textAlign: '-webkit-CenterMgnt'}}
 					hasFeedback
-					validateStatus={CenterMgntCodeError ? 'error' : ''}
-					help={CenterMgntCodeError || ''}
+					validateStatus={CenterMgntSelectionError ? 'error' : ''}
+					help={CenterMgntSelectionError || ''}
 				>
 					{getFieldDecorator('programmes', {
 						rules: [
@@ -153,8 +153,8 @@ class AddCenterMgntForm extends React.Component {
 				<FormItem
 					// style={{textAlign: '-webkit-CenterMgnt'}}
 					hasFeedback
-					validateStatus={CenterMgntCodeError ? 'error' : ''}
-					help={CenterMgntCodeError || ''}
+					validateStatus={CenterMgntSelectedError ? 'error' : ''}
+					help={CenterMgntSelectedError || ''}
 				>
 					{getFieldDecorator('programmes', {
 						rules: [
@@ -172,6 +172,30 @@ class AddCenterMgntForm extends React.Component {
 							</Option>
 							<Option value="Yiminghe">yiminghe</Option>
 						</Select>
+					)}
+				</FormItem>
+				<label htmlFor="new-centerMgnt-std-cap">Capacity</label>
+				<FormItem
+					// style={{textAlign: '-webkit-Venue'}}
+					hasFeedback
+					validateStatus={CenterMgntCapacityError ? 'error' : ''}
+					help={CenterMgntCapacityError || ''}
+				>
+					{getFieldDecorator('capacity', {
+						rules: [
+							{
+								required: true,
+								type: 'number',
+								message: 'name year!',
+							},
+						],
+					})(
+						<InputNumber
+							min={1}
+							max={5000}
+							style={{ width: '100%', marginRight: '0.5rem' }}
+							placeholder="e.g. 50"
+						/>
 					)}
 				</FormItem>
 				<FormItem>

@@ -5,12 +5,14 @@ if (typeof require !== 'undefined') {
 
 const withCss = require('@zeit/next-css');
 const withLess = require('@zeit/next-less');
+const withImages = require('next-images');
 const withPlugins = require("next-compose-plugins")
 
 module.exports = withPlugins(
   [
     withLess,
     withCss,
+    withImages
   ],
   {
     webpack: config =>

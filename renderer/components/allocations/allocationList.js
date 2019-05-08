@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Input, Table, Row, Col, Card } from "antd";
+import { Input, Table, Row, Col, Card, Icon, Button } from "antd";
 import AllocationContext from "./allocation-context";
+import BookSelf from "../_shared/img/bookshelf.png";
 
 const Search = Input.Search;
 
@@ -26,16 +27,37 @@ export default props => {
 
   const renderAllocations = () => {
     return (
-      <div className="rowCard" style={{ height: "100%", width: "100%", overflowY: 'auto', border:"1px solid rgba(0,0,0,0.14)"}}>
+      <div
+        className="rowCard"
+        style={{
+          height: "100%",
+          width: "100%",
+          overflowY: "auto",
+          border: "1px solid rgba(0,0,0,0.14)",
+        }}
+      >
         {props.allocations.map((element, index) => {
           return (
-            <div className="columnCard" key={element+index}>
-              <div className="cardView">
-                <h3>{element.name}</h3>
+            <div key={element + index} className="skill-card">
+              <header class="skill-card__header">
+                <img
+                  class="skill-card__icon"
+                  src={BookSelf}
+                  alt="flaticon-bookself"
+                />
+              </header>
+              <section class="skill-card__body">
+                <h2 class="skill-card__title">{element.name}</h2>
+                <span class="skill-card__duration">
+                  {element.courses.length} Courses Found
+                </span>
+                <ul class="skill-card__knowledge">
                   {element.courses.map((elem, index) => {
-                    return <p key={elem+index}>{elem}</p>
+                    return <li key={elem + index}>{elem}</li>;
                   })}
-              </div>
+                </ul>
+                <Button type="danger" shape="circle" icon="delete" />
+              </section>
             </div>
           );
         })}
@@ -72,9 +94,9 @@ export default props => {
 
   return (
     <div className="allocation-list column">
-      <div className="list-container" style={{ height: "100%"}}>
+      <div className="list-container" style={{ height: "100%" }}>
         <h2>List of Allocations</h2>
-        <div className="table-container" >
+        <div className="table-container">
           {/* <Table className="allocation-list-table" dataSource={dataSource} columns={columns} /> */}
           {renderAllocations()}
         </div>

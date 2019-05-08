@@ -35,6 +35,7 @@ import Collapse from '@material-ui/core/Collapse';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import StarBorder from '@material-ui/icons/StarBorder';
 import Settings from '@material-ui/icons/Settings';
+import Logo from '../_shared/img/logof.png';
 
 const drawerWidth = 240;
 
@@ -94,7 +95,7 @@ const styles = theme => ({
 		alignItems: 'center',
 		justifyContent: 'flex-end',
 		padding: '0 8px',
-		...theme.mixins.toolbar,
+		...theme.mixins.toolbar
 	},
 	content: {
 		flexGrow: 1,
@@ -259,6 +260,7 @@ class Dashboard extends React.Component {
 							</ListItem>
 						))}
 					</List>
+					{/* <img src={Logo} className="idl-logo"/> */}
 				</Drawer>
 				<main className={classes.content}>
 					<div className={classes.toolbar} />
