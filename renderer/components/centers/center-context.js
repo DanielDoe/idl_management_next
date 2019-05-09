@@ -1,21 +1,24 @@
-import React from "react";
+import React from 'react';
 
 export default React.createContext({
-  centers: [
-    {
-      name: "Accra",
-      code: "ACC",
-    },
-    {
-      name: "Volta",
-      code: "VR",
-    },
-    {
-      name: "Kumasi",
-      code: "KMA",
-    },
-  ],
-  addCenterElements: center => {},
-  removeCenterElements: center => {},
-  updateCenterElements: center => {}
+	centers: [
+		{
+			name: 'Accra',
+			code: 'ACC',
+			blocks: 3,
+		},
+		{
+			name: 'Volta',
+			code: 'VR',
+			blocks: 3,
+		},
+		{
+			name: 'Kumasi',
+			code: 'KMA',
+			blocks: 3,
+		},
+	],
+	addCenterElements: center => {},
+	removeCenterElements: center => {},
+	updateCenterElements: center => {},
 });

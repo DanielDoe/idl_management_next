@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import eventELements from './events';
 import BigCalendar from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import moment from 'moment';
@@ -11,10 +10,9 @@ import 'react-big-calendar/lib/addons/dragAndDrop/styles.less';
 const DragAndDropCalendar = withDragAndDrop(BigCalendar);
 const localizer = BigCalendar.momentLocalizer(moment);
 const Option = Select.Option;
-const confirm = Modal.confirm;
 
 export default props => {
-	const [events, setEvents] = useState(eventELements);
+	const [events, setEvents] = useState([]);
 	const [visible, setvisible] = useState(false);
 	const [updateEvent, setUpdateEvent] = useState([]);
 	const [course, setcourse] = useState('');
@@ -55,18 +53,7 @@ export default props => {
 
 	const handleSelect = e => {
 		setvisible(true);
-		// const newEvent = [{
-		// 	title: e.title,
-		// 	start: moment(e.start).format('LLLL'),
-		// 	end: moment(e.start).format('LLLL')
-		// }]
 		setUpdateEvent(e);
-		// console.log(
-		// 	'start: ',
-		// 	moment(e.start).format('LLLL'),
-		// 	'End: ',
-		// 	moment(e.end).format('LLLL')
-		// );
 	};
 
 	const handleOk = () => {
@@ -135,7 +122,7 @@ export default props => {
 					</Option>
 					<Option value="Yiminghe">yiminghe</Option>
 				</Select>
-				<label htmlFor="new-schedule-course">Venue</label>
+				<label htmlFor="new-schedule-venue">Venue</label>
 				<Select defaultValue="lucy" className="new-schedule-select" onChange={e => handleVenueChange(e)}>
 					<Option value="jack">Jack</Option>
 					<Option value="lucy">Lucy</Option>
@@ -224,11 +211,7 @@ export default props => {
 					<Col span={4} />
 					<Col span={4} />
 					<Col span={4} />
-					<Col span={4}>
-						<Button type="primary" icon="plus-circle" style={{ width: '100%' }}>
-							Add course
-						</Button>
-					</Col>
+					<Col span={4} />
 					<Col span={4}>
 						<Button type="primary" icon="save" style={{ width: '100%' }}>
 							Save

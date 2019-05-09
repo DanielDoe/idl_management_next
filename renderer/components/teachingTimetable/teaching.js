@@ -1,6 +1,8 @@
 import React from 'react'
+import TeachingTable from './teachingTable'
+import './teaching.css'
 
 
 export default () => {
-    return <div>Teaching Timetable</div>
+    return <div id="teaching" className="teaching-container"><TeachingTable /></div>
 }

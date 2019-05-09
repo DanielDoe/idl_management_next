@@ -1,0 +1,32 @@
+#teaching {
+	height: 95%;
+	width: 100%;
+	/* border: 1px solid #dddddd; */
+}
+
+.big-calender-exams {
+	height: 90%;
+	overflow-y: auto;
+	margin: 1rem auto;
+}
+
+.teaching-selector {
+	/* padding: 0 1rem; */
+	width: 100%;
+}
+
+.new-schedule label {
+    font-size: 0.9rem;
+    display: block;
+    color: #AAAAAA;
+    margin-bottom: 0.6rem;
+    width: 70%;
+    display: block;
+    margin: 0rem auto 0.6rem auto;
+}
+
+.new-schedule-select {
+    width: 70%;
+    display: block;
+    margin: 1rem auto;
+}
