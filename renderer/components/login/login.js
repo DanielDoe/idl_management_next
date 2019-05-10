@@ -22,40 +22,41 @@ class LoginForm extends React.Component {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
-				console.log('Received values of form: ', values);
-				axios
-					.post('http://10.30.3.17:5000/userlogin', {
-						email: values.email,
-						password: values.password,
-					})
-					.then(function(response) {
-						console.log(response);
-						if (response.data.Statuscode == '200') {
-							// console.log("Login unsuccessful..!")
-							console.log('Login successful..!');
-							swal({
-								title: 'Good job!',
-								text: 'You are logged in sucessfully!',
-								icon: 'success',
-								button: false,
-							});
-							localStorage.setItem('credentials', JSON.stringify(response.data));
-							// console.log('tokenObtained: ', JSON.parse(localStorage.getItem('credentials')));
-							//  Router.push('/dashboard');
-						} else {
-							console.log('Login unsuccessful..!');
-							swal({
-								title: 'Sorry!',
-								text:
-									'We encountered an error logging you in please check your details or internet connection!',
-								icon: 'error',
-								button: false,
-							});
-						}
-					})
-					.catch(function(error) {
-						console.log(error);
-					});
+				// console.log('Received values of form: ', values);
+				// axios
+				// 	.post('http://10.30.3.17:5000/userlogin', {
+				// 		email: values.email,
+				// 		password: values.password,
+				// 	})
+				// 	.then(function(response) {
+				// 		console.log(response);
+				// 		if (response.data.Statuscode == '200') {
+				// 			// console.log("Login unsuccessful..!")
+				// 			console.log('Login successful..!');
+				// 			swal({
+				// 				title: 'Good job!',
+				// 				text: 'You are logged in sucessfully!',
+				// 				icon: 'success',
+				// 				button: false,
+				// 			});
+				// 			localStorage.setItem('credentials', JSON.stringify(response.data));
+				// 			// console.log('tokenObtained: ', JSON.parse(localStorage.getItem('credentials')));
+				// 			//  Router.push('/dashboard');
+				// 		} else {
+				// 			console.log('Login unsuccessful..!');
+				// 			swal({
+				// 				title: 'Sorry!',
+				// 				text:
+				// 					'We encountered an error logging you in please check your details or internet connection!',
+				// 				icon: 'error',
+				// 				button: false,
+				// 			});
+				// 		}
+				// 	})
+				// 	.catch(function(error) {
+				// 		console.log(error);
+        // 	});
+        Router.push('/dashboard');
 			}
 		});
 	};
