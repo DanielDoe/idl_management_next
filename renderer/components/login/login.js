@@ -56,7 +56,8 @@ class LoginForm extends React.Component {
 				// 	.catch(function(error) {
 				// 		console.log(error);
         // 	});
-        Router.push('/dashboard');
+
+        // Router.push('/dashboard');
 			}
 		});
 	};
