@@ -29,6 +29,7 @@ import Teaching from '../teachingTimetable';
 import ExamTable from '../examTimetable';
 import Allocation from '../allocations';
 import CenterCourse from '../centerCourses/';
+import ExamPapers from '../scripts';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
@@ -95,7 +96,7 @@ const styles = theme => ({
 		alignItems: 'center',
 		justifyContent: 'flex-end',
 		padding: '0 8px',
-		...theme.mixins.toolbar
+		...theme.mixins.toolbar,
 	},
 	content: {
 		flexGrow: 1,
@@ -149,6 +150,8 @@ class Dashboard extends React.Component {
 				return <Allocation />;
 			case '/center_courses':
 				return <CenterMgnt />;
+			case '/center_script':
+				return <ExamPapers />;
 			case '/users':
 				return <User />;
 		}
