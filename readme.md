@@ -1,4 +1,4 @@
-<p align="center"><img src="https://i.imgur.com/PiEKeIZ.png"></p>
+<p align="center"><img src="https://i.imgur.com/ZWNgF2C.png"></p>
 
 ## Usage
 
@@ -6,13 +6,13 @@
 
 ```bash
 # with `nextron`
-$ nextron init my-app --template with-javascript-ant-design
+$ nextron init my-app --template with-javascript
 
 # with npx
-$ npx create-nextron-app my-app --example with-javascript-ant-design
+$ npx create-nextron-app my-app --example with-javascript
 
 # with yarn
-$ yarn create nextron-app my-app --example with-javascript-ant-design
+$ yarn create nextron-app my-app --example with-javascript
 ```
 
 ### Use it
@@ -29,7 +29,3 @@ $ yarn dev (or `npm run dev`)
 # Build packages
 $ yarn build (or `npm run build`)
 ```
-
-## Resources
-
-http://ant.design
