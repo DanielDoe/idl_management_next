@@ -111,10 +111,50 @@ const styles = theme => ({
 });
 
 class Dashboard extends React.Component {
-	state = {
-		open: false,
-		dropdown: false,
-	};
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      open: false,
+      dropdown: false,
+      status: null
+    }
+
+  }
+  
+  renderRoutes = () => {
+    const credentials = JSON.parse(localStorage.getItem('login'))
+    console.log('credentials: ', credentials.status);
+    if (credentials.status == 'admin') {
+      return(
+        <div>
+          <List>
+						{this.props.sub_routes.map((elem, index) => (
+							<ListItem
+								button
+								key={elem.key}
+								component={Link}
+								to={elem.path}
+								selected={elem.path === this.props.location.pathname}
+							>
+								<ListItemIcon>
+									<elem.icon />
+								</ListItemIcon>
+								<ListItemText primary={elem.name} />
+							</ListItem>
+						))}
+					</List>
+        </div>
+      )
+    } else {
+      return <div />
+    }
+  }
+
+  componentDidMount() {
+    this.renderRoutes()
+  }
+  
 
 	handleDrawerOpen = () => {
 		this.setState({ open: true });
@@ -126,7 +166,12 @@ class Dashboard extends React.Component {
 
 	handleClick = () => {
 		this.setState(state => ({ dropdown: !state.dropdown }));
-	};
+  };
+  
+  // componentWillMount() {
+  //   console.log(localStorage.getItem('login'))
+  // }
+  
 
 	renderContent() {
 		switch (this.props.location.pathname) {
@@ -247,22 +292,7 @@ class Dashboard extends React.Component {
 						</Collapse>
 					</List>
 					<Divider />
-					<List>
-						{sub_routes.map((elem, index) => (
-							<ListItem
-								button
-								key={elem.key}
-								component={Link}
-								to={elem.path}
-								selected={elem.path === this.props.location.pathname}
-							>
-								<ListItemIcon>
-									<elem.icon />
-								</ListItemIcon>
-								<ListItemText primary={elem.name} />
-							</ListItem>
-						))}
-					</List>
+					{this.renderRoutes()}
 					{/* <img src={Logo} className="idl-logo"/> */}
 				</Drawer>
 				<main className={classes.content}>
