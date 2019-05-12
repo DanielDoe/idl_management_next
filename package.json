@@ -1,13 +1,13 @@
 {
   "private": true,
-  "name": "nextron-idl",
-  "description": "My application description",
+  "name": "idl-app",
+  "description": "IDL management app",
   "version": "1.0.0",
-  "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
+  "author": "Doe Daniel <danieldoe33@gmail.com>",
   "main": "app/background.js",
   "build": {
     "appId": "com.example.nextron",
-    "productName": "My Nextron App",
+    "productName": "idl app",
     "copyright": "Copyright © 2018 Yoshihide Shiono",
     "directories": {
       "output": "dist",
