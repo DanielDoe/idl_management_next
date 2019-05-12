@@ -10,6 +10,7 @@ import Group from '@material-ui/icons/Group';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import LocationCity from '@material-ui/icons/LocationCity';
 import FileCopy from '@material-ui/icons/FileCopy';
+import Description from '@material-ui/icons/Description';
 import FolderOpen from '@material-ui/icons/FolderOpen';
 import DateRange from '@material-ui/icons/DateRange';
 import CollectionsBookmark from '@material-ui/icons/CollectionsBookmark';
@@ -92,9 +93,17 @@ export default class extends Component {
 				key: 2,
 				exact: true,
 				path: '/center_courses',
-				name: 'Courses',
+				name: 'Programmes',
 				component: Second,
 				icon: FileCopy,
+			},
+			{
+				key: 3,
+				exact: true,
+				path: '/center_script',
+				name: 'Scripts',
+				component: Second,
+				icon: Description,
 			},
 		],
 	};

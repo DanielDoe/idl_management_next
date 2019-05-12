@@ -1,0 +1,187 @@
+#script {
+    height: 95%;
+    width: 95%;
+    background:white;
+    /* border: 1px solid #dddddd; */
+    margin: 1rem auto;
+}
+
+/*=================================================================================================
+ = script list
+=================================================================================================*/
+#script .script-list {
+    width: calc(100% - 0rem);
+    /* width: 80%; */
+    height: 100%;
+    /* border-right: 1px solid #DDDDDD; */
+    padding: 1.25rem 2rem 0;
+}
+
+.script-list h2 {
+    padding-bottom: 0.5rem;
+}
+
+.script-list .table-container {
+    height: calc(100% - 2.6rem);
+    /* display: inline-block; */
+    width: 100%;
+    max-width: 67rem;
+    /* background-color: #FFFFFF; */
+    border-radius: 0.25rem;
+    border: 1px solid #DDDDDD;
+}
+
+.script-list .script-list-table {
+    border-radius: 0;
+    border-collapse: collapse;
+}
+
+.script-list-table thead th {
+    border-radius: 0;
+    /* background-color: #1976D2; */
+    /* color: black; */
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    padding: 1rem 0.45rem;
+    text-align: center;
+}
+
+.script-list-table tbody td {
+    padding: 0.75rem 0.45rem;
+    text-align: center;
+}
+
+.script-list-table tbody * {
+    font-family: 'Roboto-Regular', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+.script-list-table .ant-pagination.ant-table-pagination {
+    margin: 1rem 1rem 0;
+}
+
+.script-list-table .ant-pagination.ant-table-pagination .ant-pagination-item.ant-pagination-item-active {
+    /* background-color: #2196F3;
+    border-color: #2196F3; */
+}
+
+.script-list-table tbody tr td:last-of-type {
+    width: 10rem;
+}
+
+.script-list-table .action-column {
+    width: 100%;
+}
+
+.script-list-table .action-column button {
+    width: 4rem;
+    margin: 0 0.275rem;
+    height: 1.5rem;
+    border: 1px solid transparent;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.script-list-table .action-column button.delete {
+    border-color: #D32F2F;
+    color: #D32F2F;
+}
+
+.script-list-table .action-column button.edit {
+    border-color: #2196F3;
+    background-color: #2196F3;
+    color: #FFFFFF;
+    transition: 100ms;
+}
+
+.script-list-table .action-column button.edit:hover {
+    border-color: #1976D2;
+    background-color: #1976D2;
+}
+
+
+/*=================================================================================================
+ = New script
+=================================================================================================*/
+#script .new-script {
+    height: 100%;
+    width: 80%;
+    margin: 0rem auto;
+}
+
+.new-script h2 {
+    font-size: 1.25rem;
+    color: #666666;
+    text-align: center;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid #999999;
+    margin-bottom: 2rem;
+}
+
+.new-script label {
+    font-size: 0.9rem;
+    display: block;
+    color: #AAAAAA;
+    margin-bottom: 0.6rem;
+}
+
+.new-script .form-input {
+    width: 100%;
+    display: block;
+    height: 2.5rem;
+    padding: 0 0.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.25rem;
+    border: 2px solid #DDDDDD;
+    background-color: #FFFFFF;
+    transition: 80ms;
+}
+
+.new-script .form-input:focus {
+    border-color: #AAAAAA;
+}
+
+.new-script .form-input:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.new-script button {
+    display: block;
+    width: calc(100% - 2rem);
+    background-color: #2196F3;
+    height: 2.5rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 0.25rem;
+    color: #FFFFFF;
+    font-family: 'Roboto-Medium', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    margin: 0 1rem;
+    cursor: pointer;
+    transition: 100ms;
+}
+
+.new-script button:hover, .new-script button:focus {
+    background-color: #1976D2;
+}
+
+.new-script .cancel-button {
+    margin-top: 1rem;
+    border: 1px solid #2196F3;
+    background: transparent;
+    color: #2196F3;
+}
+
+.script-search-container {
+    float: right;
+    width: 100%;
+    text-align: center;
+}
+
+.filter-options {
+    margin-bottom: 1rem;
+}
+
+.ant-tabs:not(.ant-tabs-vertical)>.ant-tabs-content>.ant-tabs-tabpane #script {
+    height: 100%;
+}

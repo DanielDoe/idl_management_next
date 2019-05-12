@@ -29,6 +29,7 @@ import Teaching from '../teachingTimetable';
 import ExamTable from '../examTimetable';
 import Allocation from '../allocations';
 import CenterCourse from '../centerCourses/';
+import ExamPapers from '../scripts';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
@@ -95,7 +96,7 @@ const styles = theme => ({
 		alignItems: 'center',
 		justifyContent: 'flex-end',
 		padding: '0 8px',
-		...theme.mixins.toolbar
+		...theme.mixins.toolbar,
 	},
 	content: {
 		flexGrow: 1,
@@ -110,10 +111,50 @@ const styles = theme => ({
 });
 
 class Dashboard extends React.Component {
-	state = {
-		open: false,
-		dropdown: false,
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			open: false,
+			dropdown: false,
+			status: null,
+		};
+	}
+
+	renderRoutes = () => {
+		if (typeof window === 'undefined') {
+			return <div />;
+		}
+		const credentials = JSON.parse(localStorage.getItem('login'));
+		console.log('credentials: ', credentials);
+		if (!credentials || credentials.status !== 'admin') {
+			return <div />;
+		}
+		return (
+			<div>
+				<List>
+					{this.props.sub_routes.map((elem, index) => (
+						<ListItem
+							button
+							key={elem.key}
+							component={Link}
+							to={elem.path}
+							selected={elem.path === this.props.location.pathname}
+						>
+							<ListItemIcon>
+								<elem.icon />
+							</ListItemIcon>
+							<ListItemText primary={elem.name} />
+						</ListItem>
+					))}
+				</List>
+			</div>
+		);
 	};
+
+	componentDidMount() {
+		this.renderRoutes();
+	}
 
 	handleDrawerOpen = () => {
 		this.setState({ open: true });
@@ -149,6 +190,8 @@ class Dashboard extends React.Component {
 				return <Allocation />;
 			case '/center_courses':
 				return <CenterMgnt />;
+			case '/center_script':
+				return <ExamPapers />;
 			case '/users':
 				return <User />;
 		}
@@ -244,22 +287,7 @@ class Dashboard extends React.Component {
 						</Collapse>
 					</List>
 					<Divider />
-					<List>
-						{sub_routes.map((elem, index) => (
-							<ListItem
-								button
-								key={elem.key}
-								component={Link}
-								to={elem.path}
-								selected={elem.path === this.props.location.pathname}
-							>
-								<ListItemIcon>
-									<elem.icon />
-								</ListItemIcon>
-								<ListItemText primary={elem.name} />
-							</ListItem>
-						))}
-					</List>
+					{this.renderRoutes()}
 					{/* <img src={Logo} className="idl-logo"/> */}
 				</Drawer>
 				<main className={classes.content}>

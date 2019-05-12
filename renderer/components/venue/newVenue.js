@@ -117,9 +117,10 @@ class AddVenueForm extends React.Component {
 					help={VenueNameError || ''}
 				>
 					{getFieldDecorator('center', {
-						rules: [{ required: true, message: 'enter name!' }],
+						rules: [{ required: true, message: 'enter center!' }],
+						initialValue: (this.context.user.status !== 'admin') ? this.context.user.center : 'Accra'
 					})(
-						<Select placeholder="eg. Accra" style={{ width: '100%' }}>
+						<Select placeholder="eg. Accra" style={{ width: '100%' }} disabled={(this.context.user.status !== 'admin')? true : false}>
 							{this.renderCenterData()}
 						</Select>
 					)}

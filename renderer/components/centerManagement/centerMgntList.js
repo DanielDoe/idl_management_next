@@ -59,7 +59,13 @@ export default props => {
 			<div>
 				<Row>
 					<Col span={8}>
-						<Select placeholder="e.g. Accra" style={{ width: "90%" }} onChange={e => handleChange(e)}>
+						<Select
+							value={context.user.status !== 'admin' ? context.user.center : 'Accra'}
+							disabled={context.user.status !== 'admin' ? true : false}
+							// placeholder="e.g. Accra"
+							style={{ width: '90%' }}
+							onChange={e => handleChange(e)}
+						>
 							<Option value="jack">Jack</Option>
 							<Option value="lucy">Lucy</Option>
 							<Option value="disabled" disabled>
@@ -69,7 +75,11 @@ export default props => {
 						</Select>
 					</Col>
 					<Col span={8}>
-						<Select placeholder="e.g Computer Engineering" style={{ width: "90%" }} onChange={e => handleChange(e)}>
+						<Select
+							placeholder="e.g Computer Engineering"
+							style={{ width: '90%' }}
+							onChange={e => handleChange(e)}
+						>
 							<Option value="jack">Jack</Option>
 							<Option value="lucy">Lucy</Option>
 							<Option value="disabled" disabled>
