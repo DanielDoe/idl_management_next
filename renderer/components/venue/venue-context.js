@@ -2,6 +2,7 @@ import React from "react";
 
 export default React.createContext({
   // get request to the db for available venues
+  user: [],
   venues: [
     {
       center: "Accra",

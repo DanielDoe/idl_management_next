@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default (dbStore = {
+export const dbStore = {
 	centers: [
 		{
 			name: 'Accra',
@@ -482,4 +482,4 @@ export default (dbStore = {
 			],
 		},
 	],
-});
+};

@@ -111,50 +111,50 @@ const styles = theme => ({
 });
 
 class Dashboard extends React.Component {
-  constructor(props) {
-    super(props)
-  
-    this.state = {
-      open: false,
-      dropdown: false,
-      status: null
-    }
+	constructor(props) {
+		super(props);
 
-  }
-  
-  renderRoutes = () => {
-    const credentials = JSON.parse(localStorage.getItem('login'))
-    console.log('credentials: ', credentials.status);
-    if (credentials.status == 'admin') {
-      return(
-        <div>
-          <List>
-						{this.props.sub_routes.map((elem, index) => (
-							<ListItem
-								button
-								key={elem.key}
-								component={Link}
-								to={elem.path}
-								selected={elem.path === this.props.location.pathname}
-							>
-								<ListItemIcon>
-									<elem.icon />
-								</ListItemIcon>
-								<ListItemText primary={elem.name} />
-							</ListItem>
-						))}
-					</List>
-        </div>
-      )
-    } else {
-      return <div />
-    }
-  }
+		this.state = {
+			open: false,
+			dropdown: false,
+			status: null,
+		};
+	}
 
-  componentDidMount() {
-    this.renderRoutes()
-  }
-  
+	renderRoutes = () => {
+		if (typeof window === 'undefined') {
+			return <div />;
+		}
+		const credentials = JSON.parse(localStorage.getItem('login'));
+		console.log('credentials: ', credentials);
+		if (!credentials || credentials.status !== 'admin') {
+			return <div />;
+		}
+		return (
+			<div>
+				<List>
+					{this.props.sub_routes.map((elem, index) => (
+						<ListItem
+							button
+							key={elem.key}
+							component={Link}
+							to={elem.path}
+							selected={elem.path === this.props.location.pathname}
+						>
+							<ListItemIcon>
+								<elem.icon />
+							</ListItemIcon>
+							<ListItemText primary={elem.name} />
+						</ListItem>
+					))}
+				</List>
+			</div>
+		);
+	};
+
+	componentDidMount() {
+		this.renderRoutes();
+	}
 
 	handleDrawerOpen = () => {
 		this.setState({ open: true });
@@ -166,12 +166,7 @@ class Dashboard extends React.Component {
 
 	handleClick = () => {
 		this.setState(state => ({ dropdown: !state.dropdown }));
-  };
-  
-  // componentWillMount() {
-  //   console.log(localStorage.getItem('login'))
-  // }
-  
+	};
 
 	renderContent() {
 		switch (this.props.location.pathname) {

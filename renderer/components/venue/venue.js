@@ -25,6 +25,7 @@ export default () => {
 	]);
 	const [editMode, seteditMode] = useState(false);
 	const [fieldData, setfieldData] = useState([]);
+	const [user, setuser] = useState(JSON.parse(localStorage.getItem('login')))
 
 	const [centers, setCenters] = useState(
 		// get request to the db for available venues
@@ -76,6 +77,7 @@ export default () => {
 		<VenueContext.Provider
 			value={{
 				venues: venues,
+				user: user,
 				centers: centers,
 				addVenueElements: addVenueElements,
 				removeVenueElements: removeVenueElements,

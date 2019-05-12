@@ -3,10 +3,12 @@ import { Row, Col } from 'antd';
 import CenterMgntContext from './centerMgnt-context';
 import { AddCenterMgnt } from './newCenterMgnt';
 import CenterMgntList from './centerMgntList';
+import { dbStore } from '../_shared/initialStoreState';
 import './centerMgnt.css';
 
 export default () => {
 	const [centerMgnts, setCenterMgnts] = useState([
+		//make a db call for the already allocated programmes
 		{
 			name: 'Computer Engineering',
 			code: 'COE',
@@ -34,14 +36,18 @@ export default () => {
 	]);
 	const [editMode, seteditMode] = useState(false);
 	const [fieldData, setfieldData] = useState([]);
-
+	const [centers, setCenters] = useState(
+		// get request to the db for available venues
+		dbStore.centers
+	);
+	const user = typeof window === 'undefined' ? {} : JSON.parse(localStorage.getItem('login'));
 	const addCenterMgntElements = centerMgnt => {
 		let newValues = [...venues, centerMgnt];
 		console.log('Venues: ', newValues);
 		setCenterMgnts(newValues);
 		// console.log("Adding CenterMgnts", CenterMgnt);
 	};
-
+	
 	const removeCenterMgntElements = centerMgnt => {
 		console.log('Removing CenterMgnts', centerMgnt);
 	};
@@ -67,6 +73,8 @@ export default () => {
 		<CenterMgntContext.Provider
 			value={{
 				centerMgnts: centerMgnts,
+				user: user,
+				centers: centers,
 				addCenterMgntElements: addCenterMgntElements,
 				removeCenterMgntElements: removeCenterMgntElements,
 				updateCenterMgntElements: updateCenterMgntElements,
