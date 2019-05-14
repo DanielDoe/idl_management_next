@@ -1,4 +1,6 @@
+import { resolve as resolvePath } from 'path';
 import React, { useState, useEffect, useContext } from 'react';
+import { remote, ipcRenderer } from 'electron';
 import BigCalendar from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import moment from 'moment';
@@ -6,6 +8,10 @@ import { Select, Modal, Row, Col, Button } from 'antd';
 import swal from 'sweetalert';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.less';
+
+import TableGenerator from '../../helpers/TableGenerator';
+import testData from './testData';
+import PdfGenerator from '../../helpers/PdfGenerator';
 
 const DragAndDropCalendar = withDragAndDrop(BigCalendar);
 const localizer = BigCalendar.momentLocalizer(moment);
@@ -89,7 +95,7 @@ export default props => {
 			text: 'Once deleted, you will not be able to recover this schedule allocation!',
 			icon: 'warning',
 			buttons: true,
-			dangerMode: true,
+			dangerMode: true
 		}).then(willDelete => {
 			if (willDelete) {
 				// swal("Poof! Your imaginary file has been deleted!", {
@@ -102,6 +108,34 @@ export default props => {
 			// }
 		});
 		setEvents(newEvents);
+	};
+
+	const handleClick = event => {
+		const currWindow = remote.getCurrentWindow();
+		const defaultPath = resolvePath(remote.app.getPath('documents'), 'timetable.pdf');
+		const options = {
+			title: 'Save timetable',
+			defaultPath,
+			filters: [{ name: 'PDF Files', extensions: ['pdf'] }]
+		};
+
+		// Retrieve the save path
+		const filename = remote.dialog.showSaveDialog(currWindow, options);
+		const tableGenerator = new TableGenerator(testData);
+		const html = tableGenerator.render();
+
+		// Save to the PDF point
+		const pdfGenerator = new PdfGenerator(filename, html);
+		pdfGenerator
+			.writeToFile()
+			.then(file => {
+				ipcRenderer.send('print-timetable', { file, save: filename });
+			})
+			.catch(error => console.error(error));
+		// pdfGenerator
+		// 	.savePdf()
+		// 	.then(() => console.log('Saved to PDF'))
+		// 	.catch(error => console.error(error));
 	};
 
 	return (
@@ -218,7 +252,7 @@ export default props => {
 						</Button>
 					</Col>
 					<Col span={4}>
-						<Button type="primary" icon="printer" style={{ width: '100%' }}>
+						<Button type="primary" icon="printer" style={{ width: '100%' }} onClick={handleClick}>
 							Print
 						</Button>
 					</Col>
