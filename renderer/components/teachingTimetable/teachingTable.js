@@ -16,7 +16,6 @@ import PdfGenerator from '../../helpers/PdfGenerator';
 const DragAndDropCalendar = withDragAndDrop(BigCalendar);
 const localizer = BigCalendar.momentLocalizer(moment);
 const Option = Select.Option;
-
 export default props => {
 	const [events, setEvents] = useState([]);
 	const [visible, setvisible] = useState(false);
@@ -59,6 +58,7 @@ export default props => {
 
 	const handleSelect = e => {
 		setvisible(true);
+		// update the events state
 		setUpdateEvent(e);
 	};
 
@@ -86,6 +86,7 @@ export default props => {
 		setEvents(nextEvents);
 	};
 
+	// delete event
 	const onSelectEvent = pEvent => {
 		const newEvents = events;
 		const idx = events.indexOf(pEvent);
@@ -110,6 +111,7 @@ export default props => {
 		setEvents(newEvents);
 	};
 
+	// PRINT EVENT
 	const handleClick = event => {
 		const currWindow = remote.getCurrentWindow();
 		const defaultPath = resolvePath(remote.app.getPath('documents'), 'timetable.pdf');
@@ -121,7 +123,7 @@ export default props => {
 
 		// Retrieve the save path
 		const filename = remote.dialog.showSaveDialog(currWindow, options);
-		const tableGenerator = new TableGenerator(testData);
+		const tableGenerator = new TableGenerator(events);
 		const html = tableGenerator.render();
 
 		// Save to the PDF point

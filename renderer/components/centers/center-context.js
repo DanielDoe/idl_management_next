@@ -1,23 +1,9 @@
 import React from 'react';
+import { dbStore } from '../_shared/initialStoreState';
 
 export default React.createContext({
-	centers: [
-		{
-			name: 'Accra',
-			code: 'ACC',
-			blocks: 3,
-		},
-		{
-			name: 'Volta',
-			code: 'VR',
-			blocks: 3,
-		},
-		{
-			name: 'Kumasi',
-			code: 'KMA',
-			blocks: 3,
-		},
-	],
+	// make get request to get centers
+	centers: dbStore.centers,
 	addCenterElements: center => {},
 	removeCenterElements: center => {},
 	updateCenterElements: center => {},
