@@ -29,7 +29,28 @@ app.on('ready', () => {
 });
 
 ipcMain.on('print-timetable', (_, arg) => {
-	// TODO: Functionality to print the PdF
+	let child = new BrowserWindow({ show: false });
+	console.log(`file://${arg.file}`);
+	child.loadURL(`file:///C:/Users/alexa/AppData/Local/Temp/timetable.html`);
+
+	child.on('ready-to-show', () => {
+		child.webContents.printToPDF(
+			{ marginsType: 1, printBackground: true, printSelectionOnly: false, landscape: true },
+			(err, data) => {
+				if (err) {
+					console.error(err);
+				}
+
+				writeFile(arg.save, data, error => {
+					if (error) {
+						console.error(error);
+					}
+					console.log('PDF written');
+					child.close();
+				});
+			}
+		);
+	});
 });
 
 app.on('window-all-closed', () => {
