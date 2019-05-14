@@ -30,8 +30,7 @@ app.on('ready', () => {
 
 ipcMain.on('print-timetable', (_, arg) => {
 	let child = new BrowserWindow({ show: false });
-	console.log(`file://${arg.file}`);
-	child.loadURL(`file:///C:/Users/alexa/AppData/Local/Temp/timetable.html`);
+	child.loadURL(`file:///${arg.file}`);
 
 	child.on('ready-to-show', () => {
 		child.webContents.printToPDF(
