@@ -1,8 +1,11 @@
-import React from 'react';
-import Dashboard from '../components/dashboard'
+import React from "react";
+import Dashboard from "../components/dashboard";
+import ReactNoSSR from "react-no-ssr";
 
 export default () => (
-    <React.Fragment>
-        <Dashboard />
-    </React.Fragment>
-)
+  <React.Fragment>
+    <ReactNoSSR>
+      <Dashboard />
+    </ReactNoSSR>
+  </React.Fragment>
+);
