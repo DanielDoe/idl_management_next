@@ -54,6 +54,7 @@ export default () => {
 	};
 
 	const onValueEditted = value => {
+		console.log(value)
 		seteditMode(true);
 		setfieldData(value);
 	};

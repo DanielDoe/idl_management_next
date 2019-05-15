@@ -35,7 +35,7 @@ export default props => {
 		{ title: 'Programme name', dataIndex: 'name', key: 'name' },
 		{ title: 'Code', dataIndex: 'code', key: 'code' },
 		{ title: 'Year', dataIndex: 'year', key: 'year' },
-		{ title: 'Capacity', dataIndex: 'capacity', key: 'capacity' },
+		// { title: 'Capacity', dataIndex: 'capacity', key: 'capacity' },
 		{
 			title: ' ',
 			render: (text, record) => (

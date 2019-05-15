@@ -54,12 +54,12 @@ export default class CenterList extends React.Component{
                         <div className="action-column grid">
                             <button
                                 className="edit column"
-                                onClick={() => this.props.onEditClicked(record)}>
+                                onClick={() => this.props.onCenterEditted(record)}>
                                 Edit
                             </button>
                             <button
                                 className="delete column"
-                                onClick={() => this.props.onDeleteClicked(record)}>
+                                onClick={() => this.context.removeCenterElements(record)}>
                                 Delete
                             </button>
                         </div>

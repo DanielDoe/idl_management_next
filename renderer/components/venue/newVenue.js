@@ -19,7 +19,7 @@ class AddVenueForm extends React.Component {
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				if (this.props.editMode === false) {
-					// this.context.addVenueElements(values);
+					this.context.addVenueElements(values);
 					console.log('Added received values of form: ', values);
 					this.handleReset();
 					// this.props.onCancel()

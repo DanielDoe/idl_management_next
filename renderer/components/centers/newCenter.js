@@ -11,18 +11,48 @@ class AddCentersForm extends React.Component {
 	handleSubmit = e => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
-			if (!err) {
+			if (this.props.editMode === false) {
 				this.context.addCenterElements(values);
-				console.log('Received values of form: ', values);
+				console.log('Added received values of form: ', values);
+				this.handleReset();
+				// this.props.onCancel()
+			} else {
+				// this.context.updateVenueElements(values);
+				console.log('Updated received values of form: ', values);
+				this.handleReset();
+				this.props.onCancel();
 			}
 		});
 	};
+
+	// reset form data when submitted
+	handleReset = () => {
+		this.props.form.resetFields();
+		this.setState({ counter: 1 });
+	};
+
+	renderCancel() {
+		return this.props.editMode === false ? null : (
+			<button
+				type="button"
+				style={{ margin: '0px auto', width: '100%' }}
+				onClick={() => {
+					this.props.onCancel();
+					this.handleReset();
+				}}
+			>
+				Cancel
+			</button>
+		);
+	}
 
 	hasErrors(fieldsError) {
 		return Object.keys(fieldsError).some(field => fieldsError[field]);
 	}
 
 	render() {
+		const header = this.props.editMode ? 'Edit' : 'New';
+		const buttonText = this.props.editMode ? 'Edit' : 'Add';
 		const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, getFieldValue } = this.props.form;
 		const centerNameError = isFieldTouched('name') && getFieldError('name');
 		const centerCodeError = isFieldTouched('code') && getFieldError('code');
@@ -36,7 +66,7 @@ class AddCentersForm extends React.Component {
 
 		return (
 			<Form onSubmit={this.handleSubmit} className="column new-center">
-				<h2>Add center </h2>
+				<h2>{header} Center </h2>
 				<label htmlFor="new-center-std-cap">Center name</label>
 				<FormItem
 					// style={{textAlign: '-webkit-center'}}
@@ -112,9 +142,10 @@ class AddCentersForm extends React.Component {
 						htmlType="submit"
 						disabled={this.hasErrors(getFieldsError()) && isEmpty}
 					>
-						Add center
+					{buttonText + ' center'} 
 					</Button>
 				</FormItem>
+				{this.renderCancel()}
 			</Form>
 		);
 	}

@@ -4,9 +4,9 @@ import UserContext from './user-context';
 
 const Search = Input.Search;
 
-export default () => {
+export default props => {
 	const [context, setContext] = useState(useContext(UserContext));
-    
+
 	useEffect(() => {
 		console.log(context);
 	}, [context]);
@@ -16,7 +16,7 @@ export default () => {
 	// 	const newData = this.props.dataSource.filter(s => s.session_counr.search(value) !== -1);
 	// 	this.setState({ dataSource: newData });
 	// };
-	const dataSource = context.users.map((elem, id) => {
+	const dataSource = props.users.map((elem, id) => {
 		return {
 			...elem,
 			key: id,
@@ -27,7 +27,7 @@ export default () => {
 	const columns = [
 		{ title: 'SN', dataIndex: 'sn', key: 'sn' },
 		{ title: 'Email', dataIndex: 'email', key: 'email' },
-		{ title: 'Password', dataIndex: 'password', key: 'password' },
+		// { title: 'Password', dataIndex: 'password', key: 'password' },
 		{ title: 'Center', dataIndex: 'center', key: 'center' },
 		{ title: 'Status', dataIndex: 'status', key: 'status' },
 		{
