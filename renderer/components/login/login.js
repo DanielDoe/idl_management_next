@@ -25,8 +25,7 @@ class LoginForm extends React.Component {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
-				// console.log('Received values of form: ', values);
-        //store.set('login', { email: values.email, password: values.password, remember: values.remember });
+				// console.log('Received values of form: ', values)
         
 				// const config = {
 				// 	headers: { 'Access-Control-Allow-Origin': '*' },
