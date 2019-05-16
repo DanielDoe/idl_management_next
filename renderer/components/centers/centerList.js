@@ -34,7 +34,7 @@ export default class CenterList extends React.Component{
     }
 
     render(){
-        const dataSource = this.context.centers.map((elem, id) => {
+        const dataSource = this.props.centers.map((elem, id) => {
             return {
                 ...elem,
                 key: id,
@@ -46,8 +46,9 @@ export default class CenterList extends React.Component{
 
         const columns = [
                 { title: 'SN', dataIndex: 'sn', key: 'sn' },
-                { title: 'Center', dataIndex: 'name', key: 'name' },
-                { title: 'Code', dataIndex: 'code', key: 'code' },
+                { title: 'Center', dataIndex: 'center_name', key: 'center_name' },
+                { title: 'Code', dataIndex: 'center_code', key: 'center_code' },
+                { title: 'Blocks', dataIndex: 'center_block', key: 'center_block' },
                 {
                     title: ' ',
                     render: (text, record) => (

@@ -25,52 +25,47 @@ class LoginForm extends React.Component {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
-				// console.log('Received values of form: ', values)
-        
-				// const config = {
-				// 	headers: { 'Access-Control-Allow-Origin': '*' },
-				// };
-				// axios
-				// 	.post('http://10.30.3.17:5000/userlogin', {
-				// 		email: values.email,
-				// 		password: values.password,
-				// 	})
-				// 	.then(function(response) {
-				// 		console.log(response);
-				// 		if (response.data.Statuscode == '200') {
-				// 			// console.log("Login unsuccessful..!")
-				// 			swal({
-				// 				title: 'Good job!',
-				// 				text: 'You are logged in sucessfully!',
-				// 				icon: 'success',
-				// 				button: false,
-        //       });
-        //       credentials = {
-        //         ...response.data,
-        //         email: values.email,
-        //         password: values.password,
-        //         remember: values.remember
-        //       }
-				// 			localStorage.setItem('login', JSON.stringify(credentials));
-				// 			// console.log('tokenObtained: ', JSON.parse(localStorage.getItem('credentials')));
-				// 			 Router.push('/dashboard');
-				// 		} else {
-				// 			console.log('Login unsuccessful..!');
-				// 			swal({
-				// 				title: 'Sorry!',
-				// 				text:
-				// 					'We encountered an error logging you in please check your details or internet connection!',
-				// 				icon: 'error',
-				// 				button: false,
-				// 			});
-				// 		}
-				// 	})
-				// 	.catch(function(error) {
-				// 		console.log(error);
-				// 	});
-				localStorage.setItem('login', JSON.stringify({ ...values, auth_status: 'admin', center: 'Accra', tokenObtained: 'admin' }));
+				axios
+					.post('http://10.30.3.17:5000/userlogin', {
+						email: values.email,
+						password: values.password,
+					})
+					.then(function(response) {
+						console.log(response);
+						if (response.data.Statuscode == '200') {
+							// console.log("Login unsuccessful..!")
+							swal({
+								title: 'Good job!',
+								text: 'You are logged in sucessfully!',
+								icon: 'success',
+								button: false,
+              });
+              credentials = {
+                ...response.data,
+                email: values.email,
+                password: values.password,
+                remember: values.remember
+              }
+							localStorage.setItem('login', JSON.stringify(credentials));
+							// console.log('tokenObtained: ', JSON.parse(localStorage.getItem('credentials')));
+							 Router.push('/dashboard');
+						} else {
+							console.log('Login unsuccessful..!');
+							swal({
+								title: 'Sorry!',
+								text:
+									'We encountered an error logging you in please check your details or internet connection!',
+								icon: 'error',
+								button: false,
+							});
+						}
+					})
+					.catch(function(error) {
+						console.log(error);
+					});
+				// localStorage.setItem('login', JSON.stringify({ ...values, auth_status: 'admin', center: 'Accra', tokenObtained: 'admin' }));
 
-				Router.push('/dashboard');
+				// Router.push('/dashboard');
 			}
 		});
 	};

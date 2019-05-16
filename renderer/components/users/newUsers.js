@@ -6,26 +6,86 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 class AddUserForm extends React.Component {
 	static contextType = UserContext;
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			counter: 1,
+		};
+
+		// this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
 
 	handleSubmit = e => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
-				this.context.addUserElements(values);
-				// console.log('Received values of form: ', values);
+				if (this.props.editMode === false) {
+					this.context.addUserElements(values);
+					// console.log('Added received values of form: ', values);
+					this.handleReset();
+					// this.props.onCancel()
+				} else {
+					this.context.updateUserElements(values);
+					// console.log('Updated received values of form: ', values);
+					this.handleReset();
+					this.props.onCancel();
+				}
 			}
 		});
-	};
+  };
+  
+  componentDidMount() {
+		// To disabled submit button at the beginning and checks validations.
+		this.props.form.validateFields();
+	}
 
 	hasErrors(fieldsError) {
 		return Object.keys(fieldsError).some(field => fieldsError[field]);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (Object.keys(nextProps.fieldData).length !== 0 && nextProps.editMode === true && this.state.counter > 0) {
+			this.props.form.setFieldsValue({
+				email: nextProps.fieldData.email,
+				full_name: nextProps.fieldData.full_name,
+				status: nextProps.fieldData.status,
+				center: nextProps.fieldData.center,
+				phone: nextProps.fieldData.phone,
+			});
+			this.setState({ counter: -1 });
+		}
+	}
+	// reset form data when submitted
+	handleReset = () => {
+		this.props.form.resetFields();
+		this.setState({ counter: 1 });
+	};
+
+	renderCancel() {
+		return this.props.editMode === false ? null : (
+			<button
+				type="button"
+				style={{ margin: '0px auto', width: '100%' }}
+				onClick={() => {
+					this.props.onCancel();
+					this.handleReset();
+				}}
+			>
+				Cancel
+			</button>
+		);
+	}
+
 	render() {
+		const header = this.props.editMode ? 'Edit' : 'New';
+		const buttonText = this.props.editMode ? 'Edit' : 'Add';
 		const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, getFieldValue } = this.props.form;
 		const UseEmailError = isFieldTouched('email') && getFieldError('email');
 		const UseFullNameError = isFieldTouched('full_name') && getFieldError('full_name');
 		const UseStatusError = isFieldTouched('status') && getFieldError('status');
+		const UseCenterError = isFieldTouched('center') && getFieldError('center');
 		const UserPhoneError = isFieldTouched('phone') && getFieldError('phone');
 		// const othersError = getFieldError('otherSize');
 
@@ -33,12 +93,13 @@ class AddUserForm extends React.Component {
 		const UseFullName = getFieldValue('full_name');
 		const UseStatus = getFieldValue('status');
 		const UserPhone = getFieldValue('phone');
+		const UserCenter = getFieldValue('center');
 
-		const isEmpty = !UseEmail || !UseFullName || !UseStatus || !UserPhone;
+		const isEmpty = !UseEmail || !UseFullName || !UseStatus || !UserPhone || !UserCenter;
 
 		return (
 			<Form onSubmit={this.handleSubmit} className="column new-user">
-				<h2>Add User </h2>
+				<h2>{header} User </h2>
 				<label htmlFor="new-user-name">Full name</label>
 				<FormItem
 					// style={{textAlign: '-webkit-User'}}
@@ -66,6 +127,23 @@ class AddUserForm extends React.Component {
 					{getFieldDecorator('email', {
 						rules: [{ required: true, message: 'enter email!', type: 'email' }],
 					})(<Input style={{ width: '100%' }} placeholder="e.g. a@gmail.com" />)}
+				</FormItem>
+				<label htmlFor="new-user-name">Center</label>
+				<FormItem
+					style={{ textAlign: '-webkit-User' }}
+					hasFeedback
+					// label="Username"
+					validateStatus={UseCenterError ? 'error' : ''}
+					help={UseCenterError || ''}
+				>
+					{getFieldDecorator('center', {
+						rules: [{ required: true, message: 'enter center!' }],
+					})(
+						<Select placeholder="eg. admin" style={{ width: '100%' }}>
+							<Option value="admin">admin</Option>
+							<Option value="user">user</Option>
+						</Select>
+					)}
 				</FormItem>
 				<label htmlFor="new-user-name">Status</label>
 				<FormItem
@@ -99,25 +177,21 @@ class AddUserForm extends React.Component {
 								message: 'name phone number!',
 							},
 						],
-					})(
-						<InputNumber
-							style={{ width: '100%', marginRight: '0.5rem' }}
-							placeholder="e.g. 0248666763"
-						/>
-					)}
+					})(<InputNumber style={{ width: '100%', marginRight: '0.5rem' }} placeholder="e.g. 0248666763" />)}
 				</FormItem>
 				<FormItem>
 					<Button
 						type="primary"
 						size={'large'}
 						// className=""
-						style={{ margin: '20px auto', width: '100%', backgroundColor: '' }}
+						style={{ margin: '10px auto', width: '100%', backgroundColor: '' }}
 						htmlType="submit"
 						disabled={this.hasErrors(getFieldsError()) || isEmpty}
 					>
-						Add User
+						{buttonText + ' user'}
 					</Button>
 				</FormItem>
+				{this.renderCancel()}
 			</Form>
 		);
 	}

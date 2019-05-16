@@ -126,7 +126,7 @@ class Dashboard extends React.Component {
 			return <div />;
 		}
 		const credentials = JSON.parse(localStorage.getItem('login'));
-		console.log('credentials: ', credentials);
+		// console.log('credentials: ', credentials);
 		if (!credentials || credentials.auth_status !== 'admin') {
 			return <div />;
 		}

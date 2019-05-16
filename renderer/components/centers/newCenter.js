@@ -50,17 +50,28 @@ class AddCentersForm extends React.Component {
 		return Object.keys(fieldsError).some(field => fieldsError[field]);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (Object.keys(nextProps.fieldData).length !== 0 && nextProps.editMode === true && this.state.counter > 0) {
+			this.props.form.setFieldsValue({
+				center_name: nextProps.fieldData.center_name,
+				center_code: nextProps.fieldData.center_code,
+				center_block: nextProps.fieldData.center_block
+			});
+			this.setState({ counter: -1 });
+		}
+	}
+
 	render() {
 		const header = this.props.editMode ? 'Edit' : 'New';
 		const buttonText = this.props.editMode ? 'Edit' : 'Add';
 		const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, getFieldValue } = this.props.form;
-		const centerNameError = isFieldTouched('name') && getFieldError('name');
-		const centerCodeError = isFieldTouched('code') && getFieldError('code');
-		const centerBlockError = isFieldTouched('block') && getFieldError('block');
+		const centerNameError = isFieldTouched('center_name') && getFieldError('center_name');
+		const centerCodeError = isFieldTouched('center_code') && getFieldError('center_code');
+		const centerBlockError = isFieldTouched('center_block') && getFieldError('center_block');
 
-		const centerName = getFieldValue('name');
-		const centerCode = getFieldValue('code');
-		const centerBlock = getFieldValue('block');
+		const centerName = getFieldValue('center_name');
+		const centerCode = getFieldValue('center_code');
+		const centerBlock = getFieldValue('center_block');
 
 		const isEmpty = !centerName || !centerCode || !centerBlock;
 
@@ -74,7 +85,7 @@ class AddCentersForm extends React.Component {
 					validateStatus={centerNameError ? 'error' : ''}
 					help={centerNameError || ''}
 				>
-					{getFieldDecorator('name', {
+					{getFieldDecorator('center_name', {
 						rules: [
 							{
 								required: true,
@@ -97,7 +108,7 @@ class AddCentersForm extends React.Component {
 					validateStatus={centerCodeError ? 'error' : ''}
 					help={centerCodeError || ''}
 				>
-					{getFieldDecorator('code', {
+					{getFieldDecorator('center_code', {
 						rules: [
 							{
 								required: true,
@@ -121,7 +132,7 @@ class AddCentersForm extends React.Component {
 					validateStatus={centerBlockError ? 'error' : ''}
 					help={centerBlockError || ''}
 				>
-					{getFieldDecorator('block', {
+					{getFieldDecorator('center_block', {
 						rules: [{ required: true, message: 'enter block!' }],
 					})(
 						<InputNumber

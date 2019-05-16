@@ -5,7 +5,7 @@ import UserContext from './user-context';
 const Search = Input.Search;
 
 export default props => {
-	const [context, setContext] = useState(useContext(UserContext));
+	const context = useContext(UserContext);
 
 	useEffect(() => {
 		console.log(context);
@@ -16,6 +16,7 @@ export default props => {
 	// 	const newData = this.props.dataSource.filter(s => s.session_counr.search(value) !== -1);
 	// 	this.setState({ dataSource: newData });
 	// };
+
 	const dataSource = props.users.map((elem, id) => {
 		return {
 			...elem,
@@ -23,6 +24,9 @@ export default props => {
 			sn: id + 1,
 		};
 	});
+
+	console.log(dataSource);
+	// props.onEditClicked
 
 	const columns = [
 		{ title: 'SN', dataIndex: 'sn', key: 'sn' },
@@ -34,10 +38,10 @@ export default props => {
 			title: ' ',
 			render: (text, record) => (
 				<div className="action-column grid">
-					<button className="edit column" onClick={() => this.props.onEditClicked(record)}>
+					<button className="edit column" onClick={() => props.onValueEditted(record)}>
 						Edit
 					</button>
-					<button className="delete column" onClick={() => context.removeUserElements(record)}>
+					<button className="delete column" onClick={() => props.onValueRemoved(record)}>
 						Delete
 					</button>
 				</div>
