@@ -42,7 +42,7 @@ class AddVenueForm extends React.Component {
 		if (Object.keys(nextProps.fieldData).length !== 0 && nextProps.editMode === true && this.state.counter > 0) {
 			this.props.form.setFieldsValue({
 				center: nextProps.fieldData.center,
-				name: nextProps.fieldData.name,
+				venue_name: nextProps.fieldData.venue_name,
 				capacity: nextProps.fieldData.capacity,
 			});
 			this.setState({ counter: -1 });
@@ -93,13 +93,13 @@ class AddVenueForm extends React.Component {
 		const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, getFieldValue } = this.props.form;
 
 		const VenueCodeError = isFieldTouched('center') && getFieldError('center');
-		const VenueNameError = isFieldTouched('name') && getFieldError('name');
+		const VenueNameError = isFieldTouched('venue_name') && getFieldError('venue_name');
 		// const VenueYearError = isFieldTouched("year") && getFieldError("year");
 		const VenueCapacityError = isFieldTouched('capacity') && getFieldError('capacity');
 		// const othersError = getFieldError('otherSize');
 
 		const VenueCode = getFieldValue('center');
-		const VenueName = getFieldValue('name');
+		const VenueName = getFieldValue('venue_name');
 		// const VenueYear = getFieldValue("year");
 		const VenueCapacity = getFieldValue('capacity');
 
@@ -132,7 +132,7 @@ class AddVenueForm extends React.Component {
 					validateStatus={VenueCodeError ? 'error' : ''}
 					help={VenueCodeError || ''}
 				>
-					{getFieldDecorator('name', {
+					{getFieldDecorator('venue_name', {
 						rules: [
 							{
 								required: true,

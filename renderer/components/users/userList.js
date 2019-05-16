@@ -37,7 +37,7 @@ export default props => {
 					<button className="edit column" onClick={() => this.props.onEditClicked(record)}>
 						Edit
 					</button>
-					<button className="delete column" onClick={() => this.props.onDeleteClicked(record)}>
+					<button className="delete column" onClick={() => context.removeUserElements(record)}>
 						Delete
 					</button>
 				</div>
