@@ -17,8 +17,8 @@ class AddCentersForm extends React.Component {
 				this.handleReset();
 				// this.props.onCancel()
 			} else {
-				// this.context.updateVenueElements(values);
-				console.log('Updated received values of form: ', values);
+				this.context.updateCenterElements(values);
+				// console.log('Updated received values of form: ', values);
 				this.handleReset();
 				this.props.onCancel();
 			}

@@ -5,6 +5,7 @@ import { AddCenters } from './newCenter';
 import CenterList from './centerList';
 import { getData, manageCenters } from '../_shared//axiosCalls';
 import './center.css';
+import { element } from 'prop-types';
 
 export default () => {
 	const [centers, setCenters] = useState([]);
@@ -20,23 +21,22 @@ export default () => {
 
 	const addCenterElements = center => {
 		console.log('Adding centers', center);
-		manageCenters({ ...center, url: routeURL, headers, type: 'post' });
+		// manageCenters({ ...center, url: routeURL, headers, type: 'post' });
 		setCenters([...centers, center]);
 	};
 
 	const removeCenterElements = center => {
 		console.log('Removing centers', center, 'centers: ', centers);
-		const newCenters = centers;
-		const idx = newCenters.indexOf(center);
-		// call manage centers here!!!
-		console.log('id: ', idx, 'newCenter: ', newCenters);
-		// manageCenters({ ...center, url: routeURL, headers, type: 'delete' });
-		newCenters.splice(idx, 1)
+		const newCenters = centers.filter(element => element.center_name !== center.center_name);
 		setCenters(newCenters);
 	};
 
 	const updateCenterElements = center => {
-		console.log('Updating centers', center);
+		// console.log('Updating centers', center);
+		const newstate = centers.map(element => ((element.center_name === center.center_name) ? center : element));
+		// const newCenters = centers.filter(element => element.center_name !== center.center_name);
+		setCenters()
+		// console.log('new centers: ', newCenters, "new state: ", newstate)
 	};
 
 	const onCenterEditted = center => {
@@ -49,10 +49,10 @@ export default () => {
 	};
 
 	useEffect(() => {
-		getData({ url: routeURL, headers }).then(data => {
-			data.centers.length !== 0 ? setCenters(data.centers) : setCenters([]);
-			console.log(data);
-		});
+		// getData({ url: routeURL, headers }).then(data => {
+		// 	data.centers.length !== 0 ? setCenters(data.centers) : setCenters([]);
+		// 	console.log(data);
+		// });
 	}, []);
 
 	return (

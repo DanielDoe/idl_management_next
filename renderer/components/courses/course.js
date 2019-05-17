@@ -32,10 +32,18 @@ export default () => {
 	const [fieldData, setfieldData] = useState([]);
 
 	const addCourseElements = course => {
+		// add new course
+		setCourses([...courses, course])
 		console.log('Adding courses', course);
 	};
 
 	const removeCourseElements = course => {
+		const newState = courses.filter(
+      element =>
+        element.course_name !== course.course_name &&
+        element.course_code !== course.course_code
+    );
+    setProgrammes(newState);
 		console.log('Removing courses', course);
 	};
 
@@ -70,8 +78,8 @@ export default () => {
 			const newname = element[1];
 			// console.log(element);
 			addCourseElements({
-				code: element[0],
-				name: element[1]
+				course_code: element[0],
+				course_name: element[1]
 			})
           });
       }

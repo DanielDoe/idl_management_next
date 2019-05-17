@@ -47,7 +47,7 @@ export default () => {
 
 	useEffect(() => {
 		console.log('State updated!: ');
-	}, [venues, centers]);
+	}, []);
 
 	const addVenueElements = venue => {
 		let newVenues = [...venues, venue];

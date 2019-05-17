@@ -46,6 +46,7 @@ export default () => {
 		console.log('Updating Users', user);
 		// manageUsers({ ...user, url: routeURL, headers, type: 'put' });
 		const newstate = users.map(element => ((element.email === user.email) ? user : element));
+		
 		console.log(newstate)
 		// setUsers(newstate);
 	};
@@ -64,9 +65,9 @@ export default () => {
 
 	useEffect(() => {
 		// Get
-		getData({ url: routeURL, headers }).then(data => {
-			(data.users.length !== 0) ? setUsers(data.users) : setUsers([]);
-		});
+		// getData({ url: routeURL, headers }).then(data => {
+		// 	(data.users.length !== 0) ? setUsers(data.users) : setUsers([]);
+		// });
 	}, []);
 
 	return (
