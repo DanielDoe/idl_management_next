@@ -23,13 +23,13 @@ class AddProgrammeForm extends React.Component {
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				if (this.props.editMode === false) {
-					// this.context.addVenueElements(values);
-					console.log('Added received values of form: ', values);
+					this.context.addProgrammeElements(values);
+					// console.log('Added received values of form: ', values);
 					this.handleReset();
 					// this.props.onCancel()
 				} else {
-					// this.context.updateVenueElements(values);
-					console.log('Updated received values of form: ', values);
+					this.context.updateProgrammeElements(values);
+					// console.log('Updated received values of form: ', values);
 					this.handleReset();
 					this.props.onCancel();
 				}
@@ -186,31 +186,6 @@ class AddProgrammeForm extends React.Component {
 						</FormItem>
 					</Col>
 				</Row>
-
-				{/* <label htmlFor="new-programme-std-cap">Capacity</label>
-				<FormItem
-					// style={{textAlign: '-webkit-programme'}}
-					hasFeedback
-					validateStatus={programmeCapacityError ? 'error' : ''}
-					help={programmeCapacityError || ''}
-				>
-					{getFieldDecorator('capacity', {
-						rules: [
-							{
-								required: true,
-								type: 'number',
-								message: 'name year!',
-							},
-						],
-					})(
-						<InputNumber
-							min={1}
-							max={5000}
-							style={{ width: '100%', marginRight: '0.5rem' }}
-							placeholder="e.g. 50"
-						/>
-					)}
-				</FormItem> */}
 				<FormItem>
 					<Button
 						type="primary"
@@ -232,10 +207,6 @@ class AddProgrammeForm extends React.Component {
 							this.props.onListUpload(this.state.year);
 							this.handleReset();
 						}}
-						// onClick={() => {
-						// 	this.props.onCancel();
-						// 	this.handleReset();
-						// }}
 						disabled={!programmeInitial || !programmeYear}
 					>
 						Import

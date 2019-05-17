@@ -50,18 +50,20 @@ export default () => {
 	}, []);
 
 	const addVenueElements = venue => {
-		let newVenues = [...venues, venue];
-		console.log('Venues: ', newVenues);
-		setVenues(newVenues);
+		setVenues([...venues, venue]);
 		// console.log("Adding venue:", venue);
 	};
 
 	const removeVenueElements = venue => {
 		console.log('Removing venue', venue);
+		const newVenue = venues.filter(element => (element.center !== venue.center && element.venue_name !== venue.venue_name));
+		setCenters(newVenue);
 	};
 
 	const updateVenueElements = venue => {
 		console.log('Updating venue', venue);
+		const newstate = venues.map(element => ((element.center === venue.center && element.venue_name === venue.venue_name) ? venue : element));
+		// add update to the existing state
 	};
 
 	const onVenueEditted = venue => {

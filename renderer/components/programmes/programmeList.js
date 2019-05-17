@@ -13,28 +13,30 @@ export default props => {
 		};
 	});
 
-	const [context, setContext] = useState(useContext(ProgrammeContext));
+	const context = useContext(ProgrammeContext);
 	const [dataSearch, setdataSearch] = useState(dataSource);
 
 	useEffect(() => {
-		// console.log('dataSource length: ', dataSource.length);
+		// console.log('dataSource: ', dataSource);
+		// console.log('dataSearch: ', dataSearch);
 		// console.log('dataSearch length: ', dataSearch.length);
 		// console.log('Table data: ', dataSearch.length == 0 ? dataSearch : dataSource);
-	}, [context]);
+	}, []);
 
 	const onSearch = e => {
 		// console.log(e.target.value)
 		const value = e.target.value.toLowerCase();
-		const newData = dataSource.filter(s => s.name.toLowerCase().search(value) !== -1);
+		const newData = dataSource.filter(s => s.programme_name.toLowerCase().search(value) !== -1);
 		// let newDataSource = (newData.length === 0) ? newData : data
+		// console.log(newData)
 		setdataSearch(newData);
 	};
 
 	const columns = [
 		{ title: 'SN', dataIndex: 'sn', key: 'sn' },
-		{ title: 'Programme name', dataIndex: 'name', key: 'name' },
-		{ title: 'Code', dataIndex: 'code', key: 'code' },
-		{ title: 'Year', dataIndex: 'year', key: 'year' },
+		{ title: 'Programme name', dataIndex: 'programme_name', key: 'programme_name' },
+		{ title: 'Code', dataIndex: 'programme_code', key: 'programme_code' },
+		{ title: 'Year', dataIndex: 'programme_year', key: 'programme_year' },
 		// { title: 'Capacity', dataIndex: 'capacity', key: 'capacity' },
 		{
 			title: ' ',
@@ -72,7 +74,7 @@ export default props => {
 					<div className="table-container">
 						<Table
 							className="programme-list-table"
-							dataSource={dataSearch.length == 0 ? dataSearch : dataSource}
+							dataSource={dataSearch.length !== 0 ? dataSource : dataSearch}
 							columns={columns}
 						/>
 					</div>

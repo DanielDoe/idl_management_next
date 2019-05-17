@@ -33,10 +33,9 @@ export default () => {
 
 	const updateCenterElements = center => {
 		// console.log('Updating centers', center);
-		const newstate = centers.map(element => ((element.center_name === center.center_name) ? center : element));
-		// const newCenters = centers.filter(element => element.center_name !== center.center_name);
-		setCenters()
-		// console.log('new centers: ', newCenters, "new state: ", newstate)
+		// are you here? yeah reloading
+		const newstate = centers.map(element => (element.center_name === center.center_name ? center : element));
+		setCenters(newstate);
 	};
 
 	const onCenterEditted = center => {

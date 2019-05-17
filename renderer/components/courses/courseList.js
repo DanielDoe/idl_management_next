@@ -38,9 +38,9 @@ export default props => {
 
 	const columns = [
 		{ title: 'SN', dataIndex: 'sn', key: 'sn' },
-		{ title: 'Course Title', dataIndex: 'title', key: 'title' },
-		{ title: 'Course Code', dataIndex: 'code', key: 'code' },
-		{ title: 'Semester', dataIndex: 'semester', key: 'semester' },
+		{ title: 'Course Title', dataIndex: 'course_name', key: 'course_name' },
+		{ title: 'Course Code', dataIndex: 'course_code', key: 'course_code' },
+		{ title: 'Semester', dataIndex: 'course_semester', key: 'course_semester' },
 		// { title: 'Year', dataIndex: 'year', key: 'year' },
 		// { title: 'Capacity', dataIndex: 'capacity', key: 'capacity' },
 		{

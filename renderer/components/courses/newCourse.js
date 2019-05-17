@@ -11,7 +11,7 @@ class AddCourseForm extends React.Component {
 
 		this.state = {
 			counter: 1,
-			semester: null
+			semester: null,
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -23,13 +23,14 @@ class AddCourseForm extends React.Component {
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				if (this.props.editMode === false) {
-					// this.context.addVenueElements(values);
-					console.log('Added received values of form: ', values);
+					this.context.addCourseElements(values)
+					// this.context.addCourseElements(values);
+					// console.log('Added received values of form: ', values);
 					this.handleReset();
 					// this.props.onCancel()
 				} else {
-					// this.context.updateVenueElements(values);
-					console.log('Updated received values of form: ', values);
+					this.context.updateCourseElements(values);
+					// console.log('Updated received values of form: ', values);
 					this.handleReset();
 					this.props.onCancel();
 				}
@@ -65,8 +66,8 @@ class AddCourseForm extends React.Component {
 	};
 
 	handleChange(value) {
-        this.setState({ semester: value });
-      }
+		this.setState({ semester: value });
+	}
 
 	renderCancel() {
 		return this.props.editMode === false ? null : (
@@ -98,7 +99,7 @@ class AddCourseForm extends React.Component {
 		const CourseSemester = getFieldValue('course_semester');
 		// const CourseCapacity = getFieldValue('programme');
 
-		const isEmpty = !CourseName || !CourseCode || !CourseSemester 
+		const isEmpty = !CourseName || !CourseCode || !CourseSemester;
 		// || !CourseCapacity;
 
 		return (
@@ -142,57 +143,16 @@ class AddCourseForm extends React.Component {
 				>
 					{getFieldDecorator('course_semester', {
 						rules: [{ required: true, message: 'enter semester!' }],
-					})(<InputNumber onChange={this.handleChange} min={1} max={10} style={{ width: '100%' }} placeholder="e.g. 1" />)}
-				</FormItem>
-				{/* 
-					<label htmlFor="new-course-std-cap">Programme</label>
-				<FormItem
-					// style={{textAlign: '-webkit-Course'}}
-					hasFeedback
-					validateStatus={CourseCapacityError ? 'error' : ''}
-					help={CourseCapacityError || ''}
-				>
-					{getFieldDecorator('programme', {
-						rules: [
-							{
-								required: true,
-								type: 'number',
-								message: 'name year!',
-							},
-						],
 					})(
 						<InputNumber
+							onChange={this.handleChange}
 							min={1}
-							max={5000}
-							style={{ width: '100%', marginRight: '0.5rem' }}
-							placeholder="e.g. 50"
+							max={10}
+							style={{ width: '100%' }}
+							placeholder="e.g. 1"
 						/>
 					)}
 				</FormItem>
-<label htmlFor="new-course-std-cap">Capacity</label>
-        <FormItem
-          // style={{textAlign: '-webkit-Course'}}
-          hasFeedback
-          validateStatus={CourseCapacityError ? "error" : ""}
-          help={CourseCapacityError || ""}
-        >
-          {getFieldDecorator("capacity", {
-            rules: [
-              {
-                required: true,
-                type: "number",
-                message: "name year!",
-              },
-            ],
-          })(
-            <InputNumber
-              min={1}
-              max={5000}
-              style={{ width: "100%", marginRight: "0.5rem" }}
-              placeholder="e.g. 50"
-            />
-          )}
-        </FormItem> */}
 				<FormItem>
 					<Button
 						type="primary"
@@ -200,7 +160,7 @@ class AddCourseForm extends React.Component {
 						// className=""
 						style={{ margin: '20px auto', width: '100%', backgroundColor: '' }}
 						htmlType="submit"
-						disabled={this.hasErrors(getFieldsError())}
+						disabled={this.hasErrors(getFieldsError()) || isEmpty}
 					>
 						{buttonText + ' course'}
 					</Button>
@@ -210,7 +170,10 @@ class AddCourseForm extends React.Component {
 						type="primary"
 						size={'large'}
 						style={{ margin: '0px auto', width: '100%' }}
-						onClick={() => { this.props.onListUpload(this.state.semester); this.handleReset();}}
+						onClick={() => {
+							this.props.onListUpload(this.state.semester);
+							this.handleReset();
+						}}
 						// onClick={() => {
 						// 	this.props.onCancel();
 						// 	this.handleReset();

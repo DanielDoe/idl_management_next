@@ -45,9 +45,19 @@ export default () => {
 	const updateUserElements = user => {
 		console.log('Updating Users', user);
 		// manageUsers({ ...user, url: routeURL, headers, type: 'put' });
-		const newstate = users.map(element => ((element.email === user.email) ? user : element));
+
+		// This right here gets the new values editted
 		
-		console.log(newstate)
+		const newstate = users.map(element => ((element.email === user.email) ? user : element));
+		console.log(newstate);	// ?wait i think the users is giving some error so lets do center open center.js
+		
+		// This right here is me trying to update the state with the new update
+		// console.log(newstate)
+
+		/**
+		 * 
+		 * 
+		 */
 		// setUsers(newstate);
 	};
 
