@@ -1,11 +1,12 @@
 import React from 'react';
-import CourseContext from './Course-context';
+import CourseContext from './course-context';
 import { Form, Icon, Input, Button, Checkbox, Select, InputNumber } from 'antd';
 
 const FormItem = Form.Item;
 
 class AddCourseForm extends React.Component {
 	static contextType = CourseContext;
+
 	constructor(props) {
 		super(props);
 

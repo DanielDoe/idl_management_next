@@ -13,17 +13,17 @@ export default props => {
 		};
 	});
 
-	const [context, setContext] = useState(useContext(CourseContext));
+	const context= useContext(CourseContext);
 	const [dataSearch, setdataSearch] = useState(dataSource);
 
 	useEffect(() => {
-		console.log(context);
-	}, [context]);
+	
+	}, []);
 
 	const onSearch = e => {
 		// console.log(e.target.value)
 		const value = e.target.value.toLowerCase();
-		const newData = dataSource.filter(s => s.title.toLowerCase().search(value) !== -1);
+		const newData = dataSource.filter(s => s.course_name.toLowerCase().search(value) !== -1);
 		// let newDataSource = (newData.length === 0) ? newData : data
 		setdataSearch(newData);
 	};
@@ -79,7 +79,7 @@ export default props => {
 					<div className="table-container">
 						<Table
 							className="course-list-table"
-							dataSource={dataSearch.length == 0 ? dataSearch : dataSource}
+							dataSource={dataSearch.length !== 0 ? dataSource : dataSearch}
 							columns={columns}
 						/>
 					</div>

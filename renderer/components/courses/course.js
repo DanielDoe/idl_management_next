@@ -14,7 +14,7 @@ export default () => {
 
 	const addCourseElements = course => {
 		// add new course
-		// setCourses([...courses, course]);
+		setCourses([...courses, course]);
 		console.log('Adding courses', course);
 	};
 

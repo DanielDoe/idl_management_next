@@ -9,12 +9,12 @@ import './programme.css';
 export default () => {
 	const Dialog = require('electron').remote.dialog;
 	const [programmes, setProgrammes] = useState([
-		{
-			programme_code: 'bme',
-			programme_initial: 1,
-			programme_name: 'biomed',
-			programme_year: 4,
-		},
+		// {
+		// 	programme_code: 'bme',
+		// 	programme_initial: 1,
+		// 	programme_name: 'biomed',
+		// 	programme_year: 4,
+		// },
 	]);
 	const [editMode, seteditMode] = useState(false);
 	const [fieldData, setfieldData] = useState([]);
