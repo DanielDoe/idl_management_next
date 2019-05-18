@@ -3,7 +3,7 @@ import { Row, Col } from 'antd';
 import UserContext from './user-context';
 import { AddUser } from './newUsers';
 import UserList from './userList';
-import { getData, manageUsers } from '../_shared//axiosCalls';
+import { getData, manageUsers, titleCase } from '../_shared//axiosCalls';
 import './user.css';
 
 export default () => {
@@ -25,44 +25,37 @@ export default () => {
 	const [centers, setcenters] = useState([]);
 
 	const routeURL = 'http://10.30.3.17:5000/user';
+	const routeCenters = 'http://10.30.3.17:5000/center';
 	const [users, setUsers] = useState([]);
-
 	const addUserElements = user => {
-		console.log(users)
 		// spread the sent values from new user page
 		// manageUsers({ ...user, url: routeURL, headers, type: 'post' });
-		setUsers([...users, user]);
+		let newstate = {
+			center: user.center,
+			email: user.email,
+			full_name: titleCase(user.full_name),
+			phone: user.phone,
+			status: user.status,
+		};
+		setUsers([...users, newstate]);
 	};
 
 	const removeUserElements = user => {
 		// manageUsers({ ...user, url: routeURL, headers, type: 'delete' });
 		const newUsers = users.filter(element => element.email !== user.email);
 		// console.log('new users: ', newUsers);
-		setUsers(newUsers)
-		
+		setUsers(newUsers);
 	};
 
 	const updateUserElements = user => {
 		console.log('Updating Users', user);
 		// manageUsers({ ...user, url: routeURL, headers, type: 'put' });
+		const newstate = users.map(element => (element.email === user.email ? user : element));
 
-		// This right here gets the new values editted
-		
-		const newstate = users.map(element => ((element.email === user.email) ? user : element));
-		console.log(newstate);	// ?wait i think the users is giving some error so lets do center open center.js
-		
-		// This right here is me trying to update the state with the new update
-		// console.log(newstate)
-
-		/**
-		 * 
-		 * 
-		 */
-		// setUsers(newstate);
+		setUsers(newstate);
 	};
 
 	const onValueEditted = value => {
-		// console.log(value);
 		seteditMode(true);
 		setfieldData(value);
 	};
@@ -71,19 +64,23 @@ export default () => {
 		seteditMode(false);
 	};
 
-	//getData({ url: routeURL, headers: headers }).users
-
 	useEffect(() => {
-		// Get
-		// getData({ url: routeURL, headers }).then(data => {
-		// 	(data.users.length !== 0) ? setUsers(data.users) : setUsers([]);
-		// });
+		// Get all the required data we need eg. users and centers
+		getData({ url: routeURL, headers }).then(data => {
+			data.users.length !== 0 ? setUsers(data.users) : setUsers([]);
+		});
+
+		// Get all the centers we need
+		getData({ url: routeCenters, headers }).then(data => {
+			data.centers.length !== 0 ? setcenters(data.centers) : setcenters([]);
+		});
 	}, []);
 
 	return (
 		<UserContext.Provider
 			value={{
 				users: users,
+				centers: centers,
 				addUserElements: addUserElements,
 				removeUserElements: removeUserElements,
 				updateUserElements: updateUserElements,
@@ -93,7 +90,11 @@ export default () => {
 				<div style={{ height: '100%' }}>
 					<Row style={{ height: '100%' }}>
 						<Col span={16} style={{ height: '100%' }}>
-							<UserList users={users} onValueRemoved={removeUserElements} onValueEditted={onValueEditted} />
+							<UserList
+								users={users}
+								onValueRemoved={removeUserElements}
+								onValueEditted={onValueEditted}
+							/>
 						</Col>
 						<Col
 							span={8}
@@ -106,6 +107,7 @@ export default () => {
 								editMode={editMode}
 								onCancel={triggerEditmode}
 								fieldData={fieldData}
+								centers={centers}
 								// onListUpload={openFileDialog}
 								onValueEditted={onValueEditted}
 							/>

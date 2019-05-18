@@ -40,7 +40,7 @@ export default () => {
 		// get request to the db for available venues
 		dbStore.centers
 	);
-	const user = typeof window === 'undefined' ? {} : JSON.parse(localStorage.getItem('login'));
+	const [user, setuser] = useState(JSON.parse(localStorage.getItem('login')));
 	const addCenterMgntElements = centerMgnt => {
 		let newValues = [...venues, centerMgnt];
 		console.log('Venues: ', newValues);

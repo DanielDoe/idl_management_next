@@ -3,50 +3,29 @@ import { Row, Col } from 'antd';
 import VenueContext from './venue-context';
 import { AddVenue } from './newVenue';
 import VenueList from './venueList';
+import { getData } from '../_shared/axiosCalls';
 import './venue.css';
 
 export default () => {
-	const [venues, setVenues] = useState([
-		{
-			center: 'Accra',
-			name: 'Block 2',
-			capacity: 50,
-		},
-		{
-			center: 'Accra',
-			name: 'Block 2',
-			capacity: 50,
-		},
-		{
-			center: 'Accra',
-			name: 'Block 2',
-			capacity: 50,
-		},
-	]);
+	const routeCenters = 'http://10.30.3.17:5000/center'
+	const [venues, setVenues] = useState([]);
 	const [editMode, seteditMode] = useState(false);
 	const [fieldData, setfieldData] = useState([]);
-	const [user, setuser] = useState(JSON.parse(localStorage.getItem('login')))
-
-	const [centers, setCenters] = useState(
+	const [user, setuser] = useState(JSON.parse(localStorage.getItem('login')));
+	const headers = {
+		'x-access-token': user.token,
+		'content-type': 'application/json',
+	};
+	const [centers, setcenters] = useState(
 		// get request to the db for available venues
-		[
-			{
-				name: 'Accra',
-				code: 'ACC',
-			},
-			{
-				name: 'Volta',
-				code: 'VR',
-			},
-			{
-				name: 'Kumasi',
-				code: 'KMA',
-			},
-		]
+		[]
 	);
 
 	useEffect(() => {
-		console.log('State updated!: ');
+		// Get all the centers we need
+		getData({ url: routeCenters, headers }).then(data => {
+			data.centers.length !== 0 ? setcenters(data.centers) : setcenters([]);
+		});
 	}, []);
 
 	const addVenueElements = venue => {
@@ -56,14 +35,19 @@ export default () => {
 
 	const removeVenueElements = venue => {
 		console.log('Removing venue', venue);
-		const newVenue = venues.filter(element => (element.center !== venue.center && element.venue_name !== venue.venue_name));
-		setCenters(newVenue);
+		const newVenue = venues.filter(
+			element => element.center !== venue.center && element.venue_name !== venue.venue_name
+		);
+		setVenues(newVenue);
 	};
 
 	const updateVenueElements = venue => {
 		console.log('Updating venue', venue);
-		const newstate = venues.map(element => ((element.center === venue.center && element.venue_name === venue.venue_name) ? venue : element));
+		const newstate = venues.map(element =>
+			element.center === venue.center && element.venue_name === venue.venue_name ? venue : element
+		);
 		// add update to the existing state
+		setVenues(newstate);
 	};
 
 	const onVenueEditted = venue => {
@@ -90,7 +74,7 @@ export default () => {
 				<div style={{ paddingTop: '1rem', height: '100%' }}>
 					<Row style={{ height: '100%' }}>
 						<Col span={16} style={{ height: '100%' }}>
-							<VenueList venues={venues} onVenueEditted={onVenueEditted} />
+							<VenueList venues={venues} centers={centers} onVenueEditted={onVenueEditted} />
 						</Col>
 						<Col
 							span={8}
@@ -101,6 +85,7 @@ export default () => {
 						>
 							<AddVenue
 								editMode={editMode}
+								centers={centers}
 								onCancel={triggerEditmode}
 								fieldData={fieldData}
 								onVenueEditted={onVenueEditted}

@@ -119,9 +119,9 @@ class AddVenueForm extends React.Component {
 				>
 					{getFieldDecorator('center', {
 						rules: [{ required: true, message: 'enter center!' }],
-						initialValue: (this.context.user.status !== 'admin') ? this.context.user.center : 'Accra'
+						initialValue: (this.context.user.auth_status !== 'admin') ? this.context.user.center : 'Accra'
 					})(
-						<Select placeholder="eg. Accra" style={{ width: '100%' }} disabled={(this.context.user.status !== 'admin')? true : false}>
+						<Select placeholder="eg. Accra" style={{ width: '100%' }} disabled={(this.context.user.auth_status !== 'admin')? true : false}>
 							{this.renderCenterData()}
 						</Select>
 					)}

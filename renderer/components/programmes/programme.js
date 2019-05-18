@@ -18,30 +18,22 @@ export default () => {
 	]);
 	const [editMode, seteditMode] = useState(false);
 	const [fieldData, setfieldData] = useState([]);
-  const titleCase = (str) => {
-    return str.toLowerCase().split(' ').map(function(word) {
-      return (word.charAt(0).toUpperCase() + word.slice(1));
-    }).join(' ');
-  }
+	const titleCase = str => {
+		return str
+			.toLowerCase()
+			.split(' ')
+			.map(function(word) {
+				return word.charAt(0).toUpperCase() + word.slice(1);
+			})
+			.join(' ');
+	};
 	const addProgrammeElements = programme => {
-		// let newValues = [...venues, venue];
-		// console.log('Venues: ', newValues);
-		// for (let index = 1; index <=  programme.programme_year; index++) {
-		// 	const newstate = {
-		// 		programme_code: (programme.programme_code).toUpperCase(),
-		// 		programme_initial: programme.programme_initial,
-		// 		programme_name: titleCase(programme.programme_name),
-		// 		programme_year: ,
-    //   };
-    //   console.log(newstate);
-		// 	setProgrammes([...programmes, newstate]);
-    // }
-    let newstate = {
-      programme_code: (programme.programme_code).toUpperCase(),
-				programme_initial: programme.programme_initial,
-				programme_name: titleCase(programme.programme_name),
-				programme_year: programme.programme_year,
-    }
+		let newstate = {
+			programme_code: programme.programme_code.toUpperCase(),
+			programme_initial: programme.programme_initial,
+			programme_name: titleCase(programme.programme_name),
+			programme_year: programme.programme_year,
+		};
 		setProgrammes([...programmes, newstate]);
 		// console.log('Adding Programmes', [...programmes, programme]);
 	};
@@ -59,11 +51,11 @@ export default () => {
 	const updateProgrammeElements = programme => {
 		// console.log("Updating Programmes", programme);
 		const newstate = programmes.map(element =>
-			element.programme_name !== programme.programme_name && element.programme_code !== programme.programme_code
+			element.programme_name === programme.programme_name && element.programme_code === programme.programme_code
 				? programme
 				: element
 		);
-		setCenters(newstate);
+		setProgrammes(newstate);
 	};
 
 	const onValueEditted = value => {

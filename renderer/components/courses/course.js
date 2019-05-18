@@ -11,28 +11,39 @@ export default () => {
 	const [courses, setCourses] = useState([]);
 	const [editMode, seteditMode] = useState(false);
 	const [fieldData, setfieldData] = useState([]);
+	const titleCase = str => {
+		return str
+			.toLowerCase()
+			.split(' ')
+			.map(function(word) {
+				return word.charAt(0).toUpperCase() + word.slice(1);
+			})
+			.join(' ');
+	};
 
 	const addCourseElements = course => {
 		// add new course
-		setCourses([...courses, course]);
-		console.log('Adding courses', course);
+		let newstate = {
+			course_code: course.course_code.toUpperCase(),
+			course_name: titleCase(course.course_name),
+			course_semester: course.course_semester,
+		};
+		setCourses([...courses, newstate]);
 	};
 
 	const removeCourseElements = course => {
-		// const newState = courses.filter(
-		// 	element => element.course_name !== course.course_name && element.course_code !== course.course_code
-		// );
-		// setCourses(newState);
-		console.log('Removing courses', course);
+		const newState = courses.filter(
+			element => element.course_code !== course.course_code
+		);
+		setCourses(newState);
 	};
 
 	const updateCourseElements = course => {
-		console.log('Updating courses', course);
-		// const newstate = courses.map(element =>
-		// 	element.course_name !== course.course_name && element.course_code !== course.course_code ? course : element
-		// );
+		const newstate = courses.map(element =>
+			element.course_code === course.course_code ? course : element
+		);
 
-		// setCourses(newstate);
+		setCourses(newstate);
 	};
 
 	const onValueEditted = value => {

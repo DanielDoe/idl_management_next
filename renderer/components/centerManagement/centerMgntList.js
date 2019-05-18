@@ -60,8 +60,8 @@ export default props => {
 				<Row>
 					<Col span={8}>
 						<Select
-							value={context.user.status !== 'admin' ? context.user.center : 'Accra'}
-							disabled={context.user.status !== 'admin' ? true : false}
+							value={context.user.auth_status !== 'admin' ? context.user.center : 'Accra'}
+							disabled={context.user.auth_status !== 'admin' ? true : false}
 							// placeholder="e.g. Accra"
 							style={{ width: '90%' }}
 							onChange={e => handleChange(e)}

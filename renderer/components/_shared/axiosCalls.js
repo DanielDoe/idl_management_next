@@ -1,6 +1,17 @@
 import React from 'react';
 import axios from 'axios';
 
+export const titleCase = str => {
+	return str
+		.toLowerCase()
+		.split(' ')
+		.map(function(word) {
+			return word.charAt(0).toUpperCase() + word.slice(1);
+		})
+		.join(' ');
+};
+
+
 export async function getData(params) {
 	//Here i want to get the data then return them to the user.js page
 	const res = await axios.get(params.url, { headers: params.headers });
@@ -15,7 +26,7 @@ export async function getData(params) {
  * delete users
  */
 export const manageUsers = params => {
-	const { full_name, email, status, phone, url, headers } = params;
+	const { full_name, email, center_name, status, phone, url, headers } = params;
 	switch (params.type) {
 		case 'post':
 			axios({
@@ -27,7 +38,7 @@ export const manageUsers = params => {
 					status: status,
 					phone: phone,
 					// not sure about center_id
-					center_id: center_id,
+					center_name: center_name,
 				},
 				headers: headers,
 			});
@@ -41,7 +52,7 @@ export const manageUsers = params => {
 					email: email,
 					status: status,
 					phone: phone,
-					center_id: center_id,
+					center_name: center_name,
 				},
 				headers: headers,
 				// params: { u_id: id },
@@ -57,7 +68,7 @@ export const manageUsers = params => {
 					email: email,
 					status: status,
 					phone: phone,
-					center_id: center_id,
+					center_name: center_name,
 				},
 				headers: headers,
 			});
@@ -73,6 +84,8 @@ export const manageUsers = params => {
  * update centers
  * delete centers
  */
+
+ 
 export const manageCenters = params => {
 	const { center_name, center_code, center_block, center_id, url, headers, type } = params;
 	switch (type) {
@@ -115,3 +128,372 @@ export const manageCenters = params => {
 			break;
 	}
 };
+
+/**
+ *
+ * manage centers :
+ * add new centers
+ * update centers
+ * delete centers
+ */
+
+ 
+export const manageVenues = params => {
+	const { url, headers, type } = params;
+	switch (type) {
+		case 'post':
+			axios({
+				method: 'post',
+				url: url,
+				data: {
+					center_name: center_name,
+					// center_id: center_name,
+					center_code: center_code,
+					center_block: center_block,
+				},
+				headers: headers,
+			});
+			break;
+		case 'put':
+			axios({
+				method: 'put',
+				url: url + '/u_id=' + u_id,
+				data: {
+					full_name: full_name,
+					email: email,
+					status: status,
+					phone: phone,
+					center_id: center_id,
+				},
+				headers: headers,
+				// params: { u_id: id },
+			});
+			break;
+
+		case 'delete':
+			axios({
+				method: 'delete',
+				url: url + '?center_id=' + center_id,
+				headers: headers,
+			});
+		default:
+			break;
+	}
+};
+
+/**
+ *
+ * manage centers :
+ * add new centers
+ * update centers
+ * delete centers
+ */
+
+ 
+export const manageCourses = params => {
+	const { url, headers, type } = params;
+	switch (type) {
+		case 'post':
+			axios({
+				method: 'post',
+				url: url,
+				data: {
+					center_name: center_name,
+					// center_id: center_name,
+					center_code: center_code,
+					center_block: center_block,
+				},
+				headers: headers,
+			});
+			break;
+		case 'put':
+			axios({
+				method: 'put',
+				url: url + '/u_id=' + u_id,
+				data: {
+					full_name: full_name,
+					email: email,
+					status: status,
+					phone: phone,
+					center_id: center_id,
+				},
+				headers: headers,
+				// params: { u_id: id },
+			});
+			break;
+
+		case 'delete':
+			axios({
+				method: 'delete',
+				url: url + '?center_id=' + center_id,
+				headers: headers,
+			});
+		default:
+			break;
+	}
+};
+
+/**
+ *
+ * manage centers :
+ * add new centers
+ * update centers
+ * delete centers
+ */
+
+ 
+export const manageProgrammes = params => {
+	const { url, headers, type } = params;
+	switch (type) {
+		case 'post':
+			axios({
+				method: 'post',
+				url: url,
+				data: {
+					center_name: center_name,
+					// center_id: center_name,
+					center_code: center_code,
+					center_block: center_block,
+				},
+				headers: headers,
+			});
+			break;
+		case 'put':
+			axios({
+				method: 'put',
+				url: url + '/u_id=' + u_id,
+				data: {
+					full_name: full_name,
+					email: email,
+					status: status,
+					phone: phone,
+					center_id: center_id,
+				},
+				headers: headers,
+				// params: { u_id: id },
+			});
+			break;
+
+		case 'delete':
+			axios({
+				method: 'delete',
+				url: url + '?center_id=' + center_id,
+				headers: headers,
+			});
+		default:
+			break;
+	}
+};
+
+
+/**
+ *
+ * manage centers :
+ * add new centers
+ * update centers
+ * delete centers
+ */
+
+ 
+export const manageCourseAllocations = params => {
+	const { url, headers, type } = params;
+	switch (type) {
+		case 'post':
+			axios({
+				method: 'post',
+				url: url,
+				data: {
+					center_name: center_name,
+					// center_id: center_name,
+					center_code: center_code,
+					center_block: center_block,
+				},
+				headers: headers,
+			});
+			break;
+		case 'put':
+			axios({
+				method: 'put',
+				url: url + '/u_id=' + u_id,
+				data: {
+					full_name: full_name,
+					email: email,
+					status: status,
+					phone: phone,
+					center_id: center_id,
+				},
+				headers: headers,
+				// params: { u_id: id },
+			});
+			break;
+
+		case 'delete':
+			axios({
+				method: 'delete',
+				url: url + '?center_id=' + center_id,
+				headers: headers,
+			});
+		default:
+			break;
+	}
+};
+
+
+/**
+ *
+ * manage centers :
+ * add new centers
+ * update centers
+ * delete centers
+ */
+
+ 
+export const manageScripts = params => {
+	const { url, headers, type } = params;
+	switch (type) {
+		case 'post':
+			axios({
+				method: 'post',
+				url: url,
+				data: {
+					center_name: center_name,
+					// center_id: center_name,
+					center_code: center_code,
+					center_block: center_block,
+				},
+				headers: headers,
+			});
+			break;
+		case 'put':
+			axios({
+				method: 'put',
+				url: url + '/u_id=' + u_id,
+				data: {
+					full_name: full_name,
+					email: email,
+					status: status,
+					phone: phone,
+					center_id: center_id,
+				},
+				headers: headers,
+				// params: { u_id: id },
+			});
+			break;
+
+		case 'delete':
+			axios({
+				method: 'delete',
+				url: url + '?center_id=' + center_id,
+				headers: headers,
+			});
+		default:
+			break;
+	}
+};
+
+
+/**
+ *
+ * manage centers :
+ * add new centers
+ * update centers
+ * delete centers
+ */
+
+ 
+export const manageTimetable = params => {
+	const { url, headers, type } = params;
+	switch (type) {
+		case 'post':
+			axios({
+				method: 'post',
+				url: url,
+				data: {
+					center_name: center_name,
+					// center_id: center_name,
+					center_code: center_code,
+					center_block: center_block,
+				},
+				headers: headers,
+			});
+			break;
+		case 'put':
+			axios({
+				method: 'put',
+				url: url + '/u_id=' + u_id,
+				data: {
+					full_name: full_name,
+					email: email,
+					status: status,
+					phone: phone,
+					center_id: center_id,
+				},
+				headers: headers,
+				// params: { u_id: id },
+			});
+			break;
+
+		case 'delete':
+			axios({
+				method: 'delete',
+				url: url + '?center_id=' + center_id,
+				headers: headers,
+			});
+		default:
+			break;
+	}
+};
+
+/**
+ *
+ * manage centers :
+ * add new centers
+ * update centers
+ * delete centers
+ */
+
+ 
+export const manageCenterProgrammes = params => {
+	const { url, headers, type } = params;
+	switch (type) {
+		case 'post':
+			axios({
+				method: 'post',
+				url: url,
+				data: {
+					center_name: center_name,
+					// center_id: center_name,
+					center_code: center_code,
+					center_block: center_block,
+				},
+				headers: headers,
+			});
+			break;
+		case 'put':
+			axios({
+				method: 'put',
+				url: url + '/u_id=' + u_id,
+				data: {
+					full_name: full_name,
+					email: email,
+					status: status,
+					phone: phone,
+					center_id: center_id,
+				},
+				headers: headers,
+				// params: { u_id: id },
+			});
+			break;
+
+		case 'delete':
+			axios({
+				method: 'delete',
+				url: url + '?center_id=' + center_id,
+				headers: headers,
+			});
+		default:
+			break;
+	}
+};
+
+

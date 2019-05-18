@@ -35,6 +35,19 @@ class AddUserForm extends React.Component {
 			}
 		});
   };
+
+  renderCenterData = () => {
+    const elements = this.context.centers.map((element, index) => {
+      // console.log(element.name);
+      return (
+        <Option value={element.center_name} key={element.center_name+index}>
+          {element.center_name}
+        </Option>
+      )
+    })
+
+    return elements
+  }
   
   componentDidMount() {
 		// To disabled submit button at the beginning and checks validations.
@@ -140,8 +153,7 @@ class AddUserForm extends React.Component {
 						rules: [{ required: true, message: 'enter center!' }],
 					})(
 						<Select placeholder="eg. admin" style={{ width: '100%' }}>
-							<Option value="admin">admin</Option>
-							<Option value="user">user</Option>
+							{this.renderCenterData()}
 						</Select>
 					)}
 				</FormItem>

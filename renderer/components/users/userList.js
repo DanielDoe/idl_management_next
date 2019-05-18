@@ -30,8 +30,8 @@ export default props => {
 
 	const columns = [
 		{ title: 'SN', dataIndex: 'sn', key: 'sn' },
+		{ title: 'Fullname', dataIndex: 'full_name', key: 'full_name' },
 		{ title: 'Email', dataIndex: 'email', key: 'email' },
-		// { title: 'Password', dataIndex: 'password', key: 'password' },
 		{ title: 'Center', dataIndex: 'center', key: 'center' },
 		{ title: 'Status', dataIndex: 'status', key: 'status' },
 		{

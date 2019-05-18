@@ -21,7 +21,7 @@ export default () => {
 
 	const addCenterElements = center => {
 		console.log('Adding centers', center);
-		// manageCenters({ ...center, url: routeURL, headers, type: 'post' });
+		manageCenters({ ...center, url: routeURL, headers, type: 'post' });
 		setCenters([...centers, center]);
 	};
 
@@ -48,10 +48,10 @@ export default () => {
 	};
 
 	useEffect(() => {
-		// getData({ url: routeURL, headers }).then(data => {
-		// 	data.centers.length !== 0 ? setCenters(data.centers) : setCenters([]);
-		// 	console.log(data);
-		// });
+		getData({ url: routeURL, headers }).then(data => {
+			data.centers.length !== 0 ? setCenters(data.centers) : setCenters([]);
+			console.log(data);
+		});
 	}, []);
 
 	return (
