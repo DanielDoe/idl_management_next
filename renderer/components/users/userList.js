@@ -6,10 +6,12 @@ const Search = Input.Search;
 
 export default props => {
 	const context = useContext(UserContext);
-
+	const [width, setwidth] = useState(window.innerWidth);
+	const [height, setheight] = useState(window.innerHeight);
 	useEffect(() => {
-		console.log(context);
-	}, [context]);
+		setwidth(window.innerWidth);
+		setheight(window.innerHeight);
+	}, [height, width]);
 
 	// onSearch = e => {
 	// 	const value = e.target.value.toLowerCase();
@@ -24,6 +26,8 @@ export default props => {
 			sn: id + 1,
 		};
 	});
+
+	
 
 	console.log(dataSource);
 	// props.onEditClicked
@@ -54,7 +58,12 @@ export default props => {
 			<div className="list-container">
 				<h2>List of Users</h2>
 				<div className="table-container">
-					<Table className="user-list-table" dataSource={dataSource} columns={columns} />
+					<Table
+						loading={dataSource.length !== 0 ? false : true}
+						className="user-list-table"
+						dataSource={dataSource}
+						columns={columns}
+					/>
 				</div>
 			</div>
 		</div>

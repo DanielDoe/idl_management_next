@@ -47,7 +47,7 @@ class AddProgrammeForm extends React.Component {
 			this.props.form.setFieldsValue({
 				programme_name: nextProps.fieldData.programme_name,
 				programme_code: nextProps.fieldData.programme_code,
-				programme_year: nextProps.fieldData.programme_year,
+				year: nextProps.fieldData.year,
 				programme_initial: nextProps.fieldData.programme_initial,
 			});
 			this.setState({ counter: -1 });
@@ -105,14 +105,14 @@ class AddProgrammeForm extends React.Component {
 		const programmeNameError = isFieldTouched('programme_name') && getFieldError('programme_name');
 		const programmeCodeError = isFieldTouched('programme_code') && getFieldError('programme_code');
 		const programmeInitialError = isFieldTouched('programme_initial') && getFieldError('programme_initial');
-		const programmeYearError = isFieldTouched('programme_year') && getFieldError('programme_year');
+		const programmeYearError = isFieldTouched('year') && getFieldError('year');
 		// const programmeCapacityError = isFieldTouched('capacity') && getFieldError('capacity');
 		// const othersError = getFieldError('otherSize');
 
 		const programmeName = getFieldValue('programme_name');
 		const programmeCode = getFieldValue('programme_code');
 		const programmeInitial = getFieldValue('programme_initial');
-		const programmeYear = getFieldValue('programme_year');
+		const programmeYear = getFieldValue('year');
 		// const programmeCapacity = getFieldValue('capacity');
 
 		const isEmpty = !programmeName || !programmeCode || !programmeYear || !programmeInitial;
@@ -172,7 +172,7 @@ class AddProgrammeForm extends React.Component {
 							validateStatus={programmeYearError ? 'error' : ''}
 							help={programmeYearError || ''}
 						>
-							{getFieldDecorator('programme_year', {
+							{getFieldDecorator('year', {
 								rules: [{ required: true, message: 'enter year group!' }],
 							})(
 								<InputNumber

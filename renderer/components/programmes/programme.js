@@ -1,49 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'antd';
 import ProgrammeContext from './programme-context';
+import { titleCase, manageProgrammes, getData } from '../_shared/axiosCalls';
 import { AddProgramme } from './newProgramme';
 import ProgrammeList from './programmeList';
 import XLSX from 'xlsx';
 import './programme.css';
+import { configConsumerProps } from 'antd/lib/config-provider';
 
 export default () => {
 	const Dialog = require('electron').remote.dialog;
-	const [programmes, setProgrammes] = useState([
-		// {
-		// 	programme_code: 'bme',
-		// 	programme_initial: 1,
-		// 	programme_name: 'biomed',
-		// 	programme_year: 4,
-		// },
-	]);
+	const [programmes, setProgrammes] = useState([]);
+	const token = JSON.parse(localStorage.getItem('login')).tokenObtained;
+	const headers = {
+		'x-access-token': token,
+		'content-type': 'application/json',
+	};
+	const routeURL = 'http://10.30.3.17:5000/programme';
 	const [editMode, seteditMode] = useState(false);
 	const [fieldData, setfieldData] = useState([]);
-	const titleCase = str => {
-		return str
-			.toLowerCase()
-			.split(' ')
-			.map(function(word) {
-				return word.charAt(0).toUpperCase() + word.slice(1);
-			})
-			.join(' ');
-	};
+
 	const addProgrammeElements = programme => {
-		let newstate = {
-			programme_code: programme.programme_code.toUpperCase(),
-			programme_initial: programme.programme_initial,
-			programme_name: titleCase(programme.programme_name),
-			programme_year: programme.programme_year,
-		};
-		setProgrammes([...programmes, newstate]);
-		// console.log('Adding Programmes', [...programmes, programme]);
+		let promises = [];
+		for (let index = 1; index <= programme.year; index++) {
+			let newstate = {
+				programme_code: programme.programme_code.toUpperCase() + ' ' + index,
+				programme_name: titleCase(programme.programme_name).trim() + ' ' + index,
+				year: index,
+			};
+			manageProgrammes({ ...newstate, url: routeURL, headers, type: 'post' }).then(res => setProgrammes(res.data.programmes));
+
+			// promises.push(request);
+		}
+		// console.log('promises', promises);
+		// Promise.all(promises)
+		// 	.then(res => {
+		// 		// setProgrammes(res.data)
+		// 		console.log('res', res);
+		// 	})
+		// 	.catch(error => console.log(error));
 	};
 
 	const removeProgrammeElements = programme => {
-		const newState = programmes.filter(
-			element =>
-				element.programme_name !== programme.programme_name &&
-				element.programme_code !== programme.programme_code
-		);
+		manageProgrammes({ ...programme, url: routeURL, headers, type: 'delete' });
+		const newState = programmes.filter(element => element.programme_id !== programme.programme_id);
 		setProgrammes(newState);
 		// console.log("Removing Programmes", newState);
 	};
@@ -51,9 +51,7 @@ export default () => {
 	const updateProgrammeElements = programme => {
 		// console.log("Updating Programmes", programme);
 		const newstate = programmes.map(element =>
-			element.programme_name === programme.programme_name && element.programme_code === programme.programme_code
-				? programme
-				: element
+			element.programme_id === programme.programme_id ? programme : element
 		);
 		setProgrammes(newstate);
 	};
@@ -69,7 +67,9 @@ export default () => {
 	};
 
 	useEffect(() => {
-		console.log('State updated!: ');
+		getData({ url: routeURL, headers }).then(data => {
+			data.programmes !== undefined ? setProgrammes(data.programmes) : setProgrammes([]);
+		});
 	}, []);
 
 	const openFileDialog = year => {

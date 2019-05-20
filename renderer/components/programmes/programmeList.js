@@ -14,19 +14,24 @@ export default props => {
 	});
 
 	const context = useContext(ProgrammeContext);
+	const [searchValue, setsearchValue] = useState('')
+	const [initialsource, setinitialsource] = useState(props.programmes)
 	const [dataSearch, setdataSearch] = useState(dataSource);
+	const [width, setwidth] = useState(window.innerWidth);
+	const [height, setheight] = useState(window.innerHeight);
 
 	useEffect(() => {
-		// console.log('dataSource: ', dataSource);
-		// console.log('dataSearch: ', dataSearch);
-		// console.log('dataSearch length: ', dataSearch.length);
-		// console.log('Table data: ', dataSearch.length == 0 ? dataSearch : dataSource);
-	}, []);
+		setwidth(window.innerWidth);
+		setheight(window.innerHeight);
+		console.log(dataSource);
+		console.log(initialsource);
+	}, [height, width, initialsource]);
 
 	const onSearch = e => {
 		// console.log(e.target.value)
-		const value = e.target.value.toLowerCase();
-		const newData = dataSource.filter(s => s.programme_name.toLowerCase().search(value) !== -1);
+		setsearchValue(e.target.value.toLowerCase());
+
+		const newData = dataSource.filter(s => s.programme_name.toLowerCase().search(searchValue) !== -1);
 		// let newDataSource = (newData.length === 0) ? newData : data
 		// console.log(newData)
 		setdataSearch(newData);
@@ -74,7 +79,9 @@ export default props => {
 					<div className="table-container">
 						<Table
 							className="programme-list-table"
-							dataSource={dataSearch.length !== 0 ? dataSource : dataSearch}
+							//loading={dataSource.length !== 0 ? false : true}
+							pagination={{ pageSize: height / 100 }}
+							dataSource={dataSource}
 							columns={columns}
 						/>
 					</div>

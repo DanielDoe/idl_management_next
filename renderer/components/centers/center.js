@@ -3,12 +3,13 @@ import { Row, Col } from 'antd';
 import CenterContext from './center-context';
 import { AddCenters } from './newCenter';
 import CenterList from './centerList';
-import { getData, manageCenters } from '../_shared//axiosCalls';
+import { getData, manageCenters, titleCase } from '../_shared//axiosCalls';
 import './center.css';
 import { element } from 'prop-types';
 
 export default () => {
 	const [centers, setCenters] = useState([]);
+
 	const center = JSON.parse(localStorage.getItem('login')).center;
 	const token = JSON.parse(localStorage.getItem('login')).tokenObtained;
 	const headers = {
@@ -20,21 +21,37 @@ export default () => {
 	const [fieldData, setfieldData] = useState([]);
 
 	const addCenterElements = center => {
-		console.log('Adding centers', center);
-		manageCenters({ ...center, url: routeURL, headers, type: 'post' });
-		setCenters([...centers, center]);
+		const { center_name, center_code, center_block } = center
+		// console.log('Adding centers', center);
+		const newstate = {
+			center_name: titleCase(center_name.trim()),
+			center_code: (center_code.toUpperCase()).trim(),
+			center_block: center_block,
+		};
+		manageCenters({ ...newstate, url: routeURL, headers, type: 'post' }).then(res => {
+			setCenters(res.data.centers);
+		});
+		// setCenters([...centers, newstate]);
 	};
 
 	const removeCenterElements = center => {
 		console.log('Removing centers', center, 'centers: ', centers);
-		const newCenters = centers.filter(element => element.center_name !== center.center_name);
+		manageCenters({ ...center, url: routeURL, headers, type: 'delete' });
+		const newCenters = centers.filter(element => element.center_id !== center.center_id);
 		setCenters(newCenters);
 	};
 
 	const updateCenterElements = center => {
 		// console.log('Updating centers', center);
-		// are you here? yeah reloading
-		const newstate = centers.map(element => (element.center_name === center.center_name ? center : element));
+		const { center_name, center_code, center_block, center_id } = center
+		const centerUpdate = {
+			center_name: titleCase(center_name.trim()),
+			center_code: (center_code.toUpperCase()).trim(),
+			center_block: center_block,
+			center_id: center_id
+		};
+		manageCenters({ ...centerUpdate, url: routeURL, headers, type: 'put' });
+		const newstate = centers.map(element => (element.center_id === center.center_id ? center : element));
 		setCenters(newstate);
 	};
 
