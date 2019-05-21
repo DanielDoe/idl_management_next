@@ -1,6 +1,6 @@
 import React from 'react';
 import CourseContext from './course-context';
-import { Form, Icon, Input, Button, Checkbox, Select, InputNumber } from 'antd';
+import { Form, Row, Col, Icon, Input, Button, Checkbox, Select, InputNumber } from 'antd';
 
 const FormItem = Form.Item;
 
@@ -13,6 +13,7 @@ class AddCourseForm extends React.Component {
 		this.state = {
 			counter: 1,
 			semester: null,
+			year: null,
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -24,7 +25,7 @@ class AddCourseForm extends React.Component {
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				if (this.props.editMode === false) {
-					this.context.addCourseElements(values)
+					this.context.addCourseElements(values);
 					// this.context.addCourseElements(values);
 					// console.log('Added received values of form: ', values);
 					this.handleReset();
@@ -47,10 +48,10 @@ class AddCourseForm extends React.Component {
 	componentWillReceiveProps(nextProps) {
 		if (Object.keys(nextProps.fieldData).length !== 0 && nextProps.editMode === true && this.state.counter > 0) {
 			this.props.form.setFieldsValue({
-				course_name: nextProps.fieldData.course_name,
+				course_title: nextProps.fieldData.course_title,
 				course_code: nextProps.fieldData.course_code,
-				course_semester: nextProps.fieldData.course_semester,
-				// programme: nextProps.fieldData.programme,
+				semester: nextProps.fieldData.semester,
+				year: nextProps.fieldData.year,
 			});
 			this.setState({ counter: -1 });
 		}
@@ -89,18 +90,18 @@ class AddCourseForm extends React.Component {
 		const header = this.props.editMode ? 'Edit' : 'New';
 		const buttonText = this.props.editMode ? 'Edit' : 'Add';
 		const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, getFieldValue } = this.props.form;
-		const CourseNameError = isFieldTouched('course_name') && getFieldError('course_name');
+		const CourseNameError = isFieldTouched('course_title') && getFieldError('course_title');
 		const CourseCodeError = isFieldTouched('course_code') && getFieldError('course_code');
-		const CourseSemesterError = isFieldTouched('course_semester') && getFieldError('course_semester');
-		// const CourseCapacityError = isFieldTouched('programme') && getFieldError('programme');
+		const CourseSemesterError = isFieldTouched('semester') && getFieldError('semester');
+		const CourseYearError = isFieldTouched('year') && getFieldError('year');
 		// const othersError = getFieldError('otherSize');
 
-		const CourseName = getFieldValue('course_name');
+		const CourseName = getFieldValue('course_title');
 		const CourseCode = getFieldValue('course_code');
-		const CourseSemester = getFieldValue('course_semester');
-		// const CourseCapacity = getFieldValue('programme');
+		const CourseSemester = getFieldValue('semester');
+		const CourseYear = getFieldValue('year');
 
-		const isEmpty = !CourseName || !CourseCode || !CourseSemester;
+		const isEmpty = !CourseName || !CourseCode || !CourseSemester || !CourseYear;
 		// || !CourseCapacity;
 
 		return (
@@ -114,8 +115,8 @@ class AddCourseForm extends React.Component {
 					validateStatus={CourseNameError ? 'error' : ''}
 					help={CourseNameError || ''}
 				>
-					{getFieldDecorator('course_name', {
-						rules: [{ required: true, message: 'enter course_name!' }],
+					{getFieldDecorator('course_title', {
+						rules: [{ required: true, message: 'enter course_title!' }],
 					})(<Input style={{ width: '100%' }} placeholder="e.g. Algebra" />)}
 				</FormItem>
 				<label htmlFor="new-course-std-cap">Course code</label>
@@ -134,26 +135,52 @@ class AddCourseForm extends React.Component {
 						],
 					})(<Input style={{ width: '100%', marginRight: '0.5rem' }} placeholder="e.g. Math 151" />)}
 				</FormItem>
-				<label htmlFor="new-course-name">Semester</label>
-				<FormItem
-					style={{ textAlign: '-webkit-Course' }}
-					hasFeedback
-					// label="Username"
-					validateStatus={CourseSemesterError ? 'error' : ''}
-					help={CourseSemesterError || ''}
-				>
-					{getFieldDecorator('course_semester', {
-						rules: [{ required: true, message: 'enter semester!' }],
-					})(
-						<InputNumber
-							onChange={this.handleChange}
-							min={1}
-							max={10}
-							style={{ width: '100%' }}
-							placeholder="e.g. 1"
-						/>
-					)}
-				</FormItem>
+				<Row gutter={16}>
+					<Col span={12}>
+						<label htmlFor="new-course-name">Semester</label>
+						<FormItem
+							style={{ textAlign: '-webkit-Course' }}
+							hasFeedback
+							// label="Username"
+							validateStatus={CourseSemesterError ? 'error' : ''}
+							help={CourseSemesterError || ''}
+						>
+							{getFieldDecorator('semester', {
+								rules: [{ required: true, message: 'enter semester!' }],
+							})(
+								<InputNumber
+									onChange={value => this.setState({ semester: value })}
+									min={1}
+									max={10}
+									style={{ width: '100%' }}
+									placeholder="e.g. 1"
+								/>
+							)}
+						</FormItem>
+					</Col>
+					<Col span={12}>
+						<label htmlFor="new-course-name">Year</label>
+						<FormItem
+							style={{ textAlign: '-webkit-Course' }}
+							hasFeedback
+							// label="Username"
+							validateStatus={CourseYearError ? 'error' : ''}
+							help={CourseYearError || ''}
+						>
+							{getFieldDecorator('year', {
+								rules: [{ required: true, message: 'enter semester!' }],
+							})(
+								<InputNumber
+									onChange={value => this.setState({ year: value })}
+									min={1}
+									max={10}
+									style={{ width: '100%' }}
+									placeholder="e.g. 1"
+								/>
+							)}
+						</FormItem>
+					</Col>
+				</Row>
 				<FormItem>
 					<Button
 						type="primary"
@@ -179,7 +206,7 @@ class AddCourseForm extends React.Component {
 						// 	this.props.onCancel();
 						// 	this.handleReset();
 						// }}
-						disabled={!CourseSemester}
+						disabled={!CourseSemester || !CourseYear}
 					>
 						Import
 					</Button>

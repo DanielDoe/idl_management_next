@@ -13,18 +13,33 @@ export default props => {
 		};
 	});
 
-	const context= useContext(CourseContext);
+	const context = useContext(CourseContext);
 	const [dataSearch, setdataSearch] = useState(dataSource);
+	const [width, setwidth] = useState(window.innerWidth);
+	const [height, setheight] = useState(window.innerHeight);
 
 	useEffect(() => {
-	
-	}, []);
+		setwidth(window.innerWidth);
+		setheight(window.innerHeight);
+	}, [height, width]);
+
+	useEffect(() => {
+		const dataSource = props.courses.map((elem, id) => {
+			return {
+				...elem,
+				key: id,
+				sn: id + 1,
+			};
+		});
+		setdataSearch(dataSource)
+	}, [props.courses])
 
 	const onSearch = e => {
 		// console.log(e.target.value)
 		const value = e.target.value.toLowerCase();
-		const newData = dataSource.filter(s => s.course_name.toLowerCase().search(value) !== -1);
+		const newData = dataSource.filter(s => s.course_title.toLowerCase().search(value) !== -1);
 		// let newDataSource = (newData.length === 0) ? newData : data
+		console.log(newData)
 		setdataSearch(newData);
 	};
 
@@ -38,10 +53,10 @@ export default props => {
 
 	const columns = [
 		{ title: 'SN', dataIndex: 'sn', key: 'sn' },
-		{ title: 'Course Title', dataIndex: 'course_name', key: 'course_name' },
+		{ title: 'Course Title', dataIndex: 'course_title', key: 'course_title' },
 		{ title: 'Course Code', dataIndex: 'course_code', key: 'course_code' },
-		{ title: 'Semester', dataIndex: 'course_semester', key: 'course_semester' },
-		// { title: 'Year', dataIndex: 'year', key: 'year' },
+		{ title: 'Semester', dataIndex: 'semester', key: 'semester' },
+		{ title: 'Year', dataIndex: 'year', key: 'year' },
 		// { title: 'Capacity', dataIndex: 'capacity', key: 'capacity' },
 		{
 			title: ' ',
@@ -68,6 +83,7 @@ export default props => {
 							placeholder="search for programme"
 							// size="large"
 							onChange={e => onSearch(e)}
+							 onSearch={value => console.log(value)}
 							style={{ width: '90%' }}
 						/>
 					</Col>
@@ -77,11 +93,7 @@ export default props => {
 				<div className="list-container">
 					<h2>List of Courses</h2>
 					<div className="table-container">
-						<Table
-							className="course-list-table"
-							dataSource={dataSearch.length !== 0 ? dataSource : dataSearch}
-							columns={columns}
-						/>
+						<Table className="course-list-table" dataSource={dataSearch} columns={columns} />
 					</div>
 				</div>
 			</div>

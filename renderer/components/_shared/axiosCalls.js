@@ -118,8 +118,11 @@ export async function manageCenters(params) {
 		case 'delete':
 			axios({
 				method: 'delete',
-				url: url + '?center_id=' + center_id,
+				url: url,
 				headers: headers,
+				data: {
+					center_id: center_id,
+				},
 			});
 		default:
 			break;
@@ -169,8 +172,11 @@ export const manageVenues = params => {
 		case 'delete':
 			axios({
 				method: 'delete',
-				url: url + '?center_id=' + center_id,
+				url: url,
 				headers: headers,
+				data: {
+					course_id: course_id,
+				},
 			});
 		default:
 			break;
@@ -186,7 +192,7 @@ export const manageVenues = params => {
  */
 
 export async function manageCourses(params) {
-	const { course_code, course_title, semester, year, url, headers, type } = params;
+	const { course_id, course_code, course_title, semester, year, url, headers, type } = params;
 	switch (type) {
 		case 'post':
 			const request = await axios({
@@ -206,7 +212,7 @@ export async function manageCourses(params) {
 				method: 'put',
 				url: url,
 				data: {
-					center_id: center_id,
+					course_id: course_id,
 					course_code: course_code,
 					course_title: course_title,
 					semester: semester,
@@ -219,8 +225,11 @@ export async function manageCourses(params) {
 		case 'delete':
 			axios({
 				method: 'delete',
-				url: url + '?center_id=' + center_id,
+				url: url,
 				headers: headers,
+				data: {
+					course_id: course_id,
+				},
 			});
 		default:
 			break;
@@ -267,8 +276,11 @@ export async function manageProgrammes(params) {
 		case 'delete':
 			axios({
 				method: 'delete',
-				url: url + '?programme_id=' + programme_id,
+				url: url,
 				headers: headers,
+				data: {
+					programme_id: programme_id,
+				},
 			});
 		default:
 			break;

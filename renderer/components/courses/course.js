@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'antd';
 import CourseContext from './course-context';
 import { AddCourse } from './newCourse';
+import { titleCase, getData, manageCourses } from '../_shared/axiosCalls';
 import XLSX from 'xlsx';
 import CourseList from './courseList';
 import './course.css';
@@ -11,39 +12,47 @@ export default () => {
 	const [courses, setCourses] = useState([]);
 	const [editMode, seteditMode] = useState(false);
 	const [fieldData, setfieldData] = useState([]);
-	const titleCase = str => {
-		return str
-			.toLowerCase()
-			.split(' ')
-			.map(function(word) {
-				return word.charAt(0).toUpperCase() + word.slice(1);
-			})
-			.join(' ');
+	const token = JSON.parse(localStorage.getItem('login')).tokenObtained;
+	const headers = {
+		'x-access-token': token,
+		'content-type': 'application/json',
 	};
+	const routeURL = 'http://10.30.3.17:5000/course';
 
 	const addCourseElements = course => {
+		// console.log(course);
+		const { course_title, semester, year, course_code } = course;
 		// add new course
 		let newstate = {
-			course_code: course.course_code.toUpperCase(),
-			course_name: titleCase(course.course_name),
-			course_semester: course.course_semester,
+			course_code: course_code.toUpperCase().trim(),
+			course_title: titleCase(course_title.trim()),
+			semester: semester,
+			year: year,
 		};
-		setCourses([...courses, newstate]);
+		manageCourses({ ...newstate, url: routeURL, headers, type: 'post' }).then(res =>
+			setCourses(res.data.courses)
+		);
+		// setCourses([...courses, newstate]);
 	};
 
 	const removeCourseElements = course => {
-		const newState = courses.filter(
-			element => element.course_code !== course.course_code
-		);
+		manageCourses({ ...course, url: routeURL, headers, type: 'delete' });
+		const newState = courses.filter(element => element.course_id !== course.course_id);
 		setCourses(newState);
 	};
 
 	const updateCourseElements = course => {
-		const newstate = courses.map(element =>
-			element.course_code === course.course_code ? course : element
-		);
-
-		setCourses(newstate);
+		const { center_id, course_title, semester, year, course_code } = course;
+		let newstate = {
+			center_id: center_id,
+			course_code: course_code.toUpperCase().trim(),
+			course_title: titleCase(course_title).trim(),
+			semester: semester,
+			year: year,
+		};
+		manageCourses({ ...newstate, url: routeURL, headers, type: 'put' });
+		const update = courses.map(element => (element.course_id === course.course_id ? course : element));
+		setCourses(update);
 	};
 
 	const onValueEditted = value => {
@@ -56,8 +65,10 @@ export default () => {
 	};
 
 	useEffect(() => {
-		console.log('State updated!: ');
-	}, [courses]);
+		getData({ url: routeURL, headers }).then(data => {
+			data.courses !== undefined ? setCourses(data.courses) : setCourses([]);
+		});
+	}, []);
 
 	const openFileDialog = semester => {
 		console.log(semester);
