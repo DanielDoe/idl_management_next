@@ -25,7 +25,7 @@ export async function getData(params) {
  * delete users
  */
 export async function manageUsers(params) {
-	const { full_name, email, center_name, status, phone, url, headers } = params;
+	const { full_name, email, public_id, center_name, status, phone, url, headers } = params;
 	switch (params.type) {
 		case 'post':
 			const request = await axios({
@@ -36,7 +36,6 @@ export async function manageUsers(params) {
 					email: email,
 					status: status,
 					phone: phone,
-					// not sure about center_id
 					center_name: center_name,
 				},
 				headers: headers,
@@ -45,13 +44,14 @@ export async function manageUsers(params) {
 		case 'put':
 			axios({
 				method: 'put',
-				url: url + '/u_id=' + u_id,
+				url: url,
 				data: {
 					full_name: full_name,
 					email: email,
 					status: status,
 					phone: phone,
-					center_id: center_id,
+					center_name: center_name,
+					public_id: public_id,
 				},
 				headers: headers,
 				// params: { u_id: id },
@@ -61,13 +61,9 @@ export async function manageUsers(params) {
 		case 'delete':
 			axios({
 				method: 'delete',
-				url: url + '?u_id=' + u_id,
+				url: url,
 				data: {
-					full_name: full_name,
-					email: email,
-					status: status,
-					phone: phone,
-					center_id: center_id,
+					public_id: public_id,
 				},
 				headers: headers,
 			});
@@ -137,26 +133,25 @@ export async function manageCenters(params) {
  * delete centers
  */
 
-export const manageVenues = params => {
-	const { url, headers, type } = params;
+export async function manageVenues(params) {
+	const { venue_name, venue_capacity, center_name, url, headers, type } = params;
 	switch (type) {
 		case 'post':
-			axios({
+			const request = await axios({
 				method: 'post',
 				url: url,
 				data: {
+					venue_name: venue_name,
+					venue_capacity: venue_capacity,
 					center_name: center_name,
-					// center_id: center_name,
-					center_code: center_code,
-					center_block: center_block,
 				},
 				headers: headers,
 			});
-			break;
+			return request;
 		case 'put':
 			axios({
 				method: 'put',
-				url: url + '/u_id=' + u_id,
+				url: url,
 				data: {
 					full_name: full_name,
 					email: email,
@@ -175,13 +170,14 @@ export const manageVenues = params => {
 				url: url,
 				headers: headers,
 				data: {
-					course_id: course_id,
+					venue_name: venue_name,
+					center_name: center_name,
 				},
 			});
 		default:
 			break;
 	}
-};
+}
 
 /**
  *

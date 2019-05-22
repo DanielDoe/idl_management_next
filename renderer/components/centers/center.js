@@ -66,7 +66,7 @@ export default () => {
 
 	useEffect(() => {
 		getData({ url: routeURL, headers }).then(data => {
-			data.centers.length !== 0 ? setCenters(data.centers) : setCenters([]);
+			data.centers !== undefined ? setCenters(data.centers) : setCenters([]);
 			console.log(data);
 		});
 	}, []);

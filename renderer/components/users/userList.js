@@ -5,20 +5,6 @@ import UserContext from './user-context';
 const Search = Input.Search;
 
 export default props => {
-	const context = useContext(UserContext);
-	const [width, setwidth] = useState(window.innerWidth);
-	const [height, setheight] = useState(window.innerHeight);
-	useEffect(() => {
-		setwidth(window.innerWidth);
-		setheight(window.innerHeight);
-	}, [height, width]);
-
-	// onSearch = e => {
-	// 	const value = e.target.value.toLowerCase();
-	// 	const newData = this.props.dataSource.filter(s => s.session_counr.search(value) !== -1);
-	// 	this.setState({ dataSource: newData });
-	// };
-
 	const dataSource = props.users.map((elem, id) => {
 		return {
 			...elem,
@@ -27,16 +13,41 @@ export default props => {
 		};
 	});
 
+	const context = useContext(UserContext);
+	const [dataSearch, setdataSearch] = useState(dataSource);
+	const [width, setwidth] = useState(window.innerWidth);
+	const [height, setheight] = useState(window.innerHeight);
 	
+	useEffect(() => {
+		setwidth(window.innerWidth);
+		setheight(window.innerHeight);
+		console.log(context)
+	}, [height, width]);
 
-	console.log(dataSource);
+	useEffect(() => {
+		const dataSource = props.users.map((elem, id) => {
+			return {
+				...elem,
+				key: id,
+				sn: id + 1,
+			};
+		});
+		setdataSearch(dataSource)
+	}, [props.users])
+
+	const onSearch = e => {
+		const value = e.target.value.toLowerCase();
+		const newData = dataSource.filter(s => s.full_name.search(value) !== -1);
+		setdataSearch(newData);
+	};
+
 	// props.onEditClicked
 
 	const columns = [
 		{ title: 'SN', dataIndex: 'sn', key: 'sn' },
 		{ title: 'Fullname', dataIndex: 'full_name', key: 'full_name' },
 		{ title: 'Email', dataIndex: 'email', key: 'email' },
-		{ title: 'Center', dataIndex: 'center', key: 'center' },
+		{ title: 'Center', dataIndex: 'center_name', key: 'center_name' },
 		{ title: 'Status', dataIndex: 'status', key: 'status' },
 		{
 			title: ' ',
@@ -61,7 +72,7 @@ export default props => {
 					<Table
 						loading={dataSource.length !== 0 ? false : true}
 						className="user-list-table"
-						dataSource={dataSource}
+						dataSource={dataSearch}
 						columns={columns}
 					/>
 				</div>

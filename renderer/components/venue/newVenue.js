@@ -42,9 +42,9 @@ class AddVenueForm extends React.Component {
 	componentWillReceiveProps(nextProps) {
 		if (Object.keys(nextProps.fieldData).length !== 0 && nextProps.editMode === true && this.state.counter > 0) {
 			this.props.form.setFieldsValue({
-				center: nextProps.fieldData.center,
+				center_name: nextProps.fieldData.center,
 				venue_name: nextProps.fieldData.venue_name,
-				capacity: nextProps.fieldData.capacity,
+				venue_capacity: nextProps.fieldData.capacity,
 			});
 			this.setState({ counter: -1 });
 		}
@@ -79,8 +79,8 @@ class AddVenueForm extends React.Component {
 		const centers = this.context.centers.map((element, index) => {
 			// console.log(element.name);
 			return (
-				<Option value={element.name} key={element.name}>
-					{element.name}
+				<Option value={element.center_name} key={element.center_name + index}>
+					{element.center_name}
 				</Option>
 			);
 		});
@@ -93,16 +93,16 @@ class AddVenueForm extends React.Component {
 		const buttonText = this.props.editMode ? 'Edit' : 'Add';
 		const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, getFieldValue } = this.props.form;
 
-		const VenueCodeError = isFieldTouched('center') && getFieldError('center');
+		const VenueCodeError = isFieldTouched('center_name') && getFieldError('center_name');
 		const VenueNameError = isFieldTouched('venue_name') && getFieldError('venue_name');
 		// const VenueYearError = isFieldTouched("year") && getFieldError("year");
-		const VenueCapacityError = isFieldTouched('capacity') && getFieldError('capacity');
+		const VenueCapacityError = isFieldTouched('venue_capacity') && getFieldError('venue_capacity');
 		// const othersError = getFieldError('otherSize');
 
-		const VenueCode = getFieldValue('center');
+		const VenueCode = getFieldValue('center_name');
 		const VenueName = getFieldValue('venue_name');
 		// const VenueYear = getFieldValue("year");
-		const VenueCapacity = getFieldValue('capacity');
+		const VenueCapacity = getFieldValue('venue_capacity');
 
 		const isEmpty = !VenueName || !VenueCode || !VenueCapacity;
 
@@ -117,7 +117,7 @@ class AddVenueForm extends React.Component {
 					validateStatus={VenueNameError ? 'error' : ''}
 					help={VenueNameError || ''}
 				>
-					{getFieldDecorator('center', {
+					{getFieldDecorator('center_name', {
 						rules: [{ required: true, message: 'enter center!' }],
 						initialValue: (this.context.user.auth_status !== 'admin') ? this.context.user.center : 'Accra'
 					})(
@@ -149,7 +149,7 @@ class AddVenueForm extends React.Component {
 					validateStatus={VenueCapacityError ? 'error' : ''}
 					help={VenueCapacityError || ''}
 				>
-					{getFieldDecorator('capacity', {
+					{getFieldDecorator('venue_capacity', {
 						rules: [
 							{
 								required: true,

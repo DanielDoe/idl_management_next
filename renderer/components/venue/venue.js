@@ -3,34 +3,49 @@ import { Row, Col } from 'antd';
 import VenueContext from './venue-context';
 import { AddVenue } from './newVenue';
 import VenueList from './venueList';
-import { getData } from '../_shared/axiosCalls';
+import { getData, manageVenues, titleCase } from '../_shared/axiosCalls';
 import './venue.css';
 
 export default () => {
-	const routeCenters = 'http://10.30.3.17:5000/center'
+	const routeCenters = 'http://10.30.3.17:5000/center';
+	const routeURL = 'http://10.30.3.17:5000/venue';
 	const [venues, setVenues] = useState([]);
 	const [editMode, seteditMode] = useState(false);
 	const [fieldData, setfieldData] = useState([]);
-	const [user, setuser] = useState(JSON.parse(localStorage.getItem('login')));
+	const token = JSON.parse(localStorage.getItem('login')).tokenObtained;
+	const user = JSON.parse(localStorage.getItem('login'));
 	const headers = {
-		'x-access-token': user.token,
+		'x-access-token': token,
 		'content-type': 'application/json',
 	};
-	const [centers, setcenters] = useState(
-		// get request to the db for available venues
-		[]
-	);
+	const [centers, setcenters] = useState([]);
 
 	useEffect(() => {
 		// Get all the centers we need
-		getData({ url: routeCenters, headers }).then(data => {
-			data.centers.length !== 0 ? setcenters(data.centers) : setcenters([]);
+		getData({ url: routeCenters, headers }).then(res => {
+			// console.log(res)
+			res.centers !== undefined ? setcenters(res.centers) : setcenters([]);
+		});
+
+		getData({ url: routeURL, headers }).then(data => {
+			console.log(data)
+			data.venues !== undefined ? setVenues(data.venues) : setVenues([]);
 		});
 	}, []);
 
 	const addVenueElements = venue => {
-		setVenues([...venues, venue]);
-		// console.log("Adding venue:", venue);
+		const { venue_name, venue_capacity, center_name } = venue;
+		let newstate = {
+			venue_name: titleCase(venue_name).trim(),
+			venue_capacity: venue_capacity,
+			center_name: center_name,
+		};
+
+		manageVenues({ ...newstate, url: routeURL, headers, type: 'post' }).then(res =>
+			// console.log(res.data.venues)
+			setVenues(res.data.venues)
+		);
+		// console.log('Adding venue:', newstate);
 	};
 
 	const removeVenueElements = venue => {

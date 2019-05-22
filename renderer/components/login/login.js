@@ -29,7 +29,7 @@ class LoginForm extends React.Component {
 						password: values.password,
 					})
 					.then(function(response) {
-						console.log(response);
+						// console.log(response);
 						if (response.data.Statuscode == '200') {
 							// console.log("Login unsuccessful..!")
 							swal({
@@ -44,6 +44,7 @@ class LoginForm extends React.Component {
 								password: values.password,
 								remember: values.remember,
 							};
+							localStorage.removeItem('login');
 							localStorage.setItem('login', JSON.stringify(credentials));
 							// console.log('tokenObtained: ', JSON.parse(localStorage.getItem('credentials')));
 							Router.push('/dashboard');

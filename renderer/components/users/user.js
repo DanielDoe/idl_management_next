@@ -28,20 +28,24 @@ export default () => {
 	const routeCenters = 'http://10.30.3.17:5000/center';
 	const [users, setUsers] = useState([]);
 	const addUserElements = user => {
+		const { center_name, email, full_name, phone, status } = user;
 		// spread the sent values from new user page
-		// manageUsers({ ...user, url: routeURL, headers, type: 'post' });
 		let newstate = {
-			center: user.center,
-			email: user.email,
-			full_name: titleCase(user.full_name),
-			phone: user.phone,
-			status: user.status,
+			center_name: center_name,
+			email: email.trim(),
+			full_name: titleCase(full_name).trim(),
+			phone: `0${phone}`,
+			status: status,
 		};
-		setUsers([...users, newstate]);
+		console.log('new: ', newstate);
+		manageUsers({ ...newstate, url: routeURL, headers, type: 'post' }).then(res => {
+			setUsers(res.data.users);
+		})
+		
 	};
 
 	const removeUserElements = user => {
-		// manageUsers({ ...user, url: routeURL, headers, type: 'delete' });
+		manageUsers({ ...user, url: routeURL, headers, type: 'delete' });
 		const newUsers = users.filter(element => element.email !== user.email);
 		// console.log('new users: ', newUsers);
 		setUsers(newUsers);
@@ -67,12 +71,13 @@ export default () => {
 	useEffect(() => {
 		// Get all the required data we need eg. users and centers
 		getData({ url: routeURL, headers }).then(data => {
-			data.users.length !== 0 ? setUsers(data.users) : setUsers([]);
+			console.log(data);
+			data.users !== undefined ? setUsers(data.users) : setUsers([]);
 		});
 
 		// Get all the centers we need
 		getData({ url: routeCenters, headers }).then(data => {
-			data.centers.length !== 0 ? setcenters(data.centers) : setcenters([]);
+			setcenters(data.centers);
 		});
 	}, []);
 

@@ -4,20 +4,8 @@ import VenueContext from './venue-context';
 // import swal from '@sweetalert/with-react'
 
 const Search = Input.Search;
-
+const Option = Select.Option;
 export default props => {
-	const context = useContext(VenueContext);
-	const [center, setcenter] = useState('');
-	useEffect(() => {
-		console.log(context);
-	}, [context]);
-
-	// onSearch = e => {
-	// 	const value = e.target.value.toLowerCase();
-	// 	const newData = this.props.dataSource.filter(s => s.session_counr.search(value) !== -1);
-	// 	this.setState({ dataSource: newData });
-	// };
-
 	const dataSource = props.venues.map((elem, id) => {
 		return {
 			...elem,
@@ -26,8 +14,39 @@ export default props => {
 		};
 	});
 
+	const context = useContext(VenueContext);
+	const [center, setcenter] = useState('');
+	const [dataSearch, setdataSearch] = useState(dataSource);
+	const [width, setwidth] = useState(window.innerWidth);
+	const [height, setheight] = useState(window.innerHeight);
+
+	useEffect(() => {
+		setwidth(window.innerWidth);
+		setheight(window.innerHeight);
+	}, [height, width]);
+
+	useEffect(() => {
+		console.log('Venues: ', props.venues);
+		const dataSource = props.venues.map((elem, id) => {
+			return {
+				...elem,
+				key: id,
+				sn: id + 1,
+			};
+		});
+		setdataSearch(dataSource);
+	}, [props.venues]);
+
+	const onSearch = e => {
+		// console.log(e.target.value)
+		const value = e.target.value.toLowerCase();
+		const newData = dataSource.filter(s => s.course_title.toLowerCase().search(value) !== -1);
+		// let newDataSource = (newData.length === 0) ? newData : data
+		setdataSearch(newData);
+	};
+
 	const renderCenterData = () => {
-		const elements = this.props.centers.map((element, index) => {
+		const elements = context.centers.map((element, index) => {
 			// console.log(element.name);
 			return (
 				<Option value={element.center_name} key={element.center_name + index}>
@@ -41,10 +60,10 @@ export default props => {
 
 	const columns = [
 		{ title: 'SN', dataIndex: 'sn', key: 'sn' },
-		{ title: 'Center', dataIndex: 'center', key: 'center' },
-		{ title: 'Room', dataIndex: 'name', key: 'name' },
+		{ title: 'Center', dataIndex: 'center_name', key: 'center_name' },
+		{ title: 'Room', dataIndex: 'venue_name', key: 'venue_name' },
 		// { title: 'Year', dataIndex: 'year', key: 'year' },
-		{ title: 'Capacity', dataIndex: 'capacity', key: 'capacity' },
+		{ title: 'Capacity', dataIndex: 'venue_capacity', key: 'venue_capacity' },
 		{
 			title: ' ',
 			render: (text, record) => (
@@ -70,9 +89,9 @@ export default props => {
 							disabled={context.user.auth_status !== 'admin' ? true : false}
 							// placeholder="e.g. Accra"
 							style={{ width: '90%' }}
-							onChange={e => setcenter(e.target.value)}
+							onChange={value => setcenter(value)}
 						>
-							{renderCenterData}
+							{renderCenterData()}
 						</Select>
 					</Col>
 					<Col span={8} />
@@ -90,7 +109,13 @@ export default props => {
 				<div className="list-container">
 					<h2>List of Venues</h2>
 					<div className="table-container">
-						<Table className="venue-list-table" dataSource={dataSource} columns={columns} />
+						<Table
+							// loading={dataSearch.length !== 0 ? false : true}
+							className="venue-list-table"
+							dataSource={dataSearch}
+							pagination={{ pageSize: height / 100 }}
+							columns={columns}
+						/>
 					</div>
 				</div>
 			</div>

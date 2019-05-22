@@ -31,15 +31,14 @@ export default props => {
 				sn: id + 1,
 			};
 		});
-		setdataSearch(dataSource)
-	}, [props.courses])
+		setdataSearch(dataSource);
+	}, [props.courses]);
 
 	const onSearch = e => {
 		// console.log(e.target.value)
 		const value = e.target.value.toLowerCase();
 		const newData = dataSource.filter(s => s.course_title.toLowerCase().search(value) !== -1);
 		// let newDataSource = (newData.length === 0) ? newData : data
-		console.log(newData)
 		setdataSearch(newData);
 	};
 
@@ -83,7 +82,7 @@ export default props => {
 							placeholder="search for programme"
 							// size="large"
 							onChange={e => onSearch(e)}
-							 onSearch={value => console.log(value)}
+							onSearch={value => console.log(value)}
 							style={{ width: '90%' }}
 						/>
 					</Col>
@@ -93,7 +92,12 @@ export default props => {
 				<div className="list-container">
 					<h2>List of Courses</h2>
 					<div className="table-container">
-						<Table className="course-list-table" dataSource={dataSearch} columns={columns} />
+						<Table
+							pagination={{ pageSize: height / 100 }}
+							className="course-list-table"
+							dataSource={dataSearch}
+							columns={columns}
+						/>
 					</div>
 				</div>
 			</div>

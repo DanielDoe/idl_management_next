@@ -98,7 +98,7 @@ class AddUserForm extends React.Component {
 		const UseEmailError = isFieldTouched('email') && getFieldError('email');
 		const UseFullNameError = isFieldTouched('full_name') && getFieldError('full_name');
 		const UseStatusError = isFieldTouched('status') && getFieldError('status');
-		const UseCenterError = isFieldTouched('center') && getFieldError('center');
+		const UseCenterError = isFieldTouched('center_name') && getFieldError('center_name');
 		const UserPhoneError = isFieldTouched('phone') && getFieldError('phone');
 		// const othersError = getFieldError('otherSize');
 
@@ -106,7 +106,7 @@ class AddUserForm extends React.Component {
 		const UseFullName = getFieldValue('full_name');
 		const UseStatus = getFieldValue('status');
 		const UserPhone = getFieldValue('phone');
-		const UserCenter = getFieldValue('center');
+		const UserCenter = getFieldValue('center_name');
 
 		const isEmpty = !UseEmail || !UseFullName || !UseStatus || !UserPhone || !UserCenter;
 
@@ -149,10 +149,10 @@ class AddUserForm extends React.Component {
 					validateStatus={UseCenterError ? 'error' : ''}
 					help={UseCenterError || ''}
 				>
-					{getFieldDecorator('center', {
+					{getFieldDecorator('center_name', {
 						rules: [{ required: true, message: 'enter center!' }],
 					})(
-						<Select placeholder="eg. admin" style={{ width: '100%' }}>
+						<Select placeholder="eg. Accra" style={{ width: '100%' }}>
 							{this.renderCenterData()}
 						</Select>
 					)}
