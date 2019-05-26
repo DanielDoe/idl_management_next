@@ -134,7 +134,7 @@ export async function manageCenters(params) {
  */
 
 export async function manageVenues(params) {
-	const { venue_name, venue_capacity, center_name, url, headers, type } = params;
+	const { venue_name, venue_id, venue_capacity, center_name, url, headers, type } = params;
 	switch (type) {
 		case 'post':
 			const request = await axios({
@@ -153,11 +153,10 @@ export async function manageVenues(params) {
 				method: 'put',
 				url: url,
 				data: {
-					full_name: full_name,
-					email: email,
-					status: status,
-					phone: phone,
-					center_id: center_id,
+					venue_id: venue_id,
+					venue_name: venue_name,
+					venue_capacity: venue_capacity,
+					center_name: center_name,
 				},
 				headers: headers,
 				// params: { u_id: id },
@@ -291,32 +290,30 @@ export async function manageProgrammes(params) {
  * delete courseAllocations
  */
 
-export const manageCourseAllocations = params => {
-	const { url, headers, type } = params;
+export async function manageCourseAllocations(params) {
+	const { programme_id, sem_1, sem_2, url, headers, type } = params;
 	switch (type) {
 		case 'post':
-			axios({
+			const request = await axios({
 				method: 'post',
 				url: url,
 				data: {
-					center_name: center_name,
-					// center_id: center_name,
-					center_code: center_code,
-					center_block: center_block,
+					programme_id: programme_id,
+					sem_1: sem_1,
+					sem_2: sem_2,
 				},
 				headers: headers,
 			});
-			break;
+			console.log(request);
+			return request;
 		case 'put':
 			axios({
 				method: 'put',
-				url: url + '/u_id=' + u_id,
+				url: url,
 				data: {
-					full_name: full_name,
-					email: email,
-					status: status,
-					phone: phone,
-					center_id: center_id,
+					programme_id: programme_id,
+					sem_1: sem_1,
+					sem_2: sem_2,
 				},
 				headers: headers,
 				// params: { u_id: id },
@@ -326,13 +323,16 @@ export const manageCourseAllocations = params => {
 		case 'delete':
 			axios({
 				method: 'delete',
-				url: url + '?center_id=' + center_id,
+				url: url,
+				data: {
+					programme_id: programme_id,
+				},
 				headers: headers,
 			});
 		default:
 			break;
 	}
-};
+}
 
 /**
  *

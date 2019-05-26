@@ -28,7 +28,7 @@ class AddProgrammeForm extends React.Component {
 					this.handleReset();
 					// this.props.onCancel()
 				} else {
-					this.context.updateProgrammeElements(values);
+					this.context.updateProgrammeElements({programme_id: this.props.fieldData.programme_id, ...values});
 					// console.log('Updated received values of form: ', values);
 					this.handleReset();
 					this.props.onCancel();

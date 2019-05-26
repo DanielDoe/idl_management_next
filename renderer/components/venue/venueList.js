@@ -113,7 +113,7 @@ export default props => {
 							// loading={dataSearch.length !== 0 ? false : true}
 							className="venue-list-table"
 							dataSource={dataSearch}
-							pagination={{ pageSize: height / 100 }}
+							pagination={{ pageSize: height / 200 }}
 							columns={columns}
 						/>
 					</div>

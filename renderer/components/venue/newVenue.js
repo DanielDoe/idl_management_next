@@ -25,7 +25,7 @@ class AddVenueForm extends React.Component {
 					this.handleReset();
 					// this.props.onCancel()
 				} else {
-					// this.context.updateVenueElements(values);
+					// this.context.updateVenueElements({venue_id: this.props.fieldData.venue_id, ...values});
 					console.log('Updated received values of form: ', values);
 					this.handleReset();
 					this.props.onCancel();

@@ -31,7 +31,7 @@ class AddCourseForm extends React.Component {
 					this.handleReset();
 					// this.props.onCancel()
 				} else {
-					this.context.updateCourseElements(values);
+					this.context.updateCourseElements({course_id: this.props.fieldData.course_id, ...values});
 					// console.log('Updated received values of form: ', values);
 					this.handleReset();
 					this.props.onCancel();

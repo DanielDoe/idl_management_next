@@ -29,9 +29,7 @@ export default () => {
 			semester: semester,
 			year: year,
 		};
-		manageCourses({ ...newstate, url: routeURL, headers, type: 'post' }).then(res =>
-			setCourses(res.data.courses)
-		);
+		manageCourses({ ...newstate, url: routeURL, headers, type: 'post' }).then(res => setCourses(res.data.courses));
 		// setCourses([...courses, newstate]);
 	};
 
@@ -42,9 +40,10 @@ export default () => {
 	};
 
 	const updateCourseElements = course => {
-		const { center_id, course_title, semester, year, course_code } = course;
+		// console.log('Update: ', course);
+		const { course_id, course_title, semester, year, course_code } = course;
 		let newstate = {
-			center_id: center_id,
+			course_id: course_id,
 			course_code: course_code.toUpperCase().trim(),
 			course_title: titleCase(course_title).trim(),
 			semester: semester,
@@ -67,11 +66,13 @@ export default () => {
 	useEffect(() => {
 		getData({ url: routeURL, headers }).then(data => {
 			data.courses !== undefined ? setCourses(data.courses) : setCourses([]);
+			console.log(data.courses)
 		});
+		
 	}, []);
 
 	const openFileDialog = semester => {
-		console.log(semester);
+		// console.log(semester);
 		const o = Dialog.showOpenDialog({ properties: ['openFile'] });
 		const workbook = XLSX.readFile(o[0]);
 

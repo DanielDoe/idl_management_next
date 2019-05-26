@@ -42,7 +42,7 @@ export default () => {
 	};
 
 	const updateCenterElements = center => {
-		// console.log('Updating centers', center);
+		console.log('Updating centers', center);
 		const { center_name, center_code, center_block, center_id } = center
 		const centerUpdate = {
 			center_name: titleCase(center_name.trim()),
@@ -50,7 +50,10 @@ export default () => {
 			center_block: center_block,
 			center_id: center_id
 		};
-		manageCenters({ ...centerUpdate, url: routeURL, headers, type: 'put' });
+		manageCenters({ ...centerUpdate, url: routeURL, headers, type: 'put' })
+		// .then(res => {
+		// 	setCenters(res.data.centers);
+		// });;
 		const newstate = centers.map(element => (element.center_id === center.center_id ? center : element));
 		setCenters(newstate);
 	};

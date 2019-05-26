@@ -7,6 +7,17 @@ const Option = Select.Option;
 
 class AddCentersForm extends React.Component {
 	static contextType = CenterContext;
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			counter: 1,
+			year: null,
+		};
+
+		// this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
 
 	handleSubmit = e => {
 		e.preventDefault();
@@ -17,7 +28,7 @@ class AddCentersForm extends React.Component {
 				this.handleReset();
 				// this.props.onCancel()
 			} else {
-				this.context.updateCenterElements(values);
+				this.context.updateCenterElements({center_id: this.props.fieldData.center_id, ...values});
 				// console.log('Updated received values of form: ', values);
 				this.handleReset();
 				this.props.onCancel();

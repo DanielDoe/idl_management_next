@@ -10,7 +10,7 @@ class AddAllocationForm extends React.Component {
 		super(props);
 
 		this.state = {
-			selectedItems: [],
+			selectedItems: []
 		};
 	}
 
@@ -24,14 +24,12 @@ class AddAllocationForm extends React.Component {
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				this.context.addAllocationElements(values);
-				console.log('Received values of form: ', values);
+				// console.log('Received values of form: ', values);
 			}
 		});
-  };
-  
-  renderProgrammeData = () => {
-    
-  }
+	};
+
+	renderProgrammeData = () => {};
 
 	hasErrors(fieldsError) {
 		return Object.keys(fieldsError).some(field => fieldsError[field]);
@@ -41,18 +39,18 @@ class AddAllocationForm extends React.Component {
 		const { selectedItems } = this.state;
 		const filteredOptions = this.context.courses.filter(o => !selectedItems.includes(o));
 		const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, getFieldValue } = this.props.form;
-		const AllocationNameError = isFieldTouched('name') && getFieldError('name');
-		const AllocationCodeError = isFieldTouched('code') && getFieldError('code');
-		//const AllocationYearError = isFieldTouched('year') && getFieldError('year');
+		const AllocationNameError = isFieldTouched('programme_id') && getFieldError('programme_id');
+		const AllocationSem1Error = isFieldTouched('sem_1') && getFieldError('sem_1');
+		const AllocationSem2Error = isFieldTouched('sem_2') && getFieldError('sem_2');
 		//	const AllocationCapacityError = isFieldTouched('capacity') && getFieldError('capacity');
 		// const othersError = getFieldError('otherSize');
 
-		const AllocationName = getFieldValue('name');
-		const AllocationCode = getFieldValue('courses');
-		// const AllocationYear = getFieldValue('year');
+		const AllocationName = getFieldValue('programme_id');
+		const AllocationSem1 = getFieldValue('sem_1');
+		const AllocationSem2 = getFieldValue('sem_2');
 		// const AllocationCapacity = getFieldValue('capacity');
 
-		const isEmpty = !AllocationName || !AllocationCode;
+		const isEmpty = !AllocationName || !AllocationSem1 || !AllocationSem2;
 		// || !AllocationYear || !AllocationCapacity;
 
 		return (
@@ -66,26 +64,64 @@ class AddAllocationForm extends React.Component {
 					validateStatus={AllocationNameError ? 'error' : ''}
 					help={AllocationNameError || ''}
 				>
-					{getFieldDecorator('name', {
+					{getFieldDecorator('programme_id', {
 						rules: [{ required: true, message: 'enter name!' }],
 					})(
-						<Select style={{ width: "100%"}} placeholder="Computer Engineering 1">
-              {this.context.programmes.map((elem, index) => {
-                return(
-                  <Option value={elem} key={elem}>{elem}</Option>
-                )
-              })}  
+						<Select
+							onChange={value => console.log(value)}
+							style={{ width: '100%' }}
+							placeholder="Computer Engineering 1"
+						>
+							{this.context.programmes.map((elem, index) => {
+								return (
+									<Option value={elem.programme_id} key={elem.programme_id}>
+										{elem.programme_name}
+									</Option>
+								);
+							})}
 						</Select>
 					)}
 				</FormItem>
-				<label htmlFor="new-allocation-std-cap">Courses</label>
+				<label htmlFor="new-allocation-std-cap">Semester 1</label>
 				<FormItem
 					// style={{textAlign: '-webkit-Allocation'}}
 					hasFeedback
-					validateStatus={AllocationCodeError ? 'error' : ''}
-					help={AllocationCodeError || ''}
+					validateStatus={AllocationSem1Error ? 'error' : ''}
+					help={AllocationSem1Error || ''}
 				>
-					{getFieldDecorator('courses', {
+					{getFieldDecorator('sem_1', {
+						rules: [
+							{
+								required: true,
+								message: 'code!',
+							},
+						],
+					})(
+						<Select
+							mode="multiple"
+							placeholder="semester"
+							// value={selectedItems}
+							onChange={value => this.setState({ sem: value })}
+							style={{ width: '100%' }}
+						>
+							{filteredOptions
+								.filter(e => e.semester == 1)
+								.map((item, index) => (
+									<Select.Option key={item + index} value={`${item.course_id}`}>
+										{item.course_title}
+									</Select.Option>
+								))}
+						</Select>
+					)}
+				</FormItem>
+				<label htmlFor="new-allocation-std-cap">Semester 2</label>
+				<FormItem
+					// style={{textAlign: '-webkit-Allocation'}}
+					hasFeedback
+					validateStatus={AllocationSem2Error ? 'error' : ''}
+					help={AllocationSem2Error || ''}
+				>
+					{getFieldDecorator('sem_2', {
 						rules: [
 							{
 								required: true,
@@ -101,11 +137,13 @@ class AddAllocationForm extends React.Component {
 							onChange={this.handleChange}
 							style={{ width: '100%' }}
 						>
-							{filteredOptions.map(item => (
-								<Select.Option key={item} value={item}>
-									{item}
-								</Select.Option>
-							))}
+							{filteredOptions
+								.filter(e => e.semester == 2)
+								.map((item, index) => (
+									<Select.Option key={item + index} value={`${item.course_id}`}>
+										{item.course_title}
+									</Select.Option>
+								))}
 						</Select>
 					)}
 				</FormItem>

@@ -28,7 +28,7 @@ export default () => {
 		});
 
 		getData({ url: routeURL, headers }).then(data => {
-			console.log(data)
+			console.log(data);
 			data.venues !== undefined ? setVenues(data.venues) : setVenues([]);
 		});
 	}, []);
@@ -49,20 +49,29 @@ export default () => {
 	};
 
 	const removeVenueElements = venue => {
-		console.log('Removing venue', venue);
+		// console.log('Removing venue', venue);
+		manageVenues({ ...venue, url: routeURL, headers, type: 'delete' });
 		const newVenue = venues.filter(
-			element => element.center !== venue.center && element.venue_name !== venue.venue_name
+			element => element.venue_id !== venue.venue_id
 		);
+		// console.log(newVenue);
 		setVenues(newVenue);
 	};
 
 	const updateVenueElements = venue => {
-		console.log('Updating venue', venue);
-		const newstate = venues.map(element =>
-			element.center === venue.center && element.venue_name === venue.venue_name ? venue : element
+		// console.log('Updating venue', venue);
+		const { venue_name, venue_capacity, center_name } = venue;
+		let newstate = {
+			venue_name: titleCase(venue_name).trim(),
+			venue_capacity: venue_capacity,
+			center_name: center_name,
+		};
+		manageVenues({ ...newstate, url: routeURL, headers, type: 'put' });
+		const update = venues.map(element =>
+			element.center_name === venue.center_name && element.venue_name === venue.venue_name ? venue : element
 		);
 		// add update to the existing state
-		setVenues(newstate);
+		setVenues(update);
 	};
 
 	const onVenueEditted = venue => {
