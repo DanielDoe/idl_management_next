@@ -16,6 +16,16 @@ export default () => {
 	const routeCourses = 'http://10.30.3.17:5000/course';
 	const routeURL = 'http://10.30.3.17:5000/courseAllocation';
 	const [allocations, setAllocations] = useState([]);
+
+	// sample data from the api
+	const data = [
+		{
+			programme_id: 72,
+			programme_name: 'Computer Engineering 1',
+			sem_1: ['Coe COE'],
+			sem_2: ['Digital Systems COE 252'],
+		},
+	];
 	const [programmes, setprogrammes] = useState([]);
 	const [courses, setcourses] = useState([]);
 	const [editMode, seteditMode] = useState(false);
@@ -57,18 +67,17 @@ export default () => {
 
 	useEffect(() => {
 		// console.log("State updated!: ");
-		getData({ url: routeProgrammes, headers }).then(data => {
-			data.programmes !== undefined ? setprogrammes(data.programmes) : setProgrammes([]);
-		});
-
-		getData({ url: routeCourses, headers }).then(data => {
-			data.courses !== undefined ? setcourses(data.courses) : setcourses([]);
-		});
-
-		getData({ url: routeURL, headers }).then(data => {
-			// console.log('Allocations: ', data)
-			data.courseAllocations !== undefined ? setAllocations(data.courseAllocations) : setAllocations([]);
-		});
+		// getData({ url: routeProgrammes, headers }).then(data => {
+		// 	data.programmes !== undefined ? setprogrammes(data.programmes) : setProgrammes([]);
+		// });
+		// getData({ url: routeCourses, headers }).then(data => {
+		// 	data.courses !== undefined ? setcourses(data.courses) : setcourses([]);
+		// });
+		// getData({ url: routeURL, headers }).then(data => {
+		// 	// console.log('Allocations: ', data)
+		// 	data.courseAllocations !== undefined ? setAllocations(data.courseAllocations) : setAllocations([]);
+    // });
+    setAllocations(data)
 	}, []);
 
 	return (
