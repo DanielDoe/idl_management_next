@@ -62,10 +62,10 @@ class LoginForm extends React.Component {
 				// 	.catch(function(error) {
 				// 		console.log(error);
 				// 	});
-				// localStorage.setItem(
-				// 	'login',
-				// 	JSON.stringify({ ...values, auth_status: 'admin', center: 'Accra', tokenObtained: 'admin' })
-				// );
+				localStorage.setItem(
+					'login',
+					JSON.stringify({ ...values, auth_status: 'admin', center: 'Accra', tokenObtained: 'admin' })
+				);
 
 				Router.push('/dashboard');
 			}
