@@ -21,7 +21,7 @@ export default props => {
 		return {
 			...elem,
 			key: id,
-			sn: id + 1,
+			sn: id + 1
 		};
 	});
 
@@ -33,7 +33,7 @@ export default props => {
 					height: '100%',
 					width: '100%',
 					overflowY: 'auto',
-					border: '1px solid rgba(0,0,0,0.14)',
+					border: '1px solid rgba(0,0,0,0.14)'
 				}}
 			>
 				{props.allocations.map((element, index) => {
@@ -65,6 +65,7 @@ export default props => {
 								// className="skill-card__knowledge"
 								type="danger"
 								shape="circle"
+								className="delete-btn"
 								icon="delete"
 								onClick={() => context.removeAllocationElements(element)}
 							/>
@@ -92,8 +93,8 @@ export default props => {
 						Delete
 					</button>
 				</div>
-			),
-		},
+			)
+		}
 	];
 
 	return (
