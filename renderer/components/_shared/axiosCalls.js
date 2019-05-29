@@ -1,6 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 
+export const routeProgrammes = 'https://idl-timetable.herokuapp.com/programme';
+export const routeCourses = 'https://idl-timetable.herokuapp.com/course';
+export const routeAllocations = 'https://idl-timetable.herokuapp.com/courseAllocation';
+export const routeUserLogin = 'https://idl-timetable.herokuapp.com/userlogin';
+export const routeCenters = 'https://idl-timetable.herokuapp.com/center';
+export const routeUsers = 'https://idl-timetable.herokuapp.com/user';
+
 export const titleCase = str => {
 	return str
 		.toLowerCase()

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'antd';
 import CourseContext from './course-context';
 import { AddCourse } from './newCourse';
-import { titleCase, getData, manageCourses } from '../_shared/axiosCalls';
+import { titleCase, getData, manageCourses, routeCourses } from '../_shared/axiosCalls';
 import XLSX from 'xlsx';
 import CourseList from './courseList';
 import './course.css';
@@ -17,7 +17,6 @@ export default () => {
 		'x-access-token': token,
 		'content-type': 'application/json',
 	};
-	const routeURL = 'http://10.30.3.17:5000/course';
 
 	const addCourseElements = course => {
 		// console.log(course);
@@ -29,12 +28,12 @@ export default () => {
 			semester: semester,
 			year: year,
 		};
-		manageCourses({ ...newstate, url: routeURL, headers, type: 'post' }).then(res => setCourses(res.data.courses));
+		manageCourses({ ...newstate, url: routeCourses, headers, type: 'post' }).then(res => setCourses(res.data.courses));
 		// setCourses([...courses, newstate]);
 	};
 
 	const removeCourseElements = course => {
-		manageCourses({ ...course, url: routeURL, headers, type: 'delete' });
+		manageCourses({ ...course, url: routeCourses, headers, type: 'delete' });
 		const newState = courses.filter(element => element.course_id !== course.course_id);
 		setCourses(newState);
 	};
@@ -49,7 +48,7 @@ export default () => {
 			semester: semester,
 			year: year,
 		};
-		manageCourses({ ...newstate, url: routeURL, headers, type: 'put' });
+		manageCourses({ ...newstate, url: routeCourses, headers, type: 'put' });
 		const update = courses.map(element => (element.course_id === course.course_id ? course : element));
 		setCourses(update);
 	};
@@ -64,7 +63,7 @@ export default () => {
 	};
 
 	useEffect(() => {
-		getData({ url: routeURL, headers }).then(data => {
+		getData({ url: routeCourses, headers }).then(data => {
 			data.courses !== undefined ? setCourses(data.courses) : setCourses([]);
 			console.log(data.courses)
 		});

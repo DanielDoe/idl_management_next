@@ -3,6 +3,7 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import Head from 'next/head';
 import axios from 'axios';
 import Link from 'next/link';
+import { routeUserLogin } from '../_shared/axiosCalls'
 import Router from 'next/router';
 import swal from 'sweetalert';
 
@@ -23,51 +24,45 @@ class LoginForm extends React.Component {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
-				// axios
-				// 	.post('http://10.30.3.17:5000/userlogin', {
-				// 		email: values.email,
-				// 		password: values.password,
-				// 	})
-				// 	.then(function(response) {
-				// 		// console.log(response);
-				// 		if (response.data.Statuscode == '200') {
-				// 			// console.log("Login unsuccessful..!")
-				// 			swal({
-				// 				title: 'Good job!',
-				// 				text: 'You are logged in sucessfully!',
-				// 				icon: 'success',
-				// 				button: false,
-				// 			});
-				// 			credentials = {
-				// 				...response.data,
-				// 				email: values.email,
-				// 				password: values.password,
-				// 				remember: values.remember,
-				// 			};
-				// 			localStorage.removeItem('login');
-				// 			localStorage.setItem('login', JSON.stringify(credentials));
-				// 			// console.log('tokenObtained: ', JSON.parse(localStorage.getItem('credentials')));
-				// 			Router.push('/dashboard');
-				// 		} else {
-				// 			console.log('Login unsuccessful..!');
-				// 			swal({
-				// 				title: 'Sorry!',
-				// 				text:
-				// 					'We encountered an error logging you in please check your details or internet connection!',
-				// 				icon: 'error',
-				// 				button: false,
-				// 			});
-				// 		}
-				// 	})
-				// 	.catch(function(error) {
-				// 		console.log(error);
-				// 	});
-				localStorage.setItem(
-					'login',
-					JSON.stringify({ ...values, auth_status: 'admin', center: 'Accra', tokenObtained: 'admin' })
-				);
-
-				Router.push('/dashboard');
+				axios
+					.post(routeUserLogin, {
+						email: values.email,
+						password: values.password,
+					})
+					.then(function(response) {
+						// console.log(response);
+						if (response.data.Statuscode == '200') {
+							// console.log("Login unsuccessful..!")
+							swal({
+								title: 'Good job!',
+								text: 'You are logged in sucessfully!',
+								icon: 'success',
+								button: false,
+							});
+							credentials = {
+								...response.data,
+								email: values.email,
+								password: values.password,
+								remember: values.remember,
+							};
+							localStorage.removeItem('login');
+							localStorage.setItem('login', JSON.stringify(credentials));
+							// console.log('tokenObtained: ', JSON.parse(localStorage.getItem('credentials')));
+							Router.push('/dashboard');
+						} else {
+							console.log('Login unsuccessful..!');
+							swal({
+								title: 'Sorry!',
+								text:
+									'We encountered an error logging you in please check your details or internet connection!',
+								icon: 'error',
+								button: false,
+							});
+						}
+					})
+					.catch(function(error) {
+						console.log(error);
+					});
 			}
 		});
 	};

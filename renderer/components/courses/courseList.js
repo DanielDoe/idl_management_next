@@ -94,6 +94,7 @@ export default props => {
 					<div className="table-container">
 						<Table
 							pagination={{ pageSize: height / 100 }}
+							loading={dataSource.length !== 0 ? false : true}
 							className="course-list-table"
 							dataSource={dataSearch}
 							columns={columns}

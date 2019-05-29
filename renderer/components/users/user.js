@@ -3,7 +3,7 @@ import { Row, Col } from 'antd';
 import UserContext from './user-context';
 import { AddUser } from './newUsers';
 import UserList from './userList';
-import { getData, manageUsers, titleCase } from '../_shared//axiosCalls';
+import { getData, manageUsers, titleCase, routeCenters, routeUsers } from '../_shared//axiosCalls';
 import './user.css';
 
 export default () => {
@@ -24,8 +24,6 @@ export default () => {
 	};
 	const [centers, setcenters] = useState([]);
 
-	const routeURL = 'http://10.30.3.17:5000/user';
-	const routeCenters = 'http://10.30.3.17:5000/center';
 	const [users, setUsers] = useState([]);
 	const addUserElements = user => {
 		const { center_name, email, full_name, phone, status } = user;
@@ -38,14 +36,14 @@ export default () => {
 			status: status,
 		};
 		console.log('new: ', newstate);
-		manageUsers({ ...newstate, url: routeURL, headers, type: 'post' }).then(res => {
+		manageUsers({ ...newstate, url: routeUsers, headers, type: 'post' }).then(res => {
 			setUsers(res.data.users);
 		})
 		
 	};
 
 	const removeUserElements = user => {
-		manageUsers({ ...user, url: routeURL, headers, type: 'delete' });
+		manageUsers({ ...user, url: routeUsers, headers, type: 'delete' });
 		const newUsers = users.filter(element => element.email !== user.email);
 		// console.log('new users: ', newUsers);
 		setUsers(newUsers);
@@ -53,7 +51,7 @@ export default () => {
 
 	const updateUserElements = user => {
 		console.log('Updating Users', user);
-		// manageUsers({ ...user, url: routeURL, headers, type: 'put' });
+		// manageUsers({ ...user, url: routeUsers, headers, type: 'put' });
 		const newstate = users.map(element => (element.email === user.email ? user : element));
 
 		setUsers(newstate);
@@ -70,7 +68,7 @@ export default () => {
 
 	useEffect(() => {
 		// Get all the required data we need eg. users and centers
-		getData({ url: routeURL, headers }).then(data => {
+		getData({ url: routeUsers, headers }).then(data => {
 			console.log(data);
 			data.users !== undefined ? setUsers(data.users) : setUsers([]);
 		});

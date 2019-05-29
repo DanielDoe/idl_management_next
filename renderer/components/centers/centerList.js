@@ -55,7 +55,7 @@ export default props => {
 					<Table
 						className="center-list-table"
 						// bordered
-						// loading={dataSource.length !== 0 ? false : true}
+						loading={dataSource.length !== 0 ? false : true}
 						pagination={{ pageSize: height / 100 }}
 						// loading={(dataSource.length !== 0) ? false : true}
 						dataSource={dataSource}

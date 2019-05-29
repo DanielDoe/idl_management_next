@@ -79,7 +79,7 @@ export default props => {
 					<div className="table-container">
 						<Table
 							className="programme-list-table"
-							//loading={dataSource.length !== 0 ? false : true}
+							loading={dataSource.length !== 0 ? false : true}
 							pagination={{ pageSize: height / 100 }}
 							dataSource={dataSource}
 							columns={columns}

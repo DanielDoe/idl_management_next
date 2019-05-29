@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'antd';
 import ProgrammeContext from './programme-context';
-import { titleCase, manageProgrammes, getData } from '../_shared/axiosCalls';
+import { titleCase, manageProgrammes, getData, routeProgrammes } from '../_shared/axiosCalls';
 import { AddProgramme } from './newProgramme';
 import ProgrammeList from './programmeList';
 import XLSX from 'xlsx';
 import './programme.css';
-import { configConsumerProps } from 'antd/lib/config-provider';
 
 export default () => {
 	const Dialog = require('electron').remote.dialog;
@@ -16,7 +15,6 @@ export default () => {
 		'x-access-token': token,
 		'content-type': 'application/json',
 	};
-	const routeURL = 'http://10.30.3.17:5000/programme';
 	const [editMode, seteditMode] = useState(false);
 	const [fieldData, setfieldData] = useState([]);
 
@@ -28,7 +26,7 @@ export default () => {
 				programme_name: titleCase(programme.programme_name).trim() + ' ' + index,
 				year: index,
 			};
-			manageProgrammes({ ...newstate, url: routeURL, headers, type: 'post' }).then(res => setProgrammes(res.data.programmes));
+			manageProgrammes({ ...newstate, url: routeProgrammes, headers, type: 'post' }).then(res => setProgrammes(res.data.programmes));
 
 			// promises.push(request);
 		}
@@ -42,7 +40,7 @@ export default () => {
 	};
 
 	const removeProgrammeElements = programme => {
-		manageProgrammes({ ...programme, url: routeURL, headers, type: 'delete' });
+		manageProgrammes({ ...programme, url: routeProgrammes, headers, type: 'delete' });
 		const newState = programmes.filter(element => element.programme_id !== programme.programme_id);
 		setProgrammes(newState);
 		// console.log("Removing Programmes", newState);
@@ -67,7 +65,7 @@ export default () => {
 	};
 
 	useEffect(() => {
-		getData({ url: routeURL, headers }).then(data => {
+		getData({ url: routeProgrammes, headers }).then(data => {
 			data.programmes !== undefined ? setProgrammes(data.programmes) : setProgrammes([]);
 		});
 	}, []);

@@ -3,7 +3,7 @@ import { Row, Col } from 'antd';
 import CenterContext from './center-context';
 import { AddCenters } from './newCenter';
 import CenterList from './centerList';
-import { getData, manageCenters, titleCase } from '../_shared//axiosCalls';
+import { getData, manageCenters, titleCase, routeCenters } from '../_shared//axiosCalls';
 import './center.css';
 import { element } from 'prop-types';
 
@@ -16,7 +16,6 @@ export default () => {
 		'x-access-token': token,
 		'content-type': 'application/json',
 	};
-	const routeURL = 'http://10.30.3.17:5000/center';
 	const [editMode, seteditMode] = useState(false);
 	const [fieldData, setfieldData] = useState([]);
 
@@ -28,7 +27,7 @@ export default () => {
 			center_code: (center_code.toUpperCase()).trim(),
 			center_block: center_block,
 		};
-		manageCenters({ ...newstate, url: routeURL, headers, type: 'post' }).then(res => {
+		manageCenters({ ...newstate, url: routeCenters, headers, type: 'post' }).then(res => {
 			setCenters(res.data.centers);
 		});
 		// setCenters([...centers, newstate]);
@@ -36,7 +35,7 @@ export default () => {
 
 	const removeCenterElements = center => {
 		console.log('Removing centers', center, 'centers: ', centers);
-		manageCenters({ ...center, url: routeURL, headers, type: 'delete' });
+		manageCenters({ ...center, url: routeCenters, headers, type: 'delete' });
 		const newCenters = centers.filter(element => element.center_id !== center.center_id);
 		setCenters(newCenters);
 	};
@@ -50,7 +49,7 @@ export default () => {
 			center_block: center_block,
 			center_id: center_id
 		};
-		manageCenters({ ...centerUpdate, url: routeURL, headers, type: 'put' })
+		manageCenters({ ...centerUpdate, url: routeCenters, headers, type: 'put' })
 		// .then(res => {
 		// 	setCenters(res.data.centers);
 		// });;
@@ -68,7 +67,7 @@ export default () => {
 	};
 
 	useEffect(() => {
-		getData({ url: routeURL, headers }).then(data => {
+		getData({ url: routeCenters, headers }).then(data => {
 			data.centers !== undefined ? setCenters(data.centers) : setCenters([]);
 			console.log(data);
 		});
