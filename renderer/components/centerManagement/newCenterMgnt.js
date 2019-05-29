@@ -121,12 +121,13 @@ class AddCenterMgntForm extends React.Component {
 							disabled={this.context.user.auth_status !== 'admin' ? true : false}
 							onChange={this.handleChange}
 						>
-							<Option value="jack">Jack</Option>
-							<Option value="lucy">Lucy</Option>
-							<Option value="disabled" disabled>
-								Disabled
-							</Option>
-							<Option value="Yiminghe">yiminghe</Option>
+							{this.context.centers.map((elem, index) => {
+								return (
+									<Option value={elem.center_id} key={elem.center_id}>
+										{elem.center_name}
+									</Option>
+								);
+							})}
 						</Select>
 					)}
 				</FormItem>
@@ -150,12 +151,13 @@ class AddCenterMgntForm extends React.Component {
 							style={{ width: '100%' }}
 							onChange={this.handleChange}
 						>
-							<Option value="jack">Jack</Option>
-							<Option value="lucy">Lucy</Option>
-							<Option value="disabled" disabled>
-								Disabled
-							</Option>
-							<Option value="Yiminghe">yiminghe</Option>
+							{this.context.allocations.map((elem, index) => {
+								return (
+									<Option value={elem.programme_id} key={elem.programme_id}>
+										{elem.programme_name}
+									</Option>
+								);
+							})}
 						</Select>
 					)}
 				</FormItem>

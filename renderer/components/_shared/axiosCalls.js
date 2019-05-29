@@ -7,6 +7,7 @@ export const routeAllocations = 'https://idl-timetable.herokuapp.com/courseAlloc
 export const routeUserLogin = 'https://idl-timetable.herokuapp.com/userlogin';
 export const routeCenters = 'https://idl-timetable.herokuapp.com/center';
 export const routeUsers = 'https://idl-timetable.herokuapp.com/user';
+export const routeProgrammeCenters = 'https://idl-timetable.herokuapp.com/programmecenter'
 
 export const titleCase = str => {
 	return str
@@ -451,18 +452,18 @@ export const manageTimetable = params => {
  * delete centers
  */
 
-export const manageCenterProgrammes = params => {
-	const { url, headers, type } = params;
+export async function manageProgrammeCenter (params){
+	const { center_id, programme_id, capacity, url, headers, type } = params;
 	switch (type) {
 		case 'post':
 			axios({
 				method: 'post',
 				url: url,
 				data: {
-					center_name: center_name,
+					center_id: center_id,
 					// center_id: center_name,
-					center_code: center_code,
-					center_block: center_block,
+					programme_id: programme_id,
+					capacity: capacity,
 				},
 				headers: headers,
 			});
@@ -470,7 +471,7 @@ export const manageCenterProgrammes = params => {
 		case 'put':
 			axios({
 				method: 'put',
-				url: url + '/u_id=' + u_id,
+				url: url,
 				data: {
 					full_name: full_name,
 					email: email,
@@ -486,7 +487,7 @@ export const manageCenterProgrammes = params => {
 		case 'delete':
 			axios({
 				method: 'delete',
-				url: url + '?center_id=' + center_id,
+				url: url,
 				headers: headers,
 			});
 		default:
