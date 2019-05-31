@@ -15,6 +15,8 @@ export default () => {
   const [centerMgnts, setCenterMgnts] = useState([
     //make a db call for the already allocated programmes
   ]);
+  // const centerName = JSON.parse(localStorage.getItem("login")).center;
+  // const center_id = JSON.parse(localStorage.getItem("login")).center_id;
   const token = JSON.parse(localStorage.getItem("login")).tokenObtained;
   const headers = {
     "x-access-token": token,
@@ -26,10 +28,15 @@ export default () => {
   const [fieldData, setfieldData] = useState([]);
   const [user, setuser] = useState(JSON.parse(localStorage.getItem("login")));
   const addCenterMgntElements = centerMgnt => {
-    let newValues = [...venues, centerMgnt];
-    console.log("Venues: ", newValues);
-    setCenterMgnts(newValues);
-    // console.log("Adding CenterMgnts", CenterMgnt);
+    // let newValues = [...venues, centerMgnt];
+    const { center, programmes, capacity } = centerMgnt;
+    // console.log(center, user)
+    let newstate = {
+      center_id: user.center_name === center ? user.center_id : center,
+      programme_id: programmes,
+      capacity: capacity,
+    };
+    console.log("Adding CenterMgnts: ", newstate);
   };
 
   const removeCenterMgntElements = centerMgnt => {
@@ -54,11 +61,11 @@ export default () => {
       data.courseAllocations !== undefined
         ? setallocations(data.courseAllocations)
         : setallocations([]);
-    //   console.log(data);
+      //   console.log(data);
     });
     getData({ url: routeCenters, headers }).then(data => {
       data.centers !== undefined ? setcenters(data.centers) : setcenters([]);
-    //   console.log(data);
+      //   console.log(data);
     });
     // 	getData({ url: routeAllocations, headers }).then(data => {
     // 		// console.log('Allocations: ', data)

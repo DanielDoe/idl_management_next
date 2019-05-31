@@ -16,6 +16,10 @@ export default props => {
 
   const context = useContext(CenterMgntContext);
   const [dataSearch, setdataSearch] = useState(dataSource);
+  const [center, setcenter] = useState(context.user.auth_status !== "admin"
+  ? context.user.center
+  : "Center")
+  const [programme, setprogramme] = useState('')
 
   useEffect(() => {
     console.log(context);
@@ -35,7 +39,91 @@ export default props => {
     console.log(`selected ${value}`);
   };
 
-  const columns = [
+  const renderTable = () => {
+    if (center !== undefined && programme === '') {
+        return [
+          { title: "SN", dataIndex: "sn", key: "sn" },
+          { title: "Programme Code", dataIndex: "name", key: "name" },
+          { title: "Programme name", dataIndex: "course", key: "course" },
+          // { title: "Programme", dataIndex: "year", key: "year" },
+          { title: "Capacity", dataIndex: "capacity", key: "capacity" },
+          {
+            title: " ",
+            render: (text, record) => (
+              <div className="action-column grid">
+                <button
+                  className="edit column"
+                  onClick={() => props.onValueEditted(record)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="delete column"
+                  onClick={() => context.removeCenterMgntElements(record)}
+                >
+                  Delete
+                </button>
+              </div>
+            ),
+          },
+        ];
+    } if(center !== undefined && programme !== '') {
+        return [
+          { title: "SN", dataIndex: "sn", key: "sn" },
+          { title: "Course code", dataIndex: "name", key: "name" },
+          { title: "Course name", dataIndex: "course", key: "course" },
+          { title: "Programme", dataIndex: "year", key: "year" },
+          { title: "Capacity", dataIndex: "capacity", key: "capacity" },
+          {
+            title: " ",
+            render: (text, record) => (
+              <div className="action-column grid">
+                <button
+                  className="edit column"
+                  onClick={() => props.onValueEditted(record)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="delete column"
+                  onClick={() => context.removeCenterMgntElements(record)}
+                >
+                  Delete
+                </button>
+              </div>
+            ),
+          },
+        ];
+    }
+  }
+  // const columns = [
+  //   { title: "SN", dataIndex: "sn", key: "sn" },
+  //   { title: "Programme Code", dataIndex: "name", key: "name" },
+  //   { title: "Programme name", dataIndex: "course", key: "course" },
+  //   // { title: "Programme", dataIndex: "year", key: "year" },
+  //   { title: "Capacity", dataIndex: "capacity", key: "capacity" },
+  //   {
+  //     title: " ",
+  //     render: (text, record) => (
+  //       <div className="action-column grid">
+  //         <button
+  //           className="edit column"
+  //           onClick={() => props.onValueEditted(record)}
+  //         >
+  //           Edit
+  //         </button>
+  //         <button
+  //           className="delete column"
+  //           onClick={() => context.removeCenterMgntElements(record)}
+  //         >
+  //           Delete
+  //         </button>
+  //       </div>
+  //     ),
+  //   },
+  // ];
+
+  const dualColumns = [
     { title: "SN", dataIndex: "sn", key: "sn" },
     { title: "Course code", dataIndex: "name", key: "name" },
     { title: "Course name", dataIndex: "course", key: "course" },
@@ -71,12 +159,12 @@ export default props => {
               value={
                 context.user.auth_status !== "admin"
                   ? context.user.center
-                  : "Accra"
+                  : "Center"
               }
               disabled={context.user.auth_status !== "admin" ? true : false}
               // placeholder="e.g. Accra"
               style={{ width: "90%" }}
-              onChange={e => handleChange(e)}
+              onChange={e => setcenter(e)}
             >
               {context.centers.map((elem, index) => {
                 return (
@@ -91,7 +179,7 @@ export default props => {
             <Select
               placeholder="e.g Computer Engineering"
               style={{ width: "90%" }}
-              onChange={e => handleChange(e)}
+              onChange={e => setprogramme(e)}
             >
               {context.allocations.map((elem, index) => {
                 return (
@@ -119,7 +207,7 @@ export default props => {
             <Table
               className="centerMgnt-list-table"
               dataSource={dataSearch.length == 0 ? dataSearch : dataSource}
-              columns={columns}
+              columns={renderTable()}
             />
           </div>
         </div>

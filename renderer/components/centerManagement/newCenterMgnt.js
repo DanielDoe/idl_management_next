@@ -23,7 +23,7 @@ class AddCenterMgntForm extends React.Component {
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				if (this.props.editMode === false) {
-					// this.context.addVenueElements(values);
+					this.context.addCenterMgntElements(values);
 					console.log('Added received values of form: ', values);
 					this.handleReset();
 					// this.props.onCancel()
@@ -113,7 +113,7 @@ class AddCenterMgntForm extends React.Component {
 				>
 					{getFieldDecorator('center', {
 						rules: [{ required: true, message: 'enter name!' }],
-						initialValue: this.context.user.auth_status !== 'admin' ? this.context.user.center : 'Accra',
+						initialValue: this.context.user.auth_status !== 'admin' ? this.context.user.center : 'Center',
 					})(
 						<Select
 							placeholder="e.g. Accra"
