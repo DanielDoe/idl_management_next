@@ -7,6 +7,7 @@ import {
   manageProgrammeCenter,
   routeAllocations,
   routeCenters,
+  routeProgrammeCenters
 } from "../_shared/axiosCalls";
 import CenterMgntList from "./centerMgntList";
 import "./centerMgnt.css";
@@ -36,11 +37,18 @@ export default () => {
       programme_id: programmes,
       capacity: capacity,
     };
-    console.log("Adding CenterMgnts: ", newstate);
+
+    manageProgrammeCenter({ ...newstate, url: routeProgrammeCenters, headers, type: 'post' }).then(res => {
+			setCenterMgnts(res.data.programmeCenterAllocations)
+		});
+    // console.log("Adding CenterMgnts: ", newstate);
   };
 
   const removeCenterMgntElements = centerMgnt => {
     console.log("Removing CenterMgnts", centerMgnt);
+    manageProgrammeCenter({ ...centerMgnt, url: routeProgrammeCenters, headers, type: 'delete' })
+    const newState = centerMgnts.filter(element => element.prog_cen_id !== centerMgnt.prog_cen_id);
+		setCenterMgnts(newState);
   };
 
   const updateCenterMgntElements = centerMgnt => {
@@ -67,10 +75,10 @@ export default () => {
       data.centers !== undefined ? setcenters(data.centers) : setcenters([]);
       //   console.log(data);
     });
-    // 	getData({ url: routeAllocations, headers }).then(data => {
-    // 		// console.log('Allocations: ', data)
-    // 		data.courseAllocations !== undefined ? setAllocations(data.courseAllocations) : setAllocations([]);
-    // });
+    	getData({ url: routeProgrammeCenters, headers }).then(data => {
+    		console.log('center programmes: ', data)
+    		data.programmeCenterAllocations !== undefined ? setCenterMgnts(data.programmeCenterAllocations) : setCenterMgnts([]);
+    });
   }, []);
 
   return (

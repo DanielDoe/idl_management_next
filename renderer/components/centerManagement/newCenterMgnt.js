@@ -113,7 +113,7 @@ class AddCenterMgntForm extends React.Component {
 				>
 					{getFieldDecorator('center', {
 						rules: [{ required: true, message: 'enter name!' }],
-						initialValue: this.context.user.auth_status !== 'admin' ? this.context.user.center : 'Center',
+						initialValue: this.context.user.auth_status !== 'admin' ? this.context.user.center : null,
 					})(
 						<Select
 							placeholder="e.g. Accra"

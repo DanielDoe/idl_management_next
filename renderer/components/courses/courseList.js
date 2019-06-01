@@ -35,20 +35,10 @@ export default props => {
 	}, [props.courses]);
 
 	const onSearch = e => {
-		// console.log(e.target.value)
 		const value = e.target.value.toLowerCase();
 		const newData = dataSource.filter(s => s.course_title.toLowerCase().search(value) !== -1);
-		// let newDataSource = (newData.length === 0) ? newData : data
 		setdataSearch(newData);
 	};
-
-	// const dataSource = props.courses.map((elem, id) => {
-	// 	return {
-	// 		...elem,
-	// 		key: id,
-	// 		sn: id + 1,
-	// 	};
-	// });
 
 	const columns = [
 		{ title: 'SN', dataIndex: 'sn', key: 'sn' },

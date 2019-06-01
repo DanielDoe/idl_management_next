@@ -23,17 +23,11 @@ export default props => {
 	useEffect(() => {
 		setwidth(window.innerWidth);
 		setheight(window.innerHeight);
-		console.log(dataSource);
-		console.log(initialsource);
-	}, [height, width, initialsource]);
+	}, [height, width]);
 
 	const onSearch = e => {
-		// console.log(e.target.value)
 		setsearchValue(e.target.value.toLowerCase());
-
 		const newData = dataSource.filter(s => s.programme_name.toLowerCase().search(searchValue) !== -1);
-		// let newDataSource = (newData.length === 0) ? newData : data
-		// console.log(newData)
 		setdataSearch(newData);
 	};
 

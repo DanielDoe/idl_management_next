@@ -266,7 +266,7 @@ export const dbStore = {
   course_allocations: [
     {
       name: "Computer Engineering",
-      sem1: [
+      sem_1: [
         "Basic Electronics",
         "C Programming",
         "Database Systems",
@@ -276,47 +276,9 @@ export const dbStore = {
         "C Programming",
         "Database Systems",
       ],
-      sem2: [
+      sem_2: [
         "Basic Electronics",
         "C Programming",
-        "Database Systems",
-        "Basic Electronics",
-        "C Programming",
-        "Database Systems",
-        "C Programming",
-        "Database Systems",
-      ],
-    },
-    {
-      name: "Computer Engineering",
-      sem1: [
-        "Basic Electronics",
-        "C Programming",
-        "Database Systems",
-        "Basic Electronics",
-        "C Programming",
-        "Database Systems",
-        "C Programming",
-        "Database Systems",
-      ],
-      sem2: [
-        "C Programming",
-        "Database Systems",
-        "C Programming",
-        "Database Systems",
-      ],
-    },
-    {
-      name: "Computer Engineering",
-      sem1: [
-        "Basic Electronics",
-        "C Programming",
-        "Database Systems",
-        "Basic Electronics",
-        "C Programming",
-        "Database Systems",
-      ],
-      sem2: [
         "Database Systems",
         "Basic Electronics",
         "C Programming",
@@ -327,7 +289,26 @@ export const dbStore = {
     },
     {
       name: "Computer Engineering",
-      sem1: [
+      sem_1: [
+        "Basic Electronics",
+        "C Programming",
+        "Database Systems",
+        "Basic Electronics",
+        "C Programming",
+        "Database Systems",
+        "C Programming",
+        "Database Systems",
+      ],
+      sem_2: [
+        "C Programming",
+        "Database Systems",
+        "C Programming",
+        "Database Systems",
+      ],
+    },
+    {
+      name: "Computer Engineering",
+      sem_1: [
         "Basic Electronics",
         "C Programming",
         "Database Systems",
@@ -335,7 +316,26 @@ export const dbStore = {
         "C Programming",
         "Database Systems",
       ],
-      sem2: [
+      sem_2: [
+        "Database Systems",
+        "Basic Electronics",
+        "C Programming",
+        "Database Systems",
+        "C Programming",
+        "Database Systems",
+      ],
+    },
+    {
+      name: "Computer Engineering",
+      sem_1: [
+        "Basic Electronics",
+        "C Programming",
+        "Database Systems",
+        "Basic Electronics",
+        "C Programming",
+        "Database Systems",
+      ],
+      sem_2: [
         "Database Systems",
         "Basic Electronics",
         "C Programming",
@@ -346,7 +346,7 @@ export const dbStore = {
     },
     {
       name: "Biomedical Engineering",
-      sem1: [
+      sem_1: [
         "Basic Electronics",
         "C Programming",
         "Database Systems",
@@ -354,26 +354,7 @@ export const dbStore = {
         "C Programming",
         "Database Systems",
       ],
-      sem2: [
-        "Database Systems",
-        "Basic Electronics",
-        "C Programming",
-        "Database Systems",
-        "C Programming",
-        "Database Systems",
-      ],
-    },
-    {
-      name: "Biomedical Engineering",
-      sem1: [
-        "Basic Electronics",
-        "C Programming",
-        "Database Systems",
-        "Basic Electronics",
-        "C Programming",
-        "Database Systems",
-      ],
-      sem2: [
+      sem_2: [
         "Database Systems",
         "Basic Electronics",
         "C Programming",
@@ -384,7 +365,7 @@ export const dbStore = {
     },
     {
       name: "Biomedical Engineering",
-      sem1: [
+      sem_1: [
         "Basic Electronics",
         "C Programming",
         "Database Systems",
@@ -392,7 +373,7 @@ export const dbStore = {
         "C Programming",
         "Database Systems",
       ],
-      sem2: [
+      sem_2: [
         "Database Systems",
         "Basic Electronics",
         "C Programming",
@@ -403,7 +384,7 @@ export const dbStore = {
     },
     {
       name: "Biomedical Engineering",
-      sem1: [
+      sem_1: [
         "Basic Electronics",
         "C Programming",
         "Database Systems",
@@ -411,7 +392,26 @@ export const dbStore = {
         "C Programming",
         "Database Systems",
       ],
-      sem2: [
+      sem_2: [
+        "Database Systems",
+        "Basic Electronics",
+        "C Programming",
+        "Database Systems",
+        "C Programming",
+        "Database Systems",
+      ],
+    },
+    {
+      name: "Biomedical Engineering",
+      sem_1: [
+        "Basic Electronics",
+        "C Programming",
+        "Database Systems",
+        "Basic Electronics",
+        "C Programming",
+        "Database Systems",
+      ],
+      sem_2: [
         "Database Systems",
         "Basic Electronics",
         "C Programming",
@@ -422,7 +422,7 @@ export const dbStore = {
     },
     {
       name: "Electrical Engineering",
-      sem1: [
+      sem_1: [
         "Basic Electronics",
         "C Programming",
         "Database Systems",
@@ -430,26 +430,7 @@ export const dbStore = {
         "C Programming",
         "Database Systems",
       ],
-      sem2: [
-        "Database Systems",
-        "Basic Electronics",
-        "C Programming",
-        "Database Systems",
-        "C Programming",
-        "Database Systems",
-      ],
-    },
-    {
-      name: "Electrical Engineering",
-      sem1: [
-        "Basic Electronics",
-        "C Programming",
-        "Database Systems",
-        "Basic Electronics",
-        "C Programming",
-        "Database Systems",
-      ],
-      sem2: [
+      sem_2: [
         "Database Systems",
         "Basic Electronics",
         "C Programming",
@@ -460,7 +441,7 @@ export const dbStore = {
     },
     {
       name: "Electrical Engineering",
-      sem1: [
+      sem_1: [
         "Basic Electronics",
         "C Programming",
         "Database Systems",
@@ -468,7 +449,7 @@ export const dbStore = {
         "C Programming",
         "Database Systems",
       ],
-      sem2: [
+      sem_2: [
         "Database Systems",
         "Basic Electronics",
         "C Programming",
@@ -479,7 +460,7 @@ export const dbStore = {
     },
     {
       name: "Electrical Engineering",
-      sem1: [
+      sem_1: [
         "Basic Electronics",
         "C Programming",
         "Database Systems",
@@ -487,7 +468,26 @@ export const dbStore = {
         "C Programming",
         "Database Systems",
       ],
-      sem2: [
+      sem_2: [
+        "Database Systems",
+        "Basic Electronics",
+        "C Programming",
+        "Database Systems",
+        "C Programming",
+        "Database Systems",
+      ],
+    },
+    {
+      name: "Electrical Engineering",
+      sem_1: [
+        "Basic Electronics",
+        "C Programming",
+        "Database Systems",
+        "Basic Electronics",
+        "C Programming",
+        "Database Systems",
+      ],
+      sem_2: [
         "Database Systems",
         "Basic Electronics",
         "C Programming",
@@ -498,7 +498,7 @@ export const dbStore = {
     },
     {
       name: "Telecom Engineering",
-      sem1: [
+      sem_1: [
         "Basic Electronics",
         "C Programming",
         "Database Systems",
@@ -506,26 +506,7 @@ export const dbStore = {
         "C Programming",
         "Database Systems",
       ],
-      sem2: [
-        "Database Systems",
-        "Basic Electronics",
-        "C Programming",
-        "Database Systems",
-        "C Programming",
-        "Database Systems",
-      ],
-    },
-    {
-      name: "Telecom Engineering",
-      sem1: [
-        "Basic Electronics",
-        "C Programming",
-        "Database Systems",
-        "Basic Electronics",
-        "C Programming",
-        "Database Systems",
-      ],
-      sem2: [
+      sem_2: [
         "Database Systems",
         "Basic Electronics",
         "C Programming",
@@ -536,7 +517,7 @@ export const dbStore = {
     },
     {
       name: "Telecom Engineering",
-      sem1: [
+      sem_1: [
         "Basic Electronics",
         "C Programming",
         "Database Systems",
@@ -544,7 +525,7 @@ export const dbStore = {
         "C Programming",
         "Database Systems",
       ],
-      sem2: [
+      sem_2: [
         "Database Systems",
         "Basic Electronics",
         "C Programming",
@@ -555,7 +536,7 @@ export const dbStore = {
     },
     {
       name: "Telecom Engineering",
-      sem1: [
+      sem_1: [
         "Basic Electronics",
         "C Programming",
         "Database Systems",
@@ -563,7 +544,26 @@ export const dbStore = {
         "C Programming",
         "Database Systems",
       ],
-      sem2: [
+      sem_2: [
+        "Database Systems",
+        "Basic Electronics",
+        "C Programming",
+        "Database Systems",
+        "C Programming",
+        "Database Systems",
+      ],
+    },
+    {
+      name: "Telecom Engineering",
+      sem_1: [
+        "Basic Electronics",
+        "C Programming",
+        "Database Systems",
+        "Basic Electronics",
+        "C Programming",
+        "Database Systems",
+      ],
+      sem_2: [
         "Database Systems",
         "Basic Electronics",
         "C Programming",

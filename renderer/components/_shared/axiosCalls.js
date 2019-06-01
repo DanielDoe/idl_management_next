@@ -312,7 +312,6 @@ export async function manageCourseAllocations(params) {
 				},
 				headers: headers,
 			});
-			console.log(request);
 			return request;
 		case 'put':
 			axios({
@@ -429,7 +428,6 @@ export const manageTimetable = params => {
 					center_id: center_id,
 				},
 				headers: headers,
-				// params: { u_id: id },
 			});
 			break;
 
@@ -453,10 +451,10 @@ export const manageTimetable = params => {
  */
 
 export async function manageProgrammeCenter (params){
-	const { center_id, programme_id, capacity, url, headers, type } = params;
+	const { center_id, programme_id, prog_cen_id, capacity, url, headers, type } = params;
 	switch (type) {
 		case 'post':
-			axios({
+			const request = await axios({
 				method: 'post',
 				url: url,
 				data: {
@@ -467,20 +465,18 @@ export async function manageProgrammeCenter (params){
 				},
 				headers: headers,
 			});
-			break;
+			return request;
 		case 'put':
 			axios({
 				method: 'put',
 				url: url,
 				data: {
-					full_name: full_name,
-					email: email,
-					status: status,
-					phone: phone,
 					center_id: center_id,
+					prog_cen_id: prog_cen_id,
+					programme_id: programme_id,
+					capacity: capacity,
 				},
 				headers: headers,
-				// params: { u_id: id },
 			});
 			break;
 
@@ -488,6 +484,9 @@ export async function manageProgrammeCenter (params){
 			axios({
 				method: 'delete',
 				url: url,
+				data: {
+					prog_cen_id: prog_cen_id
+				},
 				headers: headers,
 			});
 		default:
