@@ -1,10 +1,32 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Input, Table, Row, Col, Select } from "antd";
 import CenterMgntContext from "./centerMgnt-context";
-import { dbStore } from "../_shared/initialStoreState"
+import { dbStore } from "../_shared/initialStoreState";
 
 const Search = Input.Search;
 const Option = Select.Option;
+const courses = {
+  sem_1: [
+    "Basic Electronics",
+    "C Programming",
+    "Database Systems",
+    "Basic Electronics",
+    "C Programming",
+    "Database Systems",
+    "C Programming",
+    "Database Systems",
+  ],
+  sem_2: [
+    "Basic Electronics",
+    "C Programming",
+    "Database Systems",
+    "Basic Electronics",
+    "C Programming",
+    "Database Systems",
+    "C Programming",
+    "Database Systems",
+  ],
+}
 
 export default props => {
   const dataSource = props.centerMgnts.map((elem, id) => {
@@ -18,27 +40,28 @@ export default props => {
   const context = useContext(CenterMgntContext);
   const [dataSearch, setdataSearch] = useState(dataSource);
   const [center, setcenter] = useState(
-    context.user.auth_status !== "admin" ? context.user.center : "Center"
+    context.user.auth_status !== "admin" ? context.user.center : null
   );
   const [programme, setprogramme] = useState("");
 
   useEffect(() => {
     const dataSource = props.centerMgnts.map((elem, id) => {
-			return {
-				...elem,
-				key: id,
-				sn: id + 1,
-			};
-		});
-		setdataSearch(dataSource);
-  }, [props.centerMgnts]);
+      return {
+        ...elem,
+        key: id,
+        sn: id + 1,
+      };
+    }).filter(element => element.center_id === center);
+    // console.log(dataSource)
+    setdataSearch(dataSource);
+  }, [props.centerMgnts, center]);
 
   const onSearch = e => {
     // console.log(e.target.value)
     const value = e.target.value.toLowerCase();
     const newData = dataSource.filter(
-      s => s.name.toLowerCase().search(value) !== -1
-    );
+      s => s.programme_name.toLowerCase().search(value) !== -1
+    ).filter(element => element.center_id === center);
     // let newDataSource = (newData.length === 0) ? newData : data
     setdataSearch(newData);
   };
@@ -47,79 +70,21 @@ export default props => {
     console.log(`selected ${value}`);
   };
 
-  // const renderTable = () => {
-  //   if (center !== undefined && programme === '') {
-  //       return [
-  //         { title: "SN", dataIndex: "sn", key: "sn" },
-  //         { title: "Programme Code", dataIndex: "name", key: "name" },
-  //         { title: "Programme name", dataIndex: "course", key: "course" },
-  //         // { title: "Programme", dataIndex: "year", key: "year" },
-  //         { title: "Capacity", dataIndex: "capacity", key: "capacity" },
-  //         {
-  //           title: " ",
-  //           render: (text, record) => (
-  //             <div className="action-column grid">
-  //               <button
-  //                 className="edit column"
-  //                 onClick={() => props.onValueEditted(record)}
-  //               >
-  //                 Edit
-  //               </button>
-  //               <button
-  //                 className="delete column"
-  //                 onClick={() => context.removeCenterMgntElements(record)}
-  //               >
-  //                 Delete
-  //               </button>
-  //             </div>
-  //           ),
-  //         },
-  //       ];
-  //   } if(center !== undefined && programme !== '') {
-  //       return [
-  //         { title: "SN", dataIndex: "sn", key: "sn" },
-  //         { title: "Course code", dataIndex: "name", key: "name" },
-  //         { title: "Course name", dataIndex: "course", key: "course" },
-  //         { title: "Programme", dataIndex: "year", key: "year" },
-  //         { title: "Capacity", dataIndex: "capacity", key: "capacity" },
-  //         {
-  //           title: " ",
-  //           render: (text, record) => (
-  //             <div className="action-column grid">
-  //               <button
-  //                 className="edit column"
-  //                 onClick={() => props.onValueEditted(record)}
-  //               >
-  //                 Edit
-  //               </button>
-  //               <button
-  //                 className="delete column"
-  //                 onClick={() => context.removeCenterMgntElements(record)}
-  //               >
-  //                 Delete
-  //               </button>
-  //             </div>
-  //           ),
-  //         },
-  //       ];
-  //   }
-  // }
-
   const renderDetails = data => {
     return (
       <Row gutter={16}>
         <Col span={12}>
           <h3>Semester 1</h3>
-          <ul>
-            {data.sem_1.map((element, index) => {
+          <ul style={{ textAlign: '-webkit-auto'}}>
+            {courses.sem_1.map((element, index) => {
               return <li key={element + index}>{element}</li>;
             })}
           </ul>
         </Col>
         <Col span={12}>
-        <h3>Semester 2</h3>
-          <ul>
-            {data.sem_1.map((element, index) => {
+          <h3>Semester 2</h3>
+          <ul style={{ textAlign: '-webkit-auto'}}>
+            {courses.sem_2.map((element, index) => {
               return <li key={element + index}>{element}</li>;
             })}
           </ul>
@@ -129,7 +94,11 @@ export default props => {
   };
   const columns = [
     { title: "SN", dataIndex: "sn", key: "sn" },
-    { title: "Programme Code", dataIndex: "name", key: "name" },
+    {
+      title: "Programme Code",
+      dataIndex: "programme_code",
+      key: "programme_code",
+    },
     {
       title: "Programme name",
       dataIndex: "programme_name",
@@ -161,7 +130,7 @@ export default props => {
   return (
     <div>
       <div>
-        <Row>
+        <Row gutter={8}>
           <Col span={8}>
             <Select
               value={
@@ -183,21 +152,7 @@ export default props => {
               })}
             </Select>
           </Col>
-          <Col span={8}>
-            <Select
-              placeholder="e.g Computer Engineering"
-              style={{ width: "90%" }}
-              onChange={e => setprogramme(e)}
-            >
-              {context.allocations.map((elem, index) => {
-                return (
-                  <Option value={elem.programme_id} key={elem.programme_id}>
-                    {elem.programme_name}
-                  </Option>
-                );
-              })}
-            </Select>
-          </Col>
+          <Col span={8} />
           <Col span={8}>
             <Search
               placeholder="search for programme/course"
@@ -214,9 +169,7 @@ export default props => {
           <div className="table-container">
             <Table
               className="centerMgnt-list-table"
-              expandedRowRender={record => (
-                <p style={{ margin: 0 }}>{record.programme_name}</p>
-              )}
+              expandedRowRender={record => renderDetails(record)}
               dataSource={dataSearch}
               columns={columns}
             />
