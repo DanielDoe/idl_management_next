@@ -5,28 +5,6 @@ import { dbStore } from "../_shared/initialStoreState";
 
 const Search = Input.Search;
 const Option = Select.Option;
-const courses = {
-  sem_1: [
-    "Basic Electronics",
-    "C Programming",
-    "Database Systems",
-    "Basic Electronics",
-    "C Programming",
-    "Database Systems",
-    "C Programming",
-    "Database Systems",
-  ],
-  sem_2: [
-    "Basic Electronics",
-    "C Programming",
-    "Database Systems",
-    "Basic Electronics",
-    "C Programming",
-    "Database Systems",
-    "C Programming",
-    "Database Systems",
-  ],
-}
 
 export default props => {
   const dataSource = props.centerMgnts.map((elem, id) => {
@@ -74,17 +52,17 @@ export default props => {
     return (
       <Row gutter={16}>
         <Col span={12}>
-          <h3>Semester 1</h3>
+          <h3 style={{ textAlign: '-webkit-auto'}}>Semester 1</h3>
           <ul style={{ textAlign: '-webkit-auto'}}>
-            {courses.sem_1.map((element, index) => {
+            {data.sem_1.map((element, index) => {
               return <li key={element + index}>{element}</li>;
             })}
           </ul>
         </Col>
         <Col span={12}>
-          <h3>Semester 2</h3>
+          <h3 style={{ textAlign: '-webkit-auto'}}>Semester 2</h3>
           <ul style={{ textAlign: '-webkit-auto'}}>
-            {courses.sem_2.map((element, index) => {
+            {data.sem_2.map((element, index) => {
               return <li key={element + index}>{element}</li>;
             })}
           </ul>
