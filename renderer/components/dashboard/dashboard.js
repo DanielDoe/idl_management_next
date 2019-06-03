@@ -172,8 +172,8 @@ class Dashboard extends React.Component {
 		switch (this.props.location.pathname) {
 			case '/':
 				return <CenterMgnt />;
-			case '/exam':
-				return <ExamTable />;
+			// case '/exam':
+			// 	return <ExamTable />;
 			case '/center_m':
 				return <CenterMgnt />;
 			case '/teaching':

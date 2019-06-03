@@ -7,6 +7,7 @@ export const routeAllocations = 'https://idl-timetable.herokuapp.com/courseAlloc
 export const routeUserLogin = 'https://idl-timetable.herokuapp.com/userlogin';
 export const routeCenters = 'https://idl-timetable.herokuapp.com/center';
 export const routeUsers = 'https://idl-timetable.herokuapp.com/user';
+export const routeVenues = 'https://idl-timetable.herokuapp.com/venue';
 export const routeProgrammeCenters = 'https://idl-timetable.herokuapp.com/programmecenter'
 
 export const titleCase = str => {

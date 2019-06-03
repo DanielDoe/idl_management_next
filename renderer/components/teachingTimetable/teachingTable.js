@@ -23,7 +23,9 @@ export default props => {
   const [updateEvent, setUpdateEvent] = useState([]);
   const [course, setcourse] = useState("");
   const [venue, setvenue] = useState("");
-  const [center, setcenter] = useState("");
+  const [center, setcenter] = useState(
+    props.user.auth_status !== "admin" ? props.user.center_id : null
+  );
   const [programme, setprogramme] = useState("");
   const [semester, setsemester] = useState(1);
   const [block, setblock] = useState("");
@@ -47,13 +49,36 @@ export default props => {
     // alert(`${event.title} was dropped onto ${updatedEvent.start}`)
   };
 
+  // useEffect(() => {
+  //   console.log("NewEvents: ", events);
+  //   console.log("NewSelect: ", { center, programme, semester, block });
+  //   if (
+  //     center === "Accra" &&
+  //     programme === "Computer Engineering 1" &&
+  //     semester === "1" &&
+  //     block === "one"
+  //   ) {
+  //     setEvents(dbStore.computer1);
+  //   }
+  // }, [events, center, programme, semester, block]);
+
   useEffect(() => {
-    console.log("NewEvents: ", events);
-	console.log("NewSelect: ", { center, programme, semester, block });
-	if(center === 'Accra' && programme === "Computer Engineering 1" && semester === '1' && block === 'one'){
-		setEvents(dbStore.computer1)
-	}
-  }, [events, center, programme, semester, block]);
+    // getData({ url: routeCenters, headers }).then(data => {
+    //   data.centers !== undefined ? setcenters(data.centers) : setcenters([]);
+    //   //   console.log(data);
+    // });
+    // getData({ url: routeCenters, headers }).then(data => {
+    //   data.centers !== undefined ? setcenters(data.centers) : setcenters([]);
+    //   //   console.log(data);
+    // });
+    // getData({ url: routeCenters, headers }).then(data => {
+    //   data.centers !== undefined ? setcenters(data.centers) : setcenters([]);
+    //   //   console.log(data);
+    // });
+    return () => {
+      console.log("Unmounted");
+    };
+  }, []);
 
   const handleSelect = e => {
     setvisible(true);
@@ -79,7 +104,7 @@ export default props => {
 
   const resizeEvent = ({ event, start, end }) => {
     const nextEvents = events.map(existingEvent => {
-      return (existingEvent.id == event.id && existingEvent.title == event.title)
+      return existingEvent.id == event.id && existingEvent.title == event.title
         ? { ...existingEvent, start, end }
         : existingEvent;
     });
@@ -88,11 +113,11 @@ export default props => {
   };
 
   const renderCenterData = () => {
-    const centers = dbStore.centers.map((element, index) => {
+    const centers = props.centers.map((element, index) => {
       // console.log(element.name);
       return (
-        <Option value={element.name} key={element.name + index}>
-          {element.name}
+        <Option value={element.center_id} key={element.center_id + index}>
+          {element.center_name}
         </Option>
       );
     });
@@ -101,46 +126,64 @@ export default props => {
   };
 
   const renderProgramData = () => {
-    const programmes = dbStore.programmes.map((element, index) => {
-      // console.log(element.name);
-      return (
-        <Option
-          value={element.name + " " + element.year}
-          key={element.name + element.year}
-        >
-          {element.name + " " + element.year}
-        </Option>
-      );
-    });
+    const programmes = props.programmes
+      .filter(element => element.center_id === props.user.center_id)
+      .map((element, index) => {
+        // console.log(element.name);
+        return (
+          <Option
+            value={element.programme_id}
+            key={element.name + element.year}
+          >
+            {element.programme_name}
+          </Option>
+        );
+      });
 
     return programmes;
   };
 
   const renderCourseData = () => {
-    const courses = dbStore.courses.map((element, index) => {
-      // console.log(element.name);
-      return (
-        <Option value={element.code} key={element.code + index}>
-          {element.title}
-        </Option>
-      );
-    });
-
-    return courses;
+   console.log(props.programmes)
+    if (semester === 1) {
+      props.programmes.map((element, index) => {
+        // console.log(element.name);
+        element.sem_1.map((elem, id) => {
+          console.log(elem)
+          return (
+            <Option value={elem} key={elem + id}>
+              {elem}
+            </Option>
+          );
+        });
+      });
+    }
+    if (semester === 2) {
+      props.programmes.map((element, index) => {
+        // console.log(element.name);
+        element.sem_2.map((elem, id) => {
+          console.log(elem)
+          return (
+            <Option value={elem} key={elem + id}>
+              {elem}
+            </Option>
+          );
+        });
+      });
+    }
   };
 
   const renderVenueData = () => {
-    const venues = dbStore.venues.map((element, index) => {
-      // console.log(element.name);
-      return (
-        <Option
-          value={element.name}
-          key={element.name + element.center + index}
-        >
-          {element.name}
-        </Option>
-      );
-    });
+    const venues = props.venues
+      .filter(element => element.center_id === center)
+      .map((element, index) => {
+        // console.log(element.name);
+        return (
+          <Option value={element.venue_id} key={element.id}>
+            {element.venue_name}
+          </Option>
+        );
+      });
 
     return venues;
   };
@@ -219,9 +262,38 @@ export default props => {
         onOk={e => handleOk(e)}
         onCancel={e => handleCancel(e)}
       >
+        <label htmlFor="new-schedule-course">Center</label>
+        <Select
+          className="new-schedule-select"
+          defaultValue={
+            props.user.auth_status !== "admin" ? props.user.center : null
+          }
+          // value={props.user.auth_status !== "admin" ? props.user.center : null}
+          disabled={props.user.auth_status !== "admin" ? true : false}
+          onChange={e => setcenter(e)}
+        >
+          {renderCenterData()}
+        </Select>
+        <label htmlFor="new-schedule-course">Programme</label>
+        <Select
+          placeholder="Programme"
+          className="new-schedule-select"
+          onChange={e => setprogramme(e)}
+        >
+          {renderProgramData()}
+        </Select>
+        <label htmlFor="new-schedule-course">Semester</label>
+        <Select
+          placeholder="Semester"
+          className="new-schedule-select"
+          onChange={e => setsemester(e)}
+        >
+          <Option value="1">1</Option>
+          <Option value="2">2</Option>
+        </Select>
         <label htmlFor="new-schedule-course">Course</label>
         <Select
-          defaultValue="course"
+          // defaultValue="course"
           className="new-schedule-select"
           onChange={e => setcourse(e)}
         >
@@ -229,7 +301,7 @@ export default props => {
         </Select>
         <label htmlFor="new-schedule-venue">Venue</label>
         <Select
-          defaultValue="Accra"
+          // defaultValue="Accra"
           className="new-schedule-select"
           onChange={e => setvenue(e)}
         >
@@ -240,8 +312,11 @@ export default props => {
         <Row gutter={24}>
           <Col span={6}>
             <Select
-              placeholder="Center"
               className="exam-selector"
+              value={
+                props.user.auth_status !== "admin" ? props.user.center : null
+              }
+              disabled={props.user.auth_status !== "admin" ? true : false}
               onChange={e => setcenter(e)}
             >
               {renderCenterData()}

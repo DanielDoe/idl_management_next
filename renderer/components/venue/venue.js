@@ -3,12 +3,10 @@ import { Row, Col } from 'antd';
 import VenueContext from './venue-context';
 import { AddVenue } from './newVenue';
 import VenueList from './venueList';
-import { getData, manageVenues, titleCase } from '../_shared/axiosCalls';
+import { getData, manageVenues, titleCase, routeCenters, routeVenues } from '../_shared/axiosCalls';
 import './venue.css';
 
 export default () => {
-	const routeCenters = 'http://10.30.3.17:5000/center';
-	const routeURL = 'http://10.30.3.17:5000/venue';
 	const [venues, setVenues] = useState([]);
 	const [editMode, seteditMode] = useState(false);
 	const [fieldData, setfieldData] = useState([]);
@@ -27,7 +25,7 @@ export default () => {
 			res.centers !== undefined ? setcenters(res.centers) : setcenters([]);
 		});
 
-		getData({ url: routeURL, headers }).then(data => {
+		getData({ url: routeVenues, headers }).then(data => {
 			console.log(data);
 			data.venues !== undefined ? setVenues(data.venues) : setVenues([]);
 		});
@@ -41,7 +39,7 @@ export default () => {
 			center_name: center_name,
 		};
 
-		manageVenues({ ...newstate, url: routeURL, headers, type: 'post' }).then(res =>
+		manageVenues({ ...newstate, url: routeVenues, headers, type: 'post' }).then(res =>
 			// console.log(res.data.venues)
 			setVenues(res.data.venues)
 		);
@@ -50,7 +48,7 @@ export default () => {
 
 	const removeVenueElements = venue => {
 		// console.log('Removing venue', venue);
-		manageVenues({ ...venue, url: routeURL, headers, type: 'delete' });
+		manageVenues({ ...venue, url: routeVenues, headers, type: 'delete' });
 		const newVenue = venues.filter(
 			element => element.venue_id !== venue.venue_id
 		);
@@ -66,7 +64,7 @@ export default () => {
 			venue_capacity: venue_capacity,
 			center_name: center_name,
 		};
-		manageVenues({ ...newstate, url: routeURL, headers, type: 'put' });
+		manageVenues({ ...newstate, url: routeVenues, headers, type: 'put' });
 		const update = venues.map(element =>
 			element.center_name === venue.center_name && element.venue_name === venue.venue_name ? venue : element
 		);
