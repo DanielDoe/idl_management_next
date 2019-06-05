@@ -52,6 +52,7 @@ const styles = theme => ({
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
 		}),
+		background: "#155e63"
 	},
 	appBarShift: {
 		marginLeft: drawerWidth,
@@ -172,8 +173,8 @@ class Dashboard extends React.Component {
 		switch (this.props.location.pathname) {
 			case '/':
 				return <CenterMgnt />;
-			// case '/exam':
-			// 	return <ExamTable />;
+			case '/exam':
+				return <ExamTable />;
 			case '/center_m':
 				return <CenterMgnt />;
 			case '/teaching':

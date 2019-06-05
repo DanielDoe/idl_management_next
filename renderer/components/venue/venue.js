@@ -21,12 +21,11 @@ export default () => {
 	useEffect(() => {
 		// Get all the centers we need
 		getData({ url: routeCenters, headers }).then(res => {
-			// console.log(res)
 			res.centers !== undefined ? setcenters(res.centers) : setcenters([]);
 		});
 
 		getData({ url: routeVenues, headers }).then(data => {
-			console.log(data);
+			console.log(data.venues)
 			data.venues !== undefined ? setVenues(data.venues) : setVenues([]);
 		});
 	}, []);
@@ -40,24 +39,19 @@ export default () => {
 		};
 
 		manageVenues({ ...newstate, url: routeVenues, headers, type: 'post' }).then(res =>
-			// console.log(res.data.venues)
 			setVenues(res.data.venues)
 		);
-		// console.log('Adding venue:', newstate);
 	};
 
 	const removeVenueElements = venue => {
-		// console.log('Removing venue', venue);
 		manageVenues({ ...venue, url: routeVenues, headers, type: 'delete' });
 		const newVenue = venues.filter(
 			element => element.venue_id !== venue.venue_id
 		);
-		// console.log(newVenue);
 		setVenues(newVenue);
 	};
 
 	const updateVenueElements = venue => {
-		// console.log('Updating venue', venue);
 		const { venue_name, venue_capacity, center_name } = venue;
 		let newstate = {
 			venue_name: titleCase(venue_name).trim(),

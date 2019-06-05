@@ -21,19 +21,19 @@ const history = createMemoryHistory();
 export default class extends Component {
 	state = {
 		routes: [
-			// {
-			// 	key: 1,
-			// 	exact: true,
-			// 	path: '/exam',
-			// 	name: 'Exam Timetable',
-			// 	component: First,
-			// 	icon: DateRange,
-			// },
+			{
+				key: 1,
+				exact: true,
+				path: '/exam',
+				name: 'Exam Timetable',
+				component: First,
+				icon: DateRange,
+			},
 			{
 				key: 2,
 				exact: true,
 				path: '/teaching',
-				name: 'Timetable',
+				name: 'Teaching Timetable',
 				component: Second,
 				icon: DateRange,
 			},

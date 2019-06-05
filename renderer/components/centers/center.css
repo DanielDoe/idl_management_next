@@ -43,7 +43,7 @@
 
 .center-list-table thead th {
     border-radius: 0;
-    background-color: #1976D2;
+    background-color: #146c78;
     color: #FFFFFF;
     font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', 'Helvetica', 'Arial', sans-serif;
     padding: 1rem 0.45rem;
@@ -64,8 +64,8 @@
 }
 
 .center-list-table .ant-pagination.ant-table-pagination .ant-pagination-item.ant-pagination-item-active {
-    background-color: #2196F3;
-    border-color: #2196F3;
+    background-color: #0e91a1;
+    border-color: #0e91a1;
 }
 
 .center-list-table tbody tr td:last-of-type {
@@ -93,15 +93,15 @@
 }
 
 .center-list-table .action-column button.edit {
-    border-color: #2196F3;
-    background-color: #2196F3;
+    border-color: #0e91a1;
+    background-color: #0e91a1;
     color: #FFFFFF;
     transition: 100ms;
 }
 
 .center-list-table .action-column button.edit:hover {
-    border-color: #1976D2;
-    background-color: #1976D2;
+    border-color: #146c78;
+    background-color: #146c78;
 }
 
 
@@ -154,7 +154,7 @@
 .new-center button {
     display: block;
     width: calc(100% - 2rem);
-    background-color: #2196F3;
+    background-color: #0e91a1;
     height: 2.5rem;
     font-size: 0.9rem;
     border: none;
@@ -167,14 +167,14 @@
 }
 
 .new-center button:hover, .new-center button:focus {
-    background-color: #1976D2;
+    background-color: #146c78;
 }
 
 .new-center .cancel-button {
     margin-top: 1rem;
-    border: 1px solid #2196F3;
+    border: 1px solid #0e91a1;
     background: transparent;
-    color: #2196F3;
+    color: #0e91a1;
 }
 
 .center-search-container {

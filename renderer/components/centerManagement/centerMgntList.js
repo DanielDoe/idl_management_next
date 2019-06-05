@@ -23,13 +23,17 @@ export default props => {
   const [programme, setprogramme] = useState("");
 
   useEffect(() => {
-    const dataSource = props.centerMgnts.map((elem, id) => {
-      return {
-        ...elem,
-        key: id,
-        sn: id + 1,
-      };
-    }).filter(element => element.center_id === center);
+    let option =
+      context.user.auth_status === "admin" ? center : context.user.center_id;
+    const dataSource = props.centerMgnts
+      .map((elem, id) => {
+        return {
+          ...elem,
+          key: id,
+          sn: id + 1,
+        };
+      })
+      .filter(element => element.center_id === option);
     // console.log(dataSource)
     setdataSearch(dataSource);
   }, [props.centerMgnts, center]);
@@ -37,31 +41,27 @@ export default props => {
   const onSearch = e => {
     // console.log(e.target.value)
     const value = e.target.value.toLowerCase();
-    const newData = dataSource.filter(
-      s => s.programme_name.toLowerCase().search(value) !== -1
-    ).filter(element => element.center_id === center);
+    const newData = dataSource
+      .filter(s => s.programme_name.toLowerCase().search(value) !== -1)
+      .filter(element => element.center_id === center);
     // let newDataSource = (newData.length === 0) ? newData : data
     setdataSearch(newData);
-  };
-
-  const handleChange = value => {
-    console.log(`selected ${value}`);
   };
 
   const renderDetails = data => {
     return (
       <Row gutter={16}>
         <Col span={12}>
-          <h3 style={{ textAlign: '-webkit-auto'}}>Semester 1</h3>
-          <ul style={{ textAlign: '-webkit-auto'}}>
+          <h3 style={{ textAlign: "-webkit-auto" }}>Semester 1</h3>
+          <ul style={{ textAlign: "-webkit-auto" }}>
             {data.sem_1.map((element, index) => {
               return <li key={element + index}>{element}</li>;
             })}
           </ul>
         </Col>
         <Col span={12}>
-          <h3 style={{ textAlign: '-webkit-auto'}}>Semester 2</h3>
-          <ul style={{ textAlign: '-webkit-auto'}}>
+          <h3 style={{ textAlign: "-webkit-auto" }}>Semester 2</h3>
+          <ul style={{ textAlign: "-webkit-auto" }}>
             {data.sem_2.map((element, index) => {
               return <li key={element + index}>{element}</li>;
             })}
@@ -71,7 +71,7 @@ export default props => {
     );
   };
   const columns = [
-    { title: "SN", dataIndex: "sn", key: "sn" },
+    // { title: "SN", dataIndex: "sn", key: "sn" },
     {
       title: "Programme Code",
       dataIndex: "programme_code",
@@ -111,13 +111,14 @@ export default props => {
         <Row gutter={8}>
           <Col span={8}>
             <Select
-              value={
+              defaultValue={
                 context.user.auth_status !== "admin"
                   ? context.user.center
                   : null
               }
               disabled={context.user.auth_status !== "admin" ? true : false}
               // placeholder="e.g. Accra"
+              className="center-programme"
               style={{ width: "90%" }}
               onChange={e => setcenter(e)}
             >
@@ -135,6 +136,7 @@ export default props => {
             <Search
               placeholder="search for programme/course"
               // size="large"
+              className="center-programme"
               onChange={e => onSearch(e)}
               style={{ width: "90%" }}
             />

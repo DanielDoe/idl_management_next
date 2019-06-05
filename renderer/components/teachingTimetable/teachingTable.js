@@ -26,8 +26,8 @@ export default props => {
   const [center, setcenter] = useState(
     props.user.auth_status !== "admin" ? props.user.center_id : null
   );
-  const [programme, setprogramme] = useState("");
-  const [semester, setsemester] = useState(1);
+  const [programme, setprogramme] = useState(null);
+  const [semester, setsemester] = useState(null);
   const [block, setblock] = useState("");
 
   const moveEvent = ({ event, start, end, isAllDay: droppedOnAllDaySlot }) => {
@@ -49,18 +49,10 @@ export default props => {
     // alert(`${event.title} was dropped onto ${updatedEvent.start}`)
   };
 
-  // useEffect(() => {
-  //   console.log("NewEvents: ", events);
-  //   console.log("NewSelect: ", { center, programme, semester, block });
-  //   if (
-  //     center === "Accra" &&
-  //     programme === "Computer Engineering 1" &&
-  //     semester === "1" &&
-  //     block === "one"
-  //   ) {
-  //     setEvents(dbStore.computer1);
-  //   }
-  // }, [events, center, programme, semester, block]);
+  useEffect(() => {
+    console.log("NewEvents: ", events);
+    console.log("NewSelect: ", { center, programme, semester, block });
+  }, [events, center, programme, semester, block]);
 
   useEffect(() => {
     // getData({ url: routeCenters, headers }).then(data => {
@@ -116,7 +108,7 @@ export default props => {
     const centers = props.centers.map((element, index) => {
       // console.log(element.name);
       return (
-        <Option value={element.center_id} key={element.center_id + index}>
+        <Option value={element.center_id} key={element.center_name + index}>
           {element.center_name}
         </Option>
       );
@@ -144,32 +136,44 @@ export default props => {
   };
 
   const renderCourseData = () => {
-   console.log(props.programmes)
-    if (semester === 1) {
-      props.programmes.map((element, index) => {
-        // console.log(element.name);
-        element.sem_1.map((elem, id) => {
-          console.log(elem)
-          return (
-            <Option value={elem} key={elem + id}>
-              {elem}
-            </Option>
-          );
+    if (semester == "1") {
+      return props.programmes
+        .filter(
+          element =>
+            element.programme_id == programme && element.center_id == center
+        )
+        .map((element, index) => {
+          // console.log("course data: ", element);
+          return element.sem_1.map((elem, id) => {
+            console.log("course: ", elem);
+            return (
+              <Option value={elem} key={elem + id}>
+                {elem}
+              </Option>
+            );
+          });
         });
-      });
+
+      // return course;
     }
-    if (semester === 2) {
-      props.programmes.map((element, index) => {
-        // console.log(element.name);
-        element.sem_2.map((elem, id) => {
-          console.log(elem)
-          return (
-            <Option value={elem} key={elem + id}>
-              {elem}
-            </Option>
-          );
+    if (semester == "2") {
+      return props.programmes
+        .filter(
+          element =>
+            element.programme_id == programme && element.center_id == center
+        )
+        .map((element, index) => {
+          return element.sem_2.map((elem, id) => {
+            // console.log("course: ", elem);
+            return (
+              <Option value={elem} key={elem + id}>
+                {elem}
+              </Option>
+            );
+          });
         });
-      });
+
+      return course;
     }
   };
 

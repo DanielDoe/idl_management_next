@@ -26,9 +26,17 @@
     /* display: inline-block; */
     width: 100%;
     max-width: 67rem;
-    /* background-color: #FFFFFF; */
+    background-color: #FFFFFF;
     border-radius: 0.25rem;
     border: 1px solid #DDDDDD;
+}
+
+.center-programme .ant-select-selection:hover{
+    border-color: #a7d7c5;
+}
+
+.center-programme .ant-input:hover, .center-programme .ant-input:active{
+    border-color: #a7d7c5 !important;
 }
 
 .script-list .script-list-table {
@@ -38,7 +46,7 @@
 
 .script-list-table thead th {
     border-radius: 0;
-    /* background-color: #1976D2; */
+    background-color: #118a7e;
     /* color: black; */
     font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', 'Helvetica', 'Arial', sans-serif;
     padding: 1rem 0.45rem;
@@ -59,8 +67,8 @@
 }
 
 .script-list-table .ant-pagination.ant-table-pagination .ant-pagination-item.ant-pagination-item-active {
-    /* background-color: #2196F3;
-    border-color: #2196F3; */
+    /* background-color: #a7d7c5;
+    border-color: #a7d7c5; */
 }
 
 .script-list-table tbody tr td:last-of-type {
@@ -88,15 +96,15 @@
 }
 
 .script-list-table .action-column button.edit {
-    border-color: #2196F3;
-    background-color: #2196F3;
+    border-color: #a7d7c5;
+    background-color: #a7d7c5;
     color: #FFFFFF;
     transition: 100ms;
 }
 
 .script-list-table .action-column button.edit:hover {
-    border-color: #1976D2;
-    background-color: #1976D2;
+    border-color: #118a7e;
+    background-color: #118a7e;
 }
 
 
@@ -149,7 +157,7 @@
 .new-script button {
     display: block;
     width: calc(100% - 2rem);
-    background-color: #2196F3;
+    background-color: #a7d7c5;
     height: 2.5rem;
     font-size: 0.9rem;
     border: none;
@@ -162,14 +170,14 @@
 }
 
 .new-script button:hover, .new-script button:focus {
-    background-color: #1976D2;
+    background-color: #118a7e;
 }
 
 .new-script .cancel-button {
     margin-top: 1rem;
-    border: 1px solid #2196F3;
+    border: 1px solid #a7d7c5;
     background: transparent;
-    color: #2196F3;
+    color: #a7d7c5;
 }
 
 .script-search-container {

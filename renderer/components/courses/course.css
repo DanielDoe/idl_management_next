@@ -34,7 +34,7 @@
 
 .course-list-table thead th {
     border-radius: 0;
-    background-color: #1976D2;
+    background-color: #41646e;
     color: #FFFFFF;
     font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', 'Helvetica', 'Arial', sans-serif;
     padding: 1rem 0.45rem;
@@ -55,8 +55,8 @@
 }
 
 .course-list-table .ant-pagination.ant-table-pagination .ant-pagination-item.ant-pagination-item-active {
-    background-color: #2196F3;
-    border-color: #2196F3;
+    background-color: #4e7376;
+    border-color: #4e7376;
 }
 
 .course-list-table tbody tr td:last-of-type {
@@ -84,15 +84,15 @@
 }
 
 .course-list-table .action-column button.edit {
-    border-color: #2196F3;
-    background-color: #2196F3;
+    border-color: #4e7376;
+    background-color: #4e7376;
     color: #FFFFFF;
     transition: 100ms;
 }
 
 .course-list-table .action-column button.edit:hover {
-    border-color: #1976D2;
-    background-color: #1976D2;
+    border-color: #41646e;
+    background-color: #41646e;
 }
 
 
@@ -145,7 +145,7 @@
 .new-course button {
     display: block;
     width: calc(100% - 2rem);
-    background-color: #2196F3;
+    background-color: #4e7376;
     height: 2.5rem;
     font-size: 0.9rem;
     border: none;
@@ -158,14 +158,14 @@
 }
 
 .new-course button:hover, .new-course button:focus {
-    background-color: #1976D2;
+    background-color: #41646e;
 }
 
 .new-course .cancel-button {
     margin-top: 1rem;
-    border: 1px solid #2196F3;
+    border: 1px solid #4e7376;
     background: transparent;
-    color: #2196F3;
+    color: #4e7376;
 }
 
 .course-search-container {
