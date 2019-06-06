@@ -37,6 +37,7 @@ class LoginForm extends React.Component {
 								title: 'Good job!',
 								text: 'You are logged in sucessfully!',
 								icon: 'success',
+								timer: 2000,
 								button: false,
 							});
 							credentials = {
@@ -56,6 +57,7 @@ class LoginForm extends React.Component {
 								text:
 									'We encountered an error logging you in please check your details or internet connection!',
 								icon: 'error',
+								timer: 3000,
 								button: false,
 							});
 						}

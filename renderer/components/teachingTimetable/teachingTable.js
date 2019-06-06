@@ -4,7 +4,7 @@ import { remote, ipcRenderer } from "electron";
 import BigCalendar from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import moment from "moment";
-import { Select, Modal, Row, Col, Button } from "antd";
+import { Select, Modal, Row, Col, Button, Icon } from "antd";
 import swal from "sweetalert";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.less";
@@ -50,40 +50,67 @@ export default props => {
   };
 
   useEffect(() => {
-    console.log("NewEvents: ", events);
-    console.log("NewSelect: ", { center, programme, semester, block });
-  }, [events, center, programme, semester, block]);
+    // console.log("NewEvents: ", events);
+    let center_data = props.centers.filter(
+      element => element.center_id === center
+    );
+    console.log("details: ", props.fieldData)
+    console.log("center_data: ", center_data);
+  }, [events, center, programme, semester, block, venue]);
 
   useEffect(() => {
-    // getData({ url: routeCenters, headers }).then(data => {
-    //   data.centers !== undefined ? setcenters(data.centers) : setcenters([]);
-    //   //   console.log(data);
-    // });
-    // getData({ url: routeCenters, headers }).then(data => {
-    //   data.centers !== undefined ? setcenters(data.centers) : setcenters([]);
-    //   //   console.log(data);
-    // });
-    // getData({ url: routeCenters, headers }).then(data => {
-    //   data.centers !== undefined ? setcenters(data.centers) : setcenters([]);
-    //   //   console.log(data);
-    // });
     return () => {
       console.log("Unmounted");
     };
   }, []);
 
   const handleSelect = e => {
+    console.log("event: ", e);
     setvisible(true);
     // update the events state
     setUpdateEvent(e);
   };
 
   const handleOk = () => {
-    setvisible(false);
+    console.log("event: ", updateEvent);
     const { start, end, id, allDay } = updateEvent;
-    let title = course + " " + venue;
+    let programme_data = props.programmes.filter(
+      element => element.programme_id === programme
+    )[0];
+    let venue_data = props.venues.filter(
+      element => element.venue_id === venue
+    )[0];
+    console.log(
+      "comparism: ",
+      venue_data.venue_capacity,
+      programme_data.capacity
+    );
+    let title = course + " " + venue_data.venue_name;
     // console.log("updated events", start, end);
-    setEvents([...events, { start, end, title }]);
+    // Check capacity before allocatiing
+    if (programme_data.capacity > venue_data.venue_capacity) {
+      swal({
+        title: "We are sorry!",
+        text: "venue capacity is less than Programme capacity!",
+        icon: "error",
+        timer: 3000,
+        // button: "cancel"
+      });
+      // swal("Error!", "Venue capacity is less than Programme capacity!", "error");
+    } else {
+      setEvents([
+        ...events,
+        { start, end, title, course, venue, programme, center, semester },
+      ]);
+      swal({
+        title: "Good job!",
+        text: "Time allocated successfully!",
+        icon: "success",
+        // button: "OK!",
+        timer: 1000,
+      });
+      setvisible(false);
+    }
   };
 
   const handleCancel = () => {
@@ -91,7 +118,7 @@ export default props => {
     //   visible: false,
     // });
     setvisible(false);
-    console.log("updated events", updateEvent);
+    // console.log("updated events", updateEvent);
   };
 
   const resizeEvent = ({ event, start, end }) => {
@@ -145,7 +172,7 @@ export default props => {
         .map((element, index) => {
           // console.log("course data: ", element);
           return element.sem_1.map((elem, id) => {
-            console.log("course: ", elem);
+            // console.log("course: ", elem);
             return (
               <Option value={elem} key={elem + id}>
                 {elem}
@@ -315,16 +342,20 @@ export default props => {
       <div style={{ height: "100%", width: "100%" }}>
         <Row gutter={24}>
           <Col span={6}>
-            <Select
+            {/* <Select
               className="exam-selector"
-              value={
+              defaultValue={
                 props.user.auth_status !== "admin" ? props.user.center : null
               }
               disabled={props.user.auth_status !== "admin" ? true : false}
               onChange={e => setcenter(e)}
             >
               {renderCenterData()}
-            </Select>
+            </Select> */}
+            <Button onClick={() => props.onButtonPressed("timetable", [])}> 
+              <Icon type="left" />
+              Go back
+            </Button>
           </Col>
           <Col span={6}>
             <Select

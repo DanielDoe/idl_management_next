@@ -112,7 +112,7 @@ export default props => {
               }
               disabled={context.user.auth_status !== "admin" ? true : false}
               // placeholder="e.g. Accra"
-			  className="center-programme"
+              className="center-programme"
               style={{ width: "90%" }}
               onChange={value => setcenter(value)}
             >
@@ -124,7 +124,7 @@ export default props => {
             <Search
               placeholder="search for venue"
               // size="large"
-			  className="center-programme"
+              className="center-programme"
               onChange={e => onSearch(e)}
               style={{ width: "90%" }}
             />

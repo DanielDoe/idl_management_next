@@ -30,3 +30,233 @@
     display: block;
     margin: 1rem auto;
 }
+
+
+/*=================================================================================================
+ = teaching list
+=================================================================================================*/
+#teaching .teaching-list {
+    width: calc(100% - 0rem);
+    height: 100%;
+    /* border-right: 1px solid #DDDDDD; */
+    padding: 0rem 1rem 0;
+}
+
+.teaching-list h2 {
+    padding-bottom: 0.5rem;
+}
+
+.teaching-list .list-container {
+    height: 95%;
+    width: 100%;
+}
+.teaching-list .table-container {
+    height: calc(100% - 2.6rem);
+    width: 100%;
+    background-color: #FFFFFF;
+    border-radius: 0.25rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border: 1px solid #DDDDDD;
+}
+
+.teaching-list .teaching-list-table {
+    border-radius: 0;
+    border-collapse: collapse;
+}
+
+.center-programme .ant-select-selection:hover{
+    border-color: #a7d7c5;
+}
+
+.center-programme .ant-input:hover, .center-programme .ant-input:active{
+    border-color: #a7d7c5 !important;
+}
+.teaching-list-table thead th {
+    border-radius: 0;
+    background-color: #007ab5;
+    color: #FFFFFF;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    padding: 1rem 0.45rem;
+    text-align: center;
+}
+
+.teaching-list-table tbody td {
+    padding: 0.75rem 0.45rem;
+    text-align: center;
+}
+
+.teaching-list-table tbody * {
+    font-family: 'Roboto-Regular', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+.teaching-list-table .ant-pagination.ant-table-pagination {
+    margin: 1rem 1rem 0;
+}
+
+.teaching-list-table .ant-pagination.ant-table-pagination .ant-pagination-item.ant-pagination-item-active {
+    background-color: #a7d7c5;
+    border-color: #a7d7c5;
+}
+
+.teaching-list-table tbody tr td:last-of-type {
+    width: 10rem;
+}
+
+.teaching-list-table .action-column {
+    width: 100%;
+}
+
+.teaching-list-table .action-column button {
+    width: 4rem;
+    margin: 0 0.275rem;
+    height: 1.5rem;
+    border: 1px solid transparent;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.teaching-list-table .action-column button.delete {
+    border-color: #D32F2F;
+    color: #D32F2F;
+}
+
+.teaching-list-table .action-column button.edit {
+    border-color: #a7d7c5;
+    background-color: #a7d7c5;
+    color: #FFFFFF;
+    transition: 100ms;
+}
+
+.teaching-list-table .action-column button.edit:hover {
+    border-color: #007ab5;
+    background-color: #007ab5;
+}
+
+
+/*=================================================================================================
+ = New teaching
+=================================================================================================*/
+#teaching .new-teaching {
+    height: 100%;
+    width: 80%;
+    margin: 0rem auto;
+}
+
+.new-teaching h2 {
+    font-size: 1.25rem;
+    color: #666666;
+    text-align: center;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid #999999;
+    margin-bottom: 2rem;
+}
+
+.new-teaching label {
+    font-size: 0.9rem;
+    display: block;
+    color: #AAAAAA;
+    margin-bottom: 0.6rem;
+}
+
+.new-teaching .form-input {
+    width: 100%;
+    display: block;
+    height: 2.5rem;
+    padding: 0 0.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.25rem;
+    border: 2px solid #DDDDDD;
+    background-color: #FFFFFF;
+    transition: 80ms;
+}
+
+.new-teaching .form-input:focus {
+    border-color: #AAAAAA;
+}
+
+.new-teaching .form-input:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.new-teaching button {
+    display: block;
+    width: calc(100% - 2rem);
+    background-color: #a7d7c5;
+    height: 2.5rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 0.25rem;
+    color: #FFFFFF;
+    font-family: 'Roboto-Medium', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    margin: 0 1rem;
+    cursor: pointer;
+    transition: 100ms;
+}
+
+.new-teaching button:hover, .new-teaching button:focus {
+    background-color: #007ab5;
+}
+
+.new-teaching .cancel-button {
+    margin-top: 1rem;
+    border: 1px solid #a7d7c5;
+    background: transparent;
+    color: #a7d7c5;
+}
+
+.teaching-search-container {
+    float: right;
+    width: 100%;
+    text-align: center;
+}
+
+.filter-options {
+    margin-bottom: 1rem;
+}
+
+.ant-tabs:not(.ant-tabs-vertical)>.ant-tabs-content>.ant-tabs-tabpane #teaching {
+    height: 100%;
+}
+
+/* Float four columns side by side */
+.column-timetable {
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+  }
+  
+  /* Remove extra left and right margins, due to padding in columns */
+  .row-timetable {margin: 0 -5px;}
+  
+  /* Clear floats after the columns */
+  .row-timetable:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  .calender-img{
+      width: 3rem;
+      height: 3rem;
+  }
+  /* Style the counter cards */
+  .card-timetable {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+    padding: 16px;
+    text-align: center;
+    margin: 0.5rem;
+    background-color: #ffffff;
+  }
+  
+  /* Responsive columns - one column layout (vertical) on small screens */
+  @media screen and (max-width: 600px) {
+    .column-timetable  {
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+    }
+  }

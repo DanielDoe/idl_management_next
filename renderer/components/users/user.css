@@ -43,7 +43,7 @@
 
 .user-list-table thead th {
     border-radius: 0;
-    background-color: #35635b;
+    background-color: #255965;
     color: #FFFFFF;
     font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', 'Helvetica', 'Arial', sans-serif;
     padding: 1rem 0.45rem;
@@ -64,8 +64,8 @@
 }
 
 .user-list-table .ant-pagination.ant-table-pagination .ant-pagination-item.ant-pagination-item-active {
-    background-color: #b6cdbd;
-    border-color: #b6cdbd;
+    background-color: #4c6f7b;
+    border-color: #4c6f7b;
 }
 
 .user-list-table tbody tr td:last-of-type {
@@ -93,15 +93,15 @@
 }
 
 .user-list-table .action-column button.edit {
-    border-color: #b6cdbd;
-    background-color: #b6cdbd;
+    border-color: #4c6f7b;
+    background-color: #4c6f7b;
     color: #FFFFFF;
     transition: 100ms;
 }
 
 .user-list-table .action-column button.edit:hover {
-    border-color: #35635b;
-    background-color: #35635b;
+    border-color: #255965;
+    background-color: #255965;
 }
 
 
@@ -154,7 +154,7 @@
 .new-user button {
     display: block;
     width: calc(100% - 2rem);
-    background-color: #b6cdbd;
+    background-color: #4c6f7b;
     height: 2.5rem;
     font-size: 0.9rem;
     border: none;
@@ -167,14 +167,14 @@
 }
 
 .new-user button:hover, .new-user button:focus {
-    background-color: #35635b;
+    background-color: #255965;
 }
 
 .new-user .cancel-button {
     margin-top: 1rem;
-    border: 1px solid #b6cdbd;
+    border: 1px solid #4c6f7b;
     background: transparent;
-    color: #b6cdbd;
+    color: #4c6f7b;
 }
 
 .user-search-container {
