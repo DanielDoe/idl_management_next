@@ -6,6 +6,7 @@ import {
   routeAllocations,
   routeProgrammeCenters,
   routeVenues,
+  routeTeachingTimeTable,
 } from "../_shared/axiosCalls";
 import { Row, Col } from "antd";
 import TeachingContext from "./teaching-context";
@@ -20,78 +21,7 @@ export default () => {
   const [venues, setvenues] = useState([]);
   const [editMode, seteditMode] = useState(false);
   const [fieldData, setfieldData] = useState([]);
-  const [dataSource, setdataSource] = useState([
-    {
-      capacity: 50,
-      prog_cen_id: 8,
-      programme_code: "COE1",
-      programme_id: 72,
-      programme_name: "Computer Engineering 1",
-    },
-    {
-      capacity: 50,
-      prog_cen_id: 8,
-      programme_code: "COE1",
-      programme_id: 73,
-      programme_name: "Computer Engineering 1",
-    },
-    {
-      capacity: 50,
-      prog_cen_id: 8,
-      programme_code: "COE1",
-      programme_id: 74,
-      programme_name: "Computer Engineering 1",
-    },
-    {
-      capacity: 50,
-      prog_cen_id: 8,
-      programme_code: "COE1",
-      programme_id: 76,
-      programme_name: "Computer Engineering 1",
-    },
-    {
-      capacity: 50,
-      prog_cen_id: 8,
-      programme_code: "COE1",
-      programme_id: 77,
-      programme_name: "Computer Engineering 1",
-    },
-    {
-      capacity: 50,
-      prog_cen_id: 8,
-      programme_code: "COE1",
-      programme_id: 72,
-      programme_name: "Computer Engineering 1",
-    },
-    {
-      capacity: 50,
-      prog_cen_id: 8,
-      programme_code: "COE1",
-      programme_id: 73,
-      programme_name: "Computer Engineering 1",
-    },
-    {
-      capacity: 50,
-      prog_cen_id: 8,
-      programme_code: "COE1",
-      programme_id: 74,
-      programme_name: "Computer Engineering 1",
-    },
-    {
-      capacity: 50,
-      prog_cen_id: 8,
-      programme_code: "COE1",
-      programme_id: 76,
-      programme_name: "Computer Engineering 1",
-    },
-    {
-      capacity: 50,
-      prog_cen_id: 8,
-      programme_code: "COE1",
-      programme_id: 77,
-      programme_name: "Computer Engineering 1",
-    },
-  ]);
+  const [dataSource, setdataSource] = useState([]);
   const [user, setuser] = useState(JSON.parse(localStorage.getItem("login")));
   const [activeSelection, setactiveSelection] = useState("timetable");
   const token = JSON.parse(localStorage.getItem("login")).tokenObtained;
@@ -103,16 +33,15 @@ export default () => {
   const addTeachingElements = teaching => {
     // setfieldData(teaching)
     const { center, programme, semester } = teaching;
+    let data = programmes.filter(elem => elem.programme_id === programme && elem.center_id === center);
     let newState = {
       center_id: center,
       programme_id: programme,
       semester: semester
     };
 
-    let data = programmes.filter(elem => elem.programme_id === programme && elem.center_id === center);
-
     if (data.length !== 0){
-      setdataSource([...dataSource, data[0]]);
+      setdataSource([...dataSource, {...data[0], semester, center}]);
       console.log("datasource: ", data);
     } else {
       swal({
@@ -156,10 +85,10 @@ export default () => {
       //   console.log(data);
     });
 
-    //   getData({ url: routeVenues, headers }).then(data => {
-    //     data.centers !== undefined ? setcenters(data.centers) : setcenters([]);
-    //     //   console.log(data);
-    //   });
+      getData({ url: routeTeachingTimeTable, headers }).then(data => {
+        data.timetables !== undefined ? setdataSource(data.timetables) : setdataSource([]);
+          console.log(data);
+      });
 
     return () => {
       console.log("Unmounted component");
@@ -210,7 +139,7 @@ export default () => {
             fieldData={fieldData}
             user={user}
             onButtonPressed={onButtonPressed}
-            programmes={programmes}
+            programmes={fieldData}
           />
         );
       default:

@@ -8,7 +8,8 @@ export const routeUserLogin = 'https://idl-timetable.herokuapp.com/userlogin';
 export const routeCenters = 'https://idl-timetable.herokuapp.com/center';
 export const routeUsers = 'https://idl-timetable.herokuapp.com/user';
 export const routeVenues = 'https://idl-timetable.herokuapp.com/venue';
-export const routeProgrammeCenters = 'https://idl-timetable.herokuapp.com/programmecenter'
+export const routeProgrammeCenters = 'https://idl-timetable.herokuapp.com/programmecenter';
+export const routeTeachingTimeTable = 'https://idl-timetable.herokuapp.com/teachingTimeTable';
 
 export const titleCase = str => {
 	return str
@@ -401,8 +402,8 @@ export const manageScripts = params => {
  * delete centers
  */
 
-export const manageTimetable = params => {
-	const { url, headers, type } = params;
+export const manageTeachingTimetable = params => {
+	const { start, end, title, programme, venue,url, headers, type } = params;
 	switch (type) {
 		case 'post':
 			axios({
@@ -451,7 +452,7 @@ export const manageTimetable = params => {
  * delete centers
  */
 
-export async function manageProgrammeCenter (params){
+export async function manageProgrammeCenter(params) {
 	const { center_id, programme_id, prog_cen_id, capacity, url, headers, type } = params;
 	switch (type) {
 		case 'post':
@@ -486,11 +487,11 @@ export async function manageProgrammeCenter (params){
 				method: 'delete',
 				url: url,
 				data: {
-					prog_cen_id: prog_cen_id
+					prog_cen_id: prog_cen_id,
 				},
 				headers: headers,
 			});
 		default:
 			break;
 	}
-};
+}

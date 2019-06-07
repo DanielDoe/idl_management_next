@@ -14,6 +14,9 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MailIcon from '@material-ui/icons/Mail';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -29,6 +32,8 @@ import Teaching from '../teachingTimetable';
 import ExamTable from '../examTimetable';
 import Allocation from '../allocations';
 import CenterCourse from '../centerCourses/';
+import Badge from '@material-ui/core/Badge';
+import MoreIcon from '@material-ui/icons/MoreVert';
 import ExamPapers from '../scripts';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -52,7 +57,7 @@ const styles = theme => ({
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
 		}),
-		background: "#155e63"
+		background: '#155e63',
 	},
 	appBarShift: {
 		marginLeft: drawerWidth,
@@ -61,6 +66,11 @@ const styles = theme => ({
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.enteringScreen,
 		}),
+	},
+	sectionDesktop: {
+		marginLeft: 'auto',
+		marginRight: -12,
+		paddingRight: '1.5rem',
 	},
 	menuButton: {
 		marginLeft: 12,
@@ -224,6 +234,16 @@ class Dashboard extends React.Component {
 						<Typography variant="h6" color="inherit" noWrap>
 							Dashboard
 						</Typography>
+						<div className={classes.sectionDesktop}>
+							<IconButton color="inherit">
+								<Badge badgeContent={4} color="secondary">
+									<MailIcon />
+								</Badge>
+							</IconButton>
+							<IconButton color="inherit">
+								<AccountCircle />
+							</IconButton>
+						</div>
 					</Toolbar>
 				</AppBar>
 				<Drawer
