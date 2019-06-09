@@ -50,14 +50,27 @@ export default props => {
               <h3>{element.programme_code}</h3>
               <p>{element.programme_name}</p>
               <p>Capacity: {element.capacity}</p>
+              <Row gutter={16}>
+              <Col span={12}>
               <Button
                 name="timetable-content"
+                icon="edit"
                 onClick={() =>
                   props.onButtonPressed("timetable-content", element)
                 }
-              >
-                Edit
-              </Button>
+              />
+              </Col>
+              <Col span={12}>
+              <Button
+                name="timetable-content"
+                icon="delete"
+                type="danger"
+                onClick={() =>
+                  props.onItemRemove(element)
+                }
+              />
+              </Col>
+              </Row>
             </div>
           </div>
         );

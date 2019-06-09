@@ -97,7 +97,7 @@ class AddTeachingForm extends React.Component {
 			.map((element, index) => {
 				// console.log(element.name);
 				return (
-					<Option value={element.programme_id} key={element.name + element.year}>
+					<Option value={element.prog_cen_id} key={element.name + element.year}>
 						{element.programme_name}
 					</Option>
 				);
@@ -111,14 +111,14 @@ class AddTeachingForm extends React.Component {
 		const buttonText = this.props.editMode ? 'Edit' : 'Add';
 		const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, getFieldValue } = this.props.form;
 
-		const teachingCenterError = isFieldTouched('center') && getFieldError('center');
-		const teachingProgrammeError = isFieldTouched('programme') && getFieldError('programme');
+		const teachingCenterError = isFieldTouched('center_id') && getFieldError('center_id');
+		const teachingProgrammeError = isFieldTouched('prog_cen_id') && getFieldError('prog_cen_id');
 		// const VenueYearError = isFieldTouched("year") && getFieldError("year");
 		const teachingSemesterError = isFieldTouched('semester') && getFieldError('semester');
 		// const othersError = getFieldError('otherSize');
 
-		const teachingCenter = getFieldValue('center');
-		const teachingProgramme = getFieldValue('programme');
+		const teachingCenter = getFieldValue('center_id');
+		const teachingProgramme = getFieldValue('prog_cen_id');
 		// const VenueYear = getFieldValue("year");
 		const teachingSemester = getFieldValue('semester');
 
@@ -135,7 +135,7 @@ class AddTeachingForm extends React.Component {
 					validateStatus={teachingCenterError ? 'error' : ''}
 					help={teachingCenterError || ''}
 				>
-					{getFieldDecorator('center', {
+					{getFieldDecorator('center_id', {
 						rules: [{ required: true, message: 'enter center!' }],
 						initialValue: this.context.user.auth_status !== 'admin' ? this.context.user.center : null,
 					})(
@@ -156,7 +156,7 @@ class AddTeachingForm extends React.Component {
 					validateStatus={teachingProgrammeError ? 'error' : ''}
 					help={teachingProgrammeError || ''}
 				>
-					{getFieldDecorator('programme', {
+					{getFieldDecorator('prog_cen_id', {
 						rules: [
 							{
 								required: true,

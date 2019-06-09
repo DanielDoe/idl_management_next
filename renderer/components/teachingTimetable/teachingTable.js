@@ -8,7 +8,7 @@ import { Select, Modal, Row, Col, Button, Icon } from "antd";
 import swal from "sweetalert";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.less";
-import { dbStore } from "../_shared/initialStoreState";
+
 
 import TableGenerator from "../../helpers/TableGenerator";
 import testData from "./testData";
@@ -82,13 +82,13 @@ export default props => {
     )[0];
     console.log(
       "comparism: ",
-      venue_data.venue_capacity,
-      programme_data.capacity
+      venue_data.capacity,
+      props.fieldData.capacity
     );
     let title = course + " " + venue_data.venue_name;
-    // console.log("updated events", start, end);
+    console.log("updated events", start, end);
     // Check capacity before allocatiing
-    if (programme_data.capacity > venue_data.venue_capacity) {
+    if (props.fieldData.capacity > venue_data.venue_capacity) {
       swal({
         title: "We are sorry!",
         text: "venue capacity is less than Programme capacity!",

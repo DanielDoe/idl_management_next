@@ -14,23 +14,29 @@ export default class TableGenerator {
 	 */
 	_getStyles() {
 		return `
+		body {
+			margin: 3rem;
+			font-family: Arial, sans-serif;
+		}
         .app-table {
             border-collapse: collapse;
-            width: 100%;
+			width: 100%;
+			padding-top: 3rem;
+			font-family: Arial, sans-serif;
         }
         .app-table td,
         .app-table th {
             border: 1px solid #ddd;
             padding: 0.5rem 1rem;
-            font-family: Calibri, Arial, sans-serif;
-            font-size: 11pt;
+            font-family: Arial, sans-serif;
+            font-size: 8pt;
         }
         .app-table th {
             text-align: left;
             border-bottom-color: #aaa;
         }
         .elem-col {
-            font-weight: 700;
+            font-weight: 500;
         }
         .app-table tbody tr:nth-of-type(even) td {
             background-color: #eee;
@@ -44,8 +50,34 @@ export default class TableGenerator {
             transform: rotate(-90deg);
             width: 100%;
             text-align: center;
-            font-size: 22pt;
-        }
+            font-size: 18pt;
+		}
+		.heading {
+			line-height: 2px;
+		  }
+		  
+		  .heading p {
+			text-align: center;
+		  }
+		  
+		  .heading .block-style {
+			text-align: left;
+			padding-top: 2rem;
+		  }
+		  
+		   .course-style {
+			background: yellow;
+			color: black;
+			width: 100%;
+			font-size: 1.4rem;
+			font-weight: 550;
+			text-align: center !important;
+		  }
+
+		  .break-col span{
+			font-weight: 500;
+			font-size: 5pt;
+		  }
         `;
 	}
 
@@ -154,7 +186,9 @@ export default class TableGenerator {
 	 * @returns {string}
 	 */
 	_renderHeader() {
-		return `<thead>
+		return `
+		</div>
+		<thead>
         <tr>
             <th>Date</th>
             <th>Days</th>
@@ -184,7 +218,7 @@ export default class TableGenerator {
 		const reducedData = this.data.reduce((acc, curr) => {
 			const key = this._getDateString(curr.start);
 			const source = {
-				[key]: acc[key] ? acc[key].concat(curr).sort((a, b) => a.start - b.start) : [curr]
+				[key]: acc[key] ? acc[key].concat(curr).sort((a, b) => a.start - b.start) : [curr],
 			};
 
 			return Object.assign(acc, source);
@@ -197,8 +231,29 @@ export default class TableGenerator {
         <head>
             <style>${styles}</style>
         </head>
-        <body>
-            <table class="app-table">${header}${body}</table>
+		<body>
+		<div class="heading">
+		<p>KWAME NKRUMAH UNIVERISTY OF SCIENCE AND TECHNOLOGY, KUMASI</p>
+		<p>
+		INSTITUTE OF DISTANCE LEARNING
+		</p>
+		<p>
+		<span  class="course-style">
+		{Particular course name}
+		</span>
+		</p>
+
+		<p>
+		TIME TABLE FOR LIMITED FACE TO FACE SESSIONS - {SEM} SEMESTER, {duration}
+		</p>
+		<p class="block-style">BLOCK {}</p>
+
+		
+			<table class="app-table">${header}${body}</table>
+			
+			<p class="block-style">
+		NB: All On-line Activities and Assignments for {Block} should commence by {date}
+		</p>
         </body>
         </html>
         `;

@@ -351,7 +351,7 @@ export async function manageCourseAllocations(params) {
  * delete centers
  */
 
-export const manageScripts = params => {
+export async function manageScripts(params) {
 	const { url, headers, type } = params;
 	switch (type) {
 		case 'post':
@@ -392,7 +392,7 @@ export const manageScripts = params => {
 		default:
 			break;
 	}
-};
+}
 
 /**
  *
@@ -402,32 +402,28 @@ export const manageScripts = params => {
  * delete centers
  */
 
-export const manageTeachingTimetable = params => {
-	const { start, end, title, programme, venue,url, headers, type } = params;
+export async function manageTeachingTimetable(params) {
+	const { prog_cen_id, timetable_id, semester, url, headers, type } = params;
 	switch (type) {
 		case 'post':
-			axios({
+			const request = await axios({
 				method: 'post',
 				url: url,
 				data: {
-					center_name: center_name,
-					// center_id: center_name,
-					center_code: center_code,
-					center_block: center_block,
+					prog_cen_id: prog_cen_id,
+					semester: semester,
 				},
 				headers: headers,
 			});
-			break;
+			return request;
 		case 'put':
 			axios({
 				method: 'put',
-				url: url + '/u_id=' + u_id,
+				url: url,
 				data: {
-					full_name: full_name,
-					email: email,
-					status: status,
-					phone: phone,
-					center_id: center_id,
+					timetable_id: timetable_id,
+					prog_cen_id: prog_cen_id,
+					semester: semester,
 				},
 				headers: headers,
 			});
@@ -436,13 +432,16 @@ export const manageTeachingTimetable = params => {
 		case 'delete':
 			axios({
 				method: 'delete',
-				url: url + '?center_id=' + center_id,
+				url: url,
+				data: {
+					timetable_id: timetable_id,
+				},
 				headers: headers,
 			});
 		default:
 			break;
 	}
-};
+}
 
 /**
  *
