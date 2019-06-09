@@ -39,6 +39,7 @@
     "react-pose": "^4.0.8",
     "react-router-dom": "^5.0.0",
     "sweetalert": "^2.1.2",
+    "typewriter-effect": "^2.5.3",
     "xlsx": "^0.14.3"
   },
   "devDependencies": {

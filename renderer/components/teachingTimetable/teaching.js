@@ -139,7 +139,7 @@ export default () => {
             fieldData={fieldData}
             user={user}
             onButtonPressed={onButtonPressed}
-            programmes={fieldData}
+            programmes={programmes}
           />
         );
       default:

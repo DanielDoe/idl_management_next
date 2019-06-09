@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Row, Col, Input, Select, Button } from "antd";
-import Calender3 from '../_shared/img/calendar3.png'
-import Calender2 from '../_shared/img/calendar1.png'
+import { Row, Col, Input, Select, Button, Empty } from "antd";
+import Calender3 from "../_shared/img/calendar3.png";
+import Calender2 from "../_shared/img/calendar1.png";
 const Search = Input.Search;
 const Option = Select.Option;
 export default props => {
@@ -34,6 +34,37 @@ export default props => {
       });
 
     return programmes;
+  };
+
+  const renderContent = () => {
+    if (props.dataSource.length !== 0) {
+      return props.dataSource.map((element, id) => {
+        return (
+          <div className="column-timetable">
+            <div className="card-timetable" key={"id" + id}>
+              <img
+                className="calender-img"
+                src={id % 2 === 0 ? Calender3 : Calender2}
+                alt="calender"
+              />
+              <h3>{element.programme_code}</h3>
+              <p>{element.programme_name}</p>
+              <p>Capacity: {element.capacity}</p>
+              <Button
+                name="timetable-content"
+                onClick={() =>
+                  props.onButtonPressed("timetable-content", element)
+                }
+              >
+                Edit
+              </Button>
+            </div>
+          </div>
+        );
+      });
+    } else {
+      return <div className="empty-container"><Empty style={{ margin: "40% auto"}} /></div>;
+    }
   };
   return (
     <div className="teaching-list column">
@@ -82,29 +113,7 @@ export default props => {
         </Row>
         <h2>List of timetables</h2>
         <div className="table-container">
-          <div className="row-timetable">
-            {props.dataSource.map((element, id) => {
-              {/* console.log(element); */}
-              return (
-                <div className="column-timetable">
-                  <div className="card-timetable" key={"id" + id}>
-                  <img className="calender-img" src={(id % 2 === 0) ? Calender3 : Calender2} alt="calender"/>
-                    <h3>{element.programme_code}</h3>
-                    <p>{element.programme_name}</p>
-                    <p>Capacity: {element.capacity}</p>
-                    <Button
-                      name="timetable-content"
-                      onClick={() =>
-                        props.onButtonPressed("timetable-content", element)
-                      }
-                    >
-                      Edit
-                    </Button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <div className="row-timetable">{renderContent()}</div>
         </div>
       </div>
     </div>
