@@ -29,8 +29,11 @@
 
 .exams-list .table-container {
   height: calc(100% - 2.6rem);
+  width: 100%;
   background-color: #ffffff;
   border-radius: 0.25rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
   border: 1px solid #dddddd;
 }
 
@@ -196,9 +199,9 @@
 }
 
 .big-calender-exams {
-    height: 90%;
-    overflow-y: auto;
-    margin: 1rem auto;
+  height: 90%;
+  overflow-y: auto;
+  margin: 1rem auto;
 }
 
 .exam-selector {
@@ -209,7 +212,7 @@
 .new-schedule label {
   font-size: 0.9rem;
   display: block;
-  color: #AAAAAA;
+  color: #aaaaaa;
   margin-bottom: 0.6rem;
   width: 70%;
   display: block;
