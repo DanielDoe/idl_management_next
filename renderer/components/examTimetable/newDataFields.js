@@ -30,8 +30,8 @@ class AddExamForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        //   this.context.addExamElements(values);
-        console.log("Added received values of form: ", values);
+          this.context.addExamElements(values);
+        // console.log("Added received values of form: ", values);
         //   this.handleReset();
         // this.props.onCancel()
       }
@@ -96,7 +96,7 @@ class AddExamForm extends React.Component {
               style={{ width: "100%" }}
               // onChange={value => this.setState({ center: value })}
             >
-              <Option value="End Of Semester">End Of Semester</Option>
+              <Option value="End of Semester">End of Semester</Option>
               <Option value="Mid Semester">Mid Semester</Option>
             </Select>
           )}
