@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Input, Table, Row, Col, Card, Icon, Button } from 'antd';
 import AllocationContext from './allocation-context';
-import BookSelf from '../_shared/img/bookshelf.png';
+import BookSelf from '../_shared/img/notepad1.png';
 
 const Search = Input.Search;
 

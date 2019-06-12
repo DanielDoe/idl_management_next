@@ -17,6 +17,7 @@ export default () => {
 	const [courses, setcourses] = useState([]);
 	const [editMode, seteditMode] = useState(false);
 	const [fieldData, setfieldData] = useState([]);
+
 	const addAllocationElements = allocation => {
 		console.log('Allocation: ', allocation);
 		manageCourseAllocations({ ...allocation, url: routeAllocations, headers, type: 'post' }).then(res => {
@@ -52,7 +53,7 @@ export default () => {
 			data.courses !== undefined ? setcourses(data.courses) : setcourses([]);
 		});
 		getData({ url: routeAllocations, headers }).then(data => {
-			// console.log('Allocations: ', data)
+			console.log('Allocations: ', data)
 			data.courseAllocations !== undefined ? setAllocations(data.courseAllocations) : setAllocations([]);
     });
 	}, []);

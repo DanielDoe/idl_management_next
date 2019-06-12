@@ -10,6 +10,7 @@ export const routeUsers = 'https://idl-timetable.herokuapp.com/user';
 export const routeVenues = 'https://idl-timetable.herokuapp.com/venue';
 export const routeProgrammeCenters = 'https://idl-timetable.herokuapp.com/programmecenter';
 export const routeTeachingTimeTable = 'https://idl-timetable.herokuapp.com/teachingTimeTable';
+export const routeTimeTableItem = 'https://idl-timetable.herokuapp.com/teachingTimeTableItem';
 
 export const titleCase = str => {
 	return str
@@ -412,6 +413,93 @@ export async function manageTeachingTimetable(params) {
 				data: {
 					prog_cen_id: prog_cen_id,
 					semester: semester,
+				},
+				headers: headers,
+			});
+			return request;
+		case 'put':
+			axios({
+				method: 'put',
+				url: url,
+				data: {
+					timetable_id: timetable_id,
+					prog_cen_id: prog_cen_id,
+					semester: semester,
+				},
+				headers: headers,
+			});
+			break;
+
+		case 'delete':
+			axios({
+				method: 'delete',
+				url: url,
+				data: {
+					timetable_id: timetable_id,
+				},
+				headers: headers,
+			});
+		default:
+			break;
+	}
+}
+
+/**
+ * 
+ * 
+ * 
+ "timetable_id": "1",
+	"date": "26/06/2019",
+	"timetable_item_title": "COE1 BLock One", 
+	"start_time": "8:00", 
+	"end_time": "14:00", 
+	"course_id": "1", 
+	"venue_id": "1",
+	"block": "Block One"
+ */
+
+export async function manageTeachingTimetableItem(params) {
+	const {
+		date,
+		timetable_id,
+		timetable_item_title,
+		course_id,
+		venue_id,
+		block,
+		start_time,
+		end_time,
+		url,
+		headers,
+		type,
+	} = params;
+	console.log(
+		'To the db: ',
+		date,
+		timetable_id,
+		timetable_item_title,
+		course_id,
+		venue_id,
+		block,
+		start_time,
+		end_time
+	);
+	switch (type) {
+		case 'get':
+			const res = await axios.get(params.url + `?timetable_id=${timetable_id}`, { headers: params.headers });
+			return res.data;
+		case 'post':
+			const request = await axios({
+				method: 'post',
+				url: url,
+				data: {
+					timetable_id: timetable_id,
+					date: date,
+					timetable_item_title: timetable_item_title,
+					start_time: start_time,
+					end_time: end_time,
+					course_id: course_id,
+					venue_id: venue_id,
+					block: block,
 				},
 				headers: headers,
 			});
