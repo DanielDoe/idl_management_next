@@ -71,9 +71,23 @@ export default () => {
 
 	const addTimetableItem = item => {
 		manageTeachingTimetableItem({ ...item, url: routeTimeTableItem, headers, type: 'post' }).then(res => {
-			setevents(res.data.timetableitems);
-			console.log(res);
+			const details = res.timetabledetail[0];
+			let newSlot = res.timetableitems.map(element => {
+				return {
+					date: moment(element.date).format('ll'),
+					timetable_id: details.timetable_id,
+					title: element.item_title,
+					course_id: element.course_id,
+					venue_id: element.venue_id,
+					block: element.block,
+					start: moment(element.start_time).toDate(),
+					end: moment(element.end_time).toDate(),
+				};
+			});
+
+			setevents(newSlot);
 		});
+		console.log(res);
 		console.log('added slots: ', item);
 	};
 

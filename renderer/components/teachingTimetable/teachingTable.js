@@ -22,6 +22,7 @@ export default props => {
 	const [updateEvent, setUpdateEvent] = useState([]);
 	const [course, setcourse] = useState('');
 	const [venue, setvenue] = useState('');
+	const [timetableDetails, settimetableDetails] = useState([]);
 	const [center, setcenter] = useState(props.user.auth_status !== 'admin' ? props.user.center_id : null);
 	const [programme, setprogramme] = useState(props.programmes.programme_id);
 	const [semester, setsemester] = useState(props.programmes.semester);
@@ -43,13 +44,40 @@ export default props => {
 			allDay = false;
 		}
 
-		const updatedEvent = { ...event, start, end, allDay };
+		let slot = {
+			timetable_item_id: `${event.timetable_item_id}`,
+			timetable_id: `${props.fieldData.timetable_id}`,
+			date: event.date,
+			timetable_item_title: event.title,
+			start_time: start,
+			end_time: end,
+			course_id: `${event.course_id}`,
+			venue_id: `${event.venue_id}`,
+			block: event.block,
+		};
+		manageTeachingTimetableItem({
+			...slot,
+			url: routeTimeTableItem,
+			headers,
+			type: 'put',
+		}).then(res => {
+			const details = res.data.timetabledetail[0];
+			let newSlot = res.data.timetableitems.map(element => {
+				return {
+					date: moment(element.date).format('ll'),
+					timetable_item_id: element.timetable_item_id,
+					timetable_id: details.timetable_id,
+					title: element.item_title,
+					course_id: element.course_id,
+					venue_id: element.venue_id,
+					block: element.block,
+					start: moment(element.start_time).toDate(),
+					end: moment(element.end_time).toDate(),
+				};
+			});
 
-		const nextEvents = [...events];
-		nextEvents.splice(idx, 1, updatedEvent);
-
-		setEvents(nextEvents);
-		// alert(`${event.title} was dropped onto ${updatedEvent.start}`)
+			setEvents(newSlot);
+		});
 	};
 
 	useEffect(() => {
@@ -59,8 +87,23 @@ export default props => {
 			headers,
 			type: 'get',
 		}).then(res => {
-			// setEvents(res.data.timetableitems);
-			console.log('events: ', res.timetableitems);
+			const details = res.timetabledetail[0];
+			settimetableDetails(details);
+			let newSlot = res.timetableitems.map(element => {
+				return {
+					date: moment(element.date).format('ll'),
+					timetable_id: details.timetable_id,
+					timetable_item_id: element.timetable_item_id,
+					title: element.item_title,
+					course_id: element.course_id,
+					venue_id: element.venue_id,
+					block: element.block,
+					start: moment(element.start_time).toDate(),
+					end: moment(element.end_time).toDate(),
+				};
+			});
+
+			setEvents(newSlot);
 		});
 	}, []);
 
@@ -78,7 +121,6 @@ export default props => {
 	};
 
 	const handleOk = () => {
-		// console.log('event: ', updateEvent);
 		const { start, end, id, allDay } = updateEvent;
 		let venue_data = props.venues.filter(element => element.venue_id === venue)[0];
 		if (venue === '' && course === '' && block === '' && venue_data === undefined) {
@@ -87,7 +129,6 @@ export default props => {
 				text: 'no venue, course and center was selected!',
 				icon: 'error',
 				timer: 3000,
-				// button: "cancel"
 			});
 		} else {
 			let title = course + ' ' + venue_data.venue_name;
@@ -99,11 +140,9 @@ export default props => {
 					text: 'venue capacity is less than Programme capacity!',
 					icon: 'error',
 					timer: 3000,
-					// button: "cancel"
 				});
-				// swal("Error!", "Venue capacity is less than Programme capacity!", "error");
 			} else {
-				context.addTimetableItem({
+				let slot = {
 					timetable_id: `${props.fieldData.timetable_id}`,
 					start_time: start,
 					date: moment(start, 'L'),
@@ -114,26 +153,29 @@ export default props => {
 					programme: props.fieldData.programme_id,
 					semester: props.fieldData.semester,
 					block: block,
+				};
+				manageTeachingTimetableItem({ ...slot, url: routeTimeTableItem, headers, type: 'post' }).then(res => {
+					const details = res.data.timetabledetail[0];
+					let newSlot = res.data.timetableitems.map(element => {
+						return {
+							date: moment(element.date).format('ll'),
+							timetable_id: details.timetable_id,
+							timetable_item_id: element.timetable_item_id,
+							title: element.item_title,
+							course_id: element.course_id,
+							venue_id: element.venue_id,
+							block: element.block,
+							start: moment(element.start_time).toDate(),
+							end: moment(element.end_time).toDate(),
+						};
+					});
+
+					setEvents(newSlot);
 				});
-				// setEvents([
-				//   ...events,
-				//   {
-				//     start,
-				//     end,
-				//     title,
-				//     course,
-				//     venue,
-				//     programme,
-				//     center,
-				//     semester,
-				//     block,
-				//   },
-				// ]);
 				swal({
 					title: 'Good job!',
 					text: 'Time allocated successfully!',
 					icon: 'success',
-					// button: "OK!",
 					timer: 1000,
 				});
 				setvisible(false);
@@ -142,21 +184,44 @@ export default props => {
 	};
 
 	const handleCancel = () => {
-		// this.setState({
-		//   visible: false,
-		// });
 		setvisible(false);
-		// console.log("updated events", updateEvent);
 	};
 
 	const resizeEvent = ({ event, start, end }) => {
-		const nextEvents = events.map(existingEvent => {
-			return existingEvent.id == event.id && existingEvent.title == event.title
-				? { ...existingEvent, start, end }
-				: existingEvent;
-		});
+		let slot = {
+			timetable_item_id: `${event.timetable_item_id}`,
+			timetable_id: `${props.fieldData.timetable_id}`,
+			date: event.date,
+			timetable_item_title: event.title,
+			start_time: start,
+			end_time: end,
+			course_id: `${event.course_id}`,
+			venue_id: `${event.venue_id}`,
+			block: event.block,
+		};
+		manageTeachingTimetableItem({
+			...slot,
+			url: routeTimeTableItem,
+			headers,
+			type: 'put',
+		}).then(res => {
+			const details = res.data.timetabledetail[0];
+			let newSlot = res.data.timetableitems.map(element => {
+				return {
+					date: moment(element.date).format('ll'),
+					timetable_item_id: element.timetable_item_id,
+					timetable_id: details.timetable_id,
+					title: element.item_title,
+					course_id: element.course_id,
+					venue_id: element.venue_id,
+					block: element.block,
+					start: moment(element.start_time).toDate(),
+					end: moment(element.end_time).toDate(),
+				};
+			});
 
-		setEvents(nextEvents);
+			setEvents(newSlot);
+		});
 	};
 
 	const renderCenterData = () => {
@@ -172,21 +237,6 @@ export default props => {
 		return centers;
 	};
 
-	// const renderProgramData = () => {
-	// 	const programmes = props.programmes
-	// 		.filter(element => element.center_id === props.user.center_id)
-	// 		.map((element, index) => {
-	// 			// console.log(element.name);
-	// 			return (
-	// 				<Option value={element.programme_id} key={element.name + element.year}>
-	// 					{element.programme_name}
-	// 				</Option>
-	// 			);
-	// 		});
-
-	// 	return programmes;
-	// };
-
 	const renderCourseData = () => {
 		if (props.fieldData.semester === 1) {
 			// console.log("course data: ", element);
@@ -197,7 +247,6 @@ export default props => {
 						element.center_id === props.fieldData.center_id
 				)[0]
 				.sem_1.map((elem, id) => {
-					console.log('course: ', elem);
 					return (
 						<Option value={elem} key={elem + id}>
 							{elem}
@@ -213,7 +262,6 @@ export default props => {
 						element.center_id === props.fieldData.center_id
 				)[0]
 				.sem_2.map((elem, id) => {
-					console.log('course: ', elem);
 					return (
 						<Option value={elem} key={elem + id}>
 							{elem}
@@ -227,7 +275,6 @@ export default props => {
 		const venues = props.venues
 			.filter(element => element.center_id === props.fieldData.center_id)
 			.map((element, index) => {
-				// console.log(element.name);
 				return (
 					<Option value={element.venue_id} key={element.id}>
 						{element.venue_name}
@@ -239,10 +286,7 @@ export default props => {
 	};
 
 	// delete event
-	const onSelectEvent = pEvent => {
-		const newEvents = events;
-		const idx = events.indexOf(pEvent);
-
+	const onSelectEvent = event => {
 		swal({
 			title: 'Are you sure?',
 			text: 'Once deleted, you will not be able to recover this schedule allocation!',
@@ -251,16 +295,57 @@ export default props => {
 			dangerMode: true,
 		}).then(willDelete => {
 			if (willDelete) {
-				// swal("Poof! Your imaginary file has been deleted!", {
-				// 	icon: "success",
-				// });
-				newEvents.splice(idx, 1);
+				let slot = {
+					timetable_item_id: `${event.timetable_item_id}`,
+					timetable_id: `${props.fieldData.timetable_id}`,
+					date: event.date,
+					timetable_item_title: event.title,
+					start_time: event.start,
+					end_time: event.end,
+					course_id: `${event.course_id}`,
+					venue_id: `${event.venue_id}`,
+					block: event.block,
+				};
+				manageTeachingTimetableItem({ ...slot, url: routeTimeTableItem, headers, type: 'delete' }).then(res => {
+					const details = res.data.timetabledetail[0];
+					let newSlot = res.data.timetableitems.map(element => {
+						return {
+							date: moment(element.date).format('ll'),
+							timetable_id: details.timetable_id,
+							timetable_item_id: element.timetable_item_id,
+							title: element.item_title,
+							course_id: element.course_id,
+							venue_id: element.venue_id,
+							block: element.block,
+							start: moment(element.start_time).toDate(),
+							end: moment(element.end_time).toDate(),
+						};
+					});
+
+					setEvents(newSlot);
+				});
+				swal('Poof! Your schedule has been deleted!', {
+					icon: 'success',
+					timer: 1000,
+				});
+			} else {
+				swal('Your imaginary file is safe!', {
+					timer: 1000,
+				});
 			}
-			//  else {
-			// 	swal("Your imaginary file is safe!");
-			// }
 		});
-		setEvents(newEvents);
+	};
+
+	const eventStyleGetter = (event, start, end, isSelected) => {
+		var backgroundColor = event.timetable_item_id % 2 ? '#3CB470' : '#0e91a1';
+		var style = {
+			backgroundColor: backgroundColor,
+			color: 'white',
+			border: '0px',
+		};
+		return {
+			style: style,
+		};
 	};
 
 	// PRINT EVENT
@@ -310,7 +395,6 @@ export default props => {
 			>
 				<label htmlFor="new-schedule-course">Course</label>
 				<Select
-					// defaultValue="course"
 					className="new-schedule-select"
 					onChange={e => setcourse(e)}
 				>
@@ -318,7 +402,6 @@ export default props => {
 				</Select>
 				<label htmlFor="new-schedule-venue">Venue</label>
 				<Select
-					// defaultValue="Accra"
 					className="new-schedule-select"
 					onChange={e => setvenue(e)}
 				>
@@ -334,16 +417,6 @@ export default props => {
 			<div style={{ height: '100%', width: '100%' }}>
 				<Row gutter={24}>
 					<Col span={6}>
-						{/* <Select
-              className="exam-selector"
-              defaultValue={
-                props.user.auth_status !== "admin" ? props.user.center : null
-              }
-              disabled={props.user.auth_status !== "admin" ? true : false}
-              onChange={e => setcenter(e)}
-            >
-              {renderCenterData()}
-            </Select> */}
 						<Button onClick={() => props.onButtonPressed('timetable', [])}>
 							<Icon type="left" />
 							Go back
@@ -353,7 +426,6 @@ export default props => {
 						<Select
 							defaultValue={props.user.auth_status !== 'admin' ? props.user.center : null}
 							className="exam-selector"
-							// value={props.user.auth_status !== "admin" ? props.user.center : null}
 							disabled={props.user.auth_status !== 'admin' ? true : false}
 							onChange={e => setcenter(e)}
 						>
@@ -390,6 +462,7 @@ export default props => {
 					views={['month', 'week', 'day']}
 					defaultView={BigCalendar.Views.WEEK}
 					defaultDate={new Date(2015, 3, 12)}
+					eventPropGetter={e => eventStyleGetter(e)}
 				/>
 
 				<Row gutter={16}>

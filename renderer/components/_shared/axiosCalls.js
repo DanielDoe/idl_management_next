@@ -462,6 +462,7 @@ export async function manageTeachingTimetableItem(params) {
 	const {
 		date,
 		timetable_id,
+		timetable_item_id,
 		timetable_item_title,
 		course_id,
 		venue_id,
@@ -504,28 +505,37 @@ export async function manageTeachingTimetableItem(params) {
 				headers: headers,
 			});
 			return request;
+
 		case 'put':
-			axios({
+			const put_data = await axios({
 				method: 'put',
 				url: url,
 				data: {
+					timetable_item_id: timetable_item_id,
 					timetable_id: timetable_id,
-					prog_cen_id: prog_cen_id,
-					semester: semester,
+					date: date,
+					timetable_item_title: timetable_item_title,
+					start_time: start_time,
+					end_time: end_time,
+					course_id: course_id,
+					venue_id: venue_id,
+					block: block,
 				},
 				headers: headers,
 			});
-			break;
+			return put_data;
 
 		case 'delete':
-			axios({
+			const delete_data = await axios({
 				method: 'delete',
 				url: url,
 				data: {
-					timetable_id: timetable_id,
+					timetable_item_id: timetable_item_id,
 				},
 				headers: headers,
 			});
+			return delete_data;
+
 		default:
 			break;
 	}
