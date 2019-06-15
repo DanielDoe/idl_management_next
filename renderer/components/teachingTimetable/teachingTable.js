@@ -26,7 +26,7 @@ export default props => {
 	const [center, setcenter] = useState(props.user.auth_status !== 'admin' ? props.user.center_id : null);
 	const [programme, setprogramme] = useState(props.programmes.programme_id);
 	const [semester, setsemester] = useState(props.programmes.semester);
-	const [block, setblock] = useState('');
+	const [block, setblock] = useState('one');
 	const context = useContext(TeachingContext);
 	const token = JSON.parse(localStorage.getItem('login')).tokenObtained;
 	const headers = {
@@ -101,11 +101,11 @@ export default props => {
 					start: moment(element.start_time).toDate(),
 					end: moment(element.end_time).toDate(),
 				};
-			});
+			}).filter(element => element.block === block);
 
 			setEvents(newSlot);
 		});
-	}, []);
+	}, [block]);
 
 	useEffect(() => {
 		return () => {
@@ -306,6 +306,7 @@ export default props => {
 					venue_id: `${event.venue_id}`,
 					block: event.block,
 				};
+				// console.log('Removed slot: ', slot);
 				manageTeachingTimetableItem({ ...slot, url: routeTimeTableItem, headers, type: 'delete' }).then(res => {
 					const details = res.data.timetabledetail[0];
 					let newSlot = res.data.timetableitems.map(element => {
@@ -323,6 +324,7 @@ export default props => {
 					});
 
 					setEvents(newSlot);
+					console.log("Removed slot: ", res)
 				});
 				swal('Poof! Your schedule has been deleted!', {
 					icon: 'success',
@@ -423,23 +425,23 @@ export default props => {
 						</Button>
 					</Col>
 					<Col span={6}>
-						<Select
+						{/* <Select
 							defaultValue={props.user.auth_status !== 'admin' ? props.user.center : null}
 							className="exam-selector"
 							disabled={props.user.auth_status !== 'admin' ? true : false}
 							onChange={e => setcenter(e)}
 						>
 							{renderCenterData()}
-						</Select>
+						</Select> */}
 					</Col>
 					<Col span={6}>
-						<Select placeholder="Semester" className="exam-selector" onChange={e => setsemester(e)}>
+						{/* <Select placeholder="Semester" className="exam-selector" onChange={e => setsemester(e)}>
 							<Option value="1">1</Option>
 							<Option value="2">2</Option>
-						</Select>
+						</Select> */}
 					</Col>
 					<Col span={6}>
-						<Select placeholder="Block one" className="exam-selector" onChange={e => setblock('one')}>
+						<Select defaultValue={block} className="exam-selector" onChange={e => setblock(e)}>
 							<Option value="one">one</Option>
 							<Option value="two">two</Option>
 							<Option value="three">three</Option>

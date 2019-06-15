@@ -531,6 +531,7 @@ export async function manageTeachingTimetableItem(params) {
 				url: url,
 				data: {
 					timetable_item_id: timetable_item_id,
+					timetable_id: timetable_id,
 				},
 				headers: headers,
 			});
