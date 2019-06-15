@@ -5,6 +5,56 @@ import Calender2 from '../_shared/img/calendar.png';
 const Search = Input.Search;
 const Option = Select.Option;
 export default props => {
+	const renderButtons = (element) => {
+		if (props.user.auth_status === 'admin') {
+			return (
+				<Row gutter={6}>
+					<Col span={8}>
+						<Button
+							name="timetable-content"
+							icon="plus"
+							onClick={() => props.onButtonPressed('timetable-content', element)}
+						/>
+					</Col>
+					<Col span={8}>
+						<Button
+							name="timetable-content"
+							icon="edit"
+							onClick={() => props.onButtonPressed('timetable-content-edit', element)}
+						/>
+					</Col>
+					<Col span={8}>
+						<Button
+							name="timetable-content"
+							icon="delete"
+							type="danger"
+							onClick={() => props.onItemRemove(element)}
+						/>
+					</Col>
+				</Row>
+			);
+		} else {
+			return (
+				<Row gutter={16}>
+					<Col span={12}>
+						<Button
+							name="timetable-content"
+							icon="edit"
+							onClick={() => props.onButtonPressed('timetable-content', element)}
+						/>
+					</Col>
+					<Col span={12}>
+						<Button
+							name="timetable-content"
+							icon="delete"
+							type="danger"
+							onClick={() => props.onItemRemove(element)}
+						/>
+					</Col>
+				</Row>
+			);
+		}
+	};
 	const renderContent = () => {
 		if (props.dataSource.length !== 0) {
 			return props.dataSource.map((element, id) => {
@@ -15,23 +65,7 @@ export default props => {
 							<h3>Week {id + 1}</h3>
 							<p>semester: {element.semester}</p>
 							<p>type: {element.type}</p>
-							<Row gutter={16}>
-								<Col span={12}>
-									<Button
-										name="timetable-content"
-										icon="edit"
-										onClick={() => props.onButtonPressed('timetable-content', element)}
-									/>
-								</Col>
-								<Col span={12}>
-									<Button
-										name="timetable-content"
-										icon="delete"
-										type="danger"
-										onClick={() => props.onItemRemove(element)}
-									/>
-								</Col>
-							</Row>
+							{renderButtons(element)}
 						</div>
 					</div>
 				);

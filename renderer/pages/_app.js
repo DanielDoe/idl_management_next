@@ -20,6 +20,8 @@ const openNotificationWithIcon = status => {
   if (status) {
     notification.open({
       message: "Network Status",
+      className: "notification",
+      // style: { top: '2rem'},
       description:
         "Oop! we are having trouble with the connection... Please reconnect",
       duration: 0,
@@ -33,6 +35,8 @@ const openNotificationWithIcon = status => {
   } else {
     notification.open({
       message: "Network Status",
+      className:"notification",
+      // style: { top: '2rem' },
       description: "Great! you have a working connection",
       duration: 3.5,
       icon: (

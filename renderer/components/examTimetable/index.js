@@ -12,6 +12,7 @@ import {
 import ExamContext from './exams-context';
 import { AddExam } from './newDataFields';
 import TimetableList from './timetables';
+import UserTimeTable from './time-table';
 import { Row, Col } from 'antd';
 import ExamTable from './courseSelections';
 // import AdminSelection from "./adminSelections";
@@ -19,7 +20,14 @@ import './exam.css';
 
 export default () => {
 	const [programmes, setprogrammes] = useState([]);
-	const [dataSource, setdataSource] = useState([]);
+	const [dataSource, setdataSource] = useState([
+		{
+			end: 'Sun Jun 16 2019 18:20:13',
+			semester: '1',
+			start: 'Sat Jun 15 2019 18:20:09',
+			type: 'End of Semester',
+		},
+	]);
 	const [courses, setCourses] = useState([]);
 	const [fieldData, setfieldData] = useState([]);
 	const [activeSelection, setactiveSelection] = useState('timetable');
@@ -32,6 +40,7 @@ export default () => {
 
 	const addExamElements = exam => {
 		// setfieldData(exam)
+		console.log(exam);
 		const { start, end, semester, type } = exam;
 		setdataSource([...dataSource, { ...exam }]);
 		// console.log("datasource: ", data);
@@ -99,10 +108,11 @@ export default () => {
 								<TimetableList
 									//   venues={venues}
 									//   centers={centers}
+									user={user}
 									programmes={programmes}
 									dataSource={dataSource}
-                  user={user}
-                  onItemRemove={removeExamElements}
+									user={user}
+									onItemRemove={removeExamElements}
 									onButtonPressed={onButtonPressed}
 									//   onValueEditted={onValueEditted}
 								/>
@@ -127,6 +137,16 @@ export default () => {
 				case 'timetable-content':
 					return (
 						<ExamTable
+							fieldData={fieldData}
+							courses={courses}
+							user={user}
+							onButtonPressed={onButtonPressed}
+							programmes={programmes}
+						/>
+					);
+				case 'timetable-content-edit':
+					return (
+						<UserTimeTable
 							fieldData={fieldData}
 							courses={courses}
 							user={user}
