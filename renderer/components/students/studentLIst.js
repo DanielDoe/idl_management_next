@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Input, Table, Row, Col } from 'antd';
+import { Input, Table, Row, Col, Select } from 'antd';
 import StudentContext from './student-context';
 
 const Search = Input.Search;
-
+const Option = Select.Option;
 export default props => {
 	const dataSource = props.students.map((elem, id) => {
 		return {
@@ -13,7 +13,9 @@ export default props => {
 		};
 	});
 
-	const context = useContext(StudentContext);
+    const context = useContext(StudentContext);
+    const [center, setcenter] = useState("all");
+    const [programme, setprogramme] = useState("all");
 	const [dataSearch, setdataSearch] = useState(dataSource);
 	const [width, setwidth] = useState(window.innerWidth);
 	const [height, setheight] = useState(window.innerHeight);
@@ -32,7 +34,38 @@ export default props => {
 			};
 		});
 		setdataSearch(dataSource);
-	}, [props.students]);
+    }, [props.students]);
+    
+    const renderCenterData = () => {
+        const centers = props.centers.map((element, index) => {
+          // console.log(element.name);
+          return (
+            <Option value={element.center_id} key={element.center_name + index}>
+              {element.center_name}
+            </Option>
+          );
+        });
+    
+        return centers;
+      };
+    
+      const renderProgramData = () => {
+        const programmes = props.programmes
+          .filter(element => element.center_id === props.user.center_id)
+          .map((element, index) => {
+            // console.log(element.name);
+            return (
+              <Option
+                value={element.programme_id}
+                key={element.name + element.year}
+              >
+                {element.programme_name}
+              </Option>
+            );
+          });
+    
+        return programmes;
+      };
 
 	const onSearch = e => {
 		const value = e.target.value.toLowerCase();
@@ -65,8 +98,31 @@ export default props => {
 	return (
 		<div>
 			<div>
-				<Row>
-					<Col span={16} />
+				<Row gutter={12}>
+					<Col span={8}>
+                    <Select
+              className="exam-selector"
+              defaultValue={
+                props.user.auth_status !== "admin" ? props.user.center : center
+              }
+              disabled={props.user.auth_status !== "admin" ? true : false}
+              onChange={e => setcenter(e)}
+            >
+              {renderCenterData()}
+              <Option value="all">all centers</Option>
+            </Select>
+                    </Col>
+                    <Col span={8}>
+                    <Select
+              placeholder="Programme"
+              className="exam-selector"
+              defaultValue="all"
+              onChange={e => setprogramme(e)}
+            >
+              {renderProgramData()}
+              <Option value="all">all programmes</Option>
+            </Select>
+                    </Col>
 					<Col span={8}>
 						<Search
 							placeholder="search for programme"

@@ -13,7 +13,7 @@
     width: calc(100% - 0rem);
     height: 100%;
     /* border-right: 1px solid #DDDDDD; */
-    padding: 1.25rem 2rem 0;
+    padding: 1.25rem 1rem 0 0;
 }
 
 .student-list h2 {
@@ -105,13 +105,17 @@
     margin: 0rem auto;
 }
 
+.new-student .ant-form-item {
+    margin-bottom: 20px !important
+}
+
 .new-student h2 {
     font-size: 1.25rem;
     color: #666666;
     text-align: center;
     padding-bottom: 0.25rem;
     border-bottom: 1px solid #999999;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .new-student label {

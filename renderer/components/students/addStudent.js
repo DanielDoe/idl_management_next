@@ -13,7 +13,7 @@ import {
 } from "antd";
 
 const FormItem = Form.Item;
-
+const Option = Select.Option;
 class AddStudentForm extends React.Component {
   static contextType = StudentContext;
 
@@ -23,6 +23,8 @@ class AddStudentForm extends React.Component {
     this.state = {
       counter: 1,
       programme: null,
+      center:
+        this.props.user.auth_status !== "admin" ? this.props.user.center : null,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -99,6 +101,34 @@ class AddStudentForm extends React.Component {
     );
   }
 
+  renderCenterData = () => {
+    const centers = this.context.centers.map((element, index) => {
+      // console.log(element.name);
+      return (
+        <Option value={element.center_id} key={element.center_name + index}>
+          {element.center_name}
+        </Option>
+      );
+    });
+
+    return centers;
+  };
+
+  renderProgramData = () => {
+    const programmes = this.context.programmes
+      .filter(element => element.center_id === this.state.center)
+      .map((element, index) => {
+        // console.log(element.name);
+        return (
+          <Option value={element.prog_cen_id} key={element.name + element.year}>
+            {element.programme_name}
+          </Option>
+        );
+      });
+
+    return programmes;
+  };
+
   render() {
     const header = this.props.editMode ? "Edit" : "New";
     const buttonText = this.props.editMode ? "Edit" : "Add";
@@ -117,6 +147,8 @@ class AddStudentForm extends React.Component {
       isFieldTouched("ref_number") && getFieldError("ref_number");
     const studentProgrammeError =
       isFieldTouched("programme") && getFieldError("programme");
+    const studentCenterError =
+      isFieldTouched("center_id") && getFieldError("center_id");
 
     // const othersError = getFieldError('otherSize');
 
@@ -124,14 +156,49 @@ class AddStudentForm extends React.Component {
     const studentIndex = getFieldValue("index_number");
     const studentRef = getFieldValue("ref_number");
     const studentProgramme = getFieldValue("programme");
+    const centerID =
+      this.context.user.auth_status !== "admin"
+        ? this.context.user.center
+        : getFieldValue("center_id");
 
     const isEmpty =
-      !studentName || !studentIndex || !studentRef || !studentProgramme;
+      !studentName ||
+      !studentIndex ||
+      !studentRef ||
+      !studentProgramme ||
+      !centerID;
     // || !studentCapacity;
 
     return (
       <Form onSubmit={this.handleSubmit} className="column new-student">
         <h2>{header} student </h2>
+        <label htmlFor="new-teaching-name">Center</label>
+        <FormItem
+          // style={{ textAlign: "-webkit-teaching" }}
+          hasFeedback
+          // label="Username"
+          validateStatus={studentCenterError ? "error" : ""}
+          help={studentCenterError || ""}
+        >
+          {getFieldDecorator("center_id", {
+            rules: [{ required: true, message: "enter center!" }],
+            initialValue:
+              this.context.user.auth_status !== "admin"
+                ? this.context.user.center
+                : null,
+          })(
+            <Select
+              //   placeholder="eg. Accra"
+              style={{ width: "100%" }}
+              onChange={value => this.setState({ center: value })}
+              disabled={
+                this.context.user.auth_status !== "admin" ? true : false
+              }
+            >
+              {this.renderCenterData()}
+            </Select>
+          )}
+        </FormItem>
         <label htmlFor="new-student-name">student name</label>
         <FormItem
           style={{ textAlign: "-webkit-student" }}
@@ -194,13 +261,13 @@ class AddStudentForm extends React.Component {
           {getFieldDecorator("programme", {
             rules: [{ required: true, message: "enter programme!" }],
           })(
-            <InputNumber
-              // onChange={}
-              min={1}
-              max={10}
-              style={{ width: "100%" }}
-              placeholder="e.g. 1"
-            />
+            <Select
+              placeholder="Programme"
+              className="exam-selector"
+              onChange={e => this.setState({ programme: e })}
+            >
+              {this.renderProgramData()}
+            </Select>
           )}
         </FormItem>
         <FormItem>
@@ -228,7 +295,7 @@ class AddStudentForm extends React.Component {
             // 	this.props.onCancel();
             // 	this.handleReset();
             // }}
-            disabled={!studentProgramme}
+            disabled={!studentProgramme && !centerID}
           >
             Import
           </Button>
