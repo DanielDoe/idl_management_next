@@ -90,15 +90,16 @@ class AddCenterMgntForm extends React.Component {
 		const CenterMgntCenterError = isFieldTouched('center') && getFieldError('center');
 		// const CenterMgntSelectionError = isFieldTouched('selection') && getFieldError('selection');
 		const CenterMgntProgrammeError = isFieldTouched('programmes') && getFieldError('programmes');
-		const CenterMgntCapacityError = isFieldTouched('capacity') && getFieldError('capacity');
+		// const CenterMgntCapacityError = isFieldTouched('capacity') && getFieldError('capacity');
 		// const othersError = getFieldError('otherSize');
 
 		const CenterMgntCenter = getFieldValue('center');
 		// const CenterMgntSelection = getFieldValue('selection');
 		const CenterMgntProgrammes = getFieldValue('programmes');
-		const CenterMgntCapacity = getFieldValue('capacity');
+		// const CenterMgntCapacity = getFieldValue('capacity');
 
-		const isEmpty = !CenterMgntCenter || !CenterMgntProgrammes || !CenterMgntCapacity;
+		const isEmpty = !CenterMgntCenter || !CenterMgntProgrammes 
+		// || !CenterMgntCapacity;
 
 		return (
 			<Form onSubmit={this.handleSubmit} className="column new-centerMgnt">
@@ -161,7 +162,7 @@ class AddCenterMgntForm extends React.Component {
 						</Select>
 					)}
 				</FormItem>
-				<label htmlFor="new-centerMgnt-std-cap">Capacity</label>
+				{/* <label htmlFor="new-centerMgnt-std-cap">Capacity</label>
 				<FormItem
 					// style={{textAlign: '-webkit-Venue'}}
 					hasFeedback
@@ -184,7 +185,7 @@ class AddCenterMgntForm extends React.Component {
 							placeholder="e.g. 50"
 						/>
 					)}
-				</FormItem>
+				</FormItem> */}
 				<FormItem>
 					<Button
 						type="primary"

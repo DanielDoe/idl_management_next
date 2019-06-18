@@ -59,8 +59,8 @@ export default props => {
 		if (props.dataSource.length !== 0) {
 			return props.dataSource.map((element, id) => {
 				return (
-					<div className="column-timetable">
-						<div className="card-timetable" key={'id' + id}>
+					<div className="column-timetable-exams">
+						<div className="card-timetable-exams" key={'id' + id}>
 							<img className="calender-img" src={id % 2 === 0 ? Calender3 : Calender2} alt="calender" />
 							<h3>Week {id + 1}</h3>
 							<p>semester: {element.semester}</p>
@@ -107,7 +107,7 @@ export default props => {
 				</Row>
 				<h2>List of timetables</h2>
 				<div className="table-container">
-					<div className="row-timetable">{renderContent()}</div>
+					<div className="row-timetable-exams">{renderContent()}</div>
 				</div>
 			</div>
 		</div>

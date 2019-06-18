@@ -37,7 +37,8 @@ export default () => {
 		};
 		console.log('new: ', newstate);
 		manageUsers({ ...newstate, url: routeUsers, headers, type: 'post' }).then(res => {
-			setUsers(res.data.users);
+			console.log(res)
+			res.data.users !== undefined ? setUsers(res.data.users) : setUsers([])
 		})
 		
 	};

@@ -9,6 +9,7 @@ import Domain from '@material-ui/icons/Domain';
 import Group from '@material-ui/icons/Group';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import LocationCity from '@material-ui/icons/LocationCity';
+import GroupAdd from '@material-ui/icons/GroupAdd'
 import FileCopy from '@material-ui/icons/FileCopy';
 import Description from '@material-ui/icons/Description';
 import FolderOpen from '@material-ui/icons/FolderOpen';
@@ -99,6 +100,14 @@ export default class extends Component {
 			},
 			{
 				key: 3,
+				exact: true,
+				path: '/students',
+				name: 'Students',
+				component: Second,
+				icon: GroupAdd,
+			},
+			{
+				key: 4,
 				exact: true,
 				path: '/center_script',
 				name: 'Scripts',

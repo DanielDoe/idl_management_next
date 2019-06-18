@@ -1,264 +1,404 @@
 .add-new-exams {
-	background-color: green;
-	color: #fff;
-	border-color: green;
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
-	-webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
-	box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+  background-color: green;
+  color: #fff;
+  border-color: green;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
 }
 
 #exams {
-	height: 95%;
-	width: 100%;
-	/* border: 1px solid #dddddd; */
+  height: 95%;
+  width: 100%;
+  /* border: 1px solid #dddddd; */
 }
 
 /*=================================================================================================
  = exams list
 =================================================================================================*/
 #exams .exams-list {
-	width: calc(100% - 0rem);
-	height: 100%;
-	/* border-right: 1px solid #DDDDDD; */
-	padding: 0rem 1rem 0;
+  width: calc(100% - 0rem);
+  height: 100%;
+  /* border-right: 1px solid #DDDDDD; */
+  padding: 0rem 1rem 0;
 }
 
 .exams-list h2 {
-	padding-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .courses-list {
-	/* width: 90%; */
-	/* border-bottom: 1px solid #bfbfbf; */
-	padding-bottom: 0.5rem;
+  /* width: 90%; */
+  /* border-bottom: 1px solid #bfbfbf; */
+  padding-bottom: 0.5rem;
 }
 
 .exams-list .list-container {
-	height: 95%;
-	width: 100%;
+  height: 95%;
+  width: 100%;
 }
 
 .exams-list .table-container {
-	height: calc(100% - 2.6rem);
-	width: 100%;
-	background-color: #ffffff;
-	border-radius: 0.25rem;
-	overflow-y: scroll;
-	overflow-x: hidden;
-	border: 1px solid #dddddd;
+  height: calc(100% - 2.6rem);
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 0.25rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: 1px solid #dddddd;
 }
 
 .exams-list .exams-list-table {
-	border-radius: 0;
-	border-collapse: collapse;
+  border-radius: 0;
+  border-collapse: collapse;
 }
 
 .exams-list-table thead th {
-	border-radius: 0;
-	background-color: #1976d2;
-	color: #ffffff;
-	font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-	padding: 1rem 0.45rem;
-	text-align: center;
+  border-radius: 0;
+  background-color: #1976d2;
+  color: #ffffff;
+  font-family: "Roboto-Medium", "Roboto Medium", "Roboto", "Helvetica", "Arial",
+    sans-serif;
+  padding: 1rem 0.45rem;
+  text-align: center;
 }
 
 .exams-list-table tbody td {
-	padding: 0.75rem 0.45rem;
-	text-align: center;
+  padding: 0.75rem 0.45rem;
+  text-align: center;
 }
 
 .exams-list-table tbody * {
-	font-family: 'Roboto-Regular', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-family: "Roboto-Regular", "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 .exams-list-table .ant-pagination.ant-table-pagination {
-	margin: 1rem 1rem 0;
+  margin: 1rem 1rem 0;
 }
 
-.exams-list-table .ant-pagination.ant-table-pagination .ant-pagination-item.ant-pagination-item-active {
-	background-color: #2196f3;
-	border-color: #2196f3;
+.exams-list-table
+  .ant-pagination.ant-table-pagination
+  .ant-pagination-item.ant-pagination-item-active {
+  background-color: #2196f3;
+  border-color: #2196f3;
 }
 
 .exams-list-table tbody tr td:last-of-type {
-	width: 10rem;
+  width: 10rem;
 }
 
 .exams-list-table .action-column {
-	width: 100%;
+  width: 100%;
 }
 
 .exams-list-table .action-column button {
-	width: 4rem;
-	margin: 0 0.275rem;
-	height: 1.5rem;
-	border: 1px solid transparent;
-	background-color: transparent;
-	cursor: pointer;
-	border-radius: 0.25rem;
-	font-size: 0.875rem;
+  width: 4rem;
+  margin: 0 0.275rem;
+  height: 1.5rem;
+  border: 1px solid transparent;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
 }
 
 .exams-list-table .action-column button.delete {
-	border-color: #d32f2f;
-	color: #d32f2f;
+  border-color: #d32f2f;
+  color: #d32f2f;
 }
 
 .exams-list-table .action-column button.edit {
-	border-color: #2196f3;
-	background-color: #2196f3;
-	color: #ffffff;
-	transition: 100ms;
+  border-color: #2196f3;
+  background-color: #2196f3;
+  color: #ffffff;
+  transition: 100ms;
 }
 
 .exams-list-table .action-column button.edit:hover {
-	border-color: #1976d2;
-	background-color: #1976d2;
+  border-color: #1976d2;
+  background-color: #1976d2;
 }
 
 /*=================================================================================================
  = New exams
 =================================================================================================*/
 #exams .new-exams {
-	height: 100%;
-	width: 80%;
-	margin: 0rem auto;
+  height: 100%;
+  width: 80%;
+  margin: 0rem auto;
 }
 
 .new-exams h2 {
-	font-size: 1.25rem;
-	color: #666666;
-	text-align: center;
-	padding-bottom: 0.25rem;
-	border-bottom: 1px solid #999999;
-	margin-bottom: 2rem;
+  font-size: 1.25rem;
+  color: #666666;
+  text-align: center;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid #999999;
+  margin-bottom: 2rem;
 }
 
 .new-exams label {
-	font-size: 0.9rem;
-	display: block;
-	color: #aaaaaa;
-	margin-bottom: 0.6rem;
+  font-size: 0.9rem;
+  display: block;
+  color: #aaaaaa;
+  margin-bottom: 0.6rem;
 }
 
 .new-exams .form-input {
-	width: 100%;
-	display: block;
-	height: 2.5rem;
-	padding: 0 0.5rem;
-	margin-bottom: 1.5rem;
-	border-radius: 0.25rem;
-	border: 2px solid #dddddd;
-	background-color: #ffffff;
-	transition: 80ms;
+  width: 100%;
+  display: block;
+  height: 2.5rem;
+  padding: 0 0.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.25rem;
+  border: 2px solid #dddddd;
+  background-color: #ffffff;
+  transition: 80ms;
 }
 
 .new-exams .form-input:focus {
-	border-color: #aaaaaa;
+  border-color: #aaaaaa;
 }
 
 .new-exams .form-input:disabled {
-	opacity: 0.7;
-	cursor: not-allowed;
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .new-exams button {
-	display: block;
-	width: calc(100% - 2rem);
-	background-color: #2196f3;
-	height: 2.5rem;
-	font-size: 0.9rem;
-	border: none;
-	border-radius: 0.25rem;
-	color: #ffffff;
-	font-family: 'Roboto-Medium', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-	margin: 0 1rem;
-	cursor: pointer;
-	transition: 100ms;
+  display: block;
+  width: calc(100% - 2rem);
+  background-color: #2196f3;
+  height: 2.5rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 0.25rem;
+  color: #ffffff;
+  font-family: "Roboto-Medium", "Roboto", "Helvetica", "Arial", sans-serif;
+  margin: 0 1rem;
+  cursor: pointer;
+  transition: 100ms;
 }
 
 .new-exams button:hover,
 .new-exams button:focus {
-	background-color: #1976d2;
+  background-color: #1976d2;
 }
 
 .new-exams .cancel-button {
-	margin-top: 1rem;
-	border: 1px solid #2196f3;
-	background: transparent;
-	color: #2196f3;
+  margin-top: 1rem;
+  border: 1px solid #2196f3;
+  background: transparent;
+  color: #2196f3;
 }
 
 .exams-search-container {
-	float: right;
-	width: 100%;
-	text-align: center;
+  float: right;
+  width: 100%;
+  text-align: center;
 }
 
 .filter-options {
-	margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
-.ant-tabs:not(.ant-tabs-vertical) > .ant-tabs-content > .ant-tabs-tabpane #exams {
-	height: 100%;
+.ant-tabs:not(.ant-tabs-vertical)
+  > .ant-tabs-content
+  > .ant-tabs-tabpane
+  #exams {
+  height: 100%;
 }
 
 .big-calender-exams {
-	height: 90%;
-	overflow-y: auto;
-	margin: 1rem auto;
+  height: 90%;
+  overflow-y: auto;
+  margin: 1rem auto;
 }
 
 .exam-selector {
-	/* padding: 0 1rem; */
-	width: 100%;
+  /* padding: 0 1rem; */
+  width: 100%;
 }
 
 .new-schedule label {
-	font-size: 0.9rem;
-	display: block;
-	color: #aaaaaa;
-	margin-bottom: 0.6rem;
-	width: 70%;
-	display: block;
-	margin: 0rem auto 0.6rem auto;
+  font-size: 0.9rem;
+  display: block;
+  color: #aaaaaa;
+  margin-bottom: 0.6rem;
+  width: 70%;
+  display: block;
+  margin: 0rem auto 0.6rem auto;
 }
 
 .new-schedule-select {
-	width: 70%;
-	display: block;
-	margin: 1rem auto;
+  width: 70%;
+  display: block;
+  margin: 1rem auto;
 }
 
 .card-view {
-	position: absolute;
-	bottom: 0;
-	width: 100%;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 .card-item {
-	width: 50%;
-	height: 10rem;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
-	padding: 16px;
-	text-align: center;
-	/* background-color: #f1f1f1; */
+  width: 50%;
+  height: 10rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+  padding: 16px;
+  text-align: center;
+  /* background-color: #f1f1f1; */
 }
 
 .nobull {
-	list-style-type: none;
+  list-style-type: none;
 }
 
 .nobull li {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 1rem;
-	font-weight: 600;
-	color: currentColor;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: currentColor;
 }
 
 .transfer-col {
-	height: 100%;
-	/* width: 100%; */
-	border-left: 2px solid #dddddd;
-	padding: 0rem 2rem;
+  height: 100%;
+  /* width: 100%; */
+  /* border-left: 2px solid #dddddd; */
+  padding: 0rem 2rem;
+}
+
+/* Float four columns side by side */
+.column-timetable-exams {
+  float: left;
+  width: 28%;
+  padding: 0 10px;
+}
+
+.column-timetable-edit {
+  float: left;
+  width: 30%;
+  height: 3r;
+  padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding in columns */
+.row-timetable-exams {
+  margin: 0 -5px;
+}
+
+/* Clear floats after the columns */
+.row-timetable-exams:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.calender-img {
+  width: 3rem;
+  height: 3rem;
+}
+/* Style the counter cards */
+.card-timetable-exams {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+  padding: 16px;
+  text-align: center;
+  margin: 0.5rem;
+  background-color: #ffffff;
+}
+
+/* Responsive columns - one column layout (vertical) on small screens */
+@media screen and (max-width: 600px) {
+  .column-timetable-exams {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+.details-pane {
+  height: 100%;
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.details-view {
+  height: 100%;
+  /* width: 100%; */
+  /* margin-top: 1rem; */
+  background: #f1e4e4;
+}
+
+.details-view-bottom {
+  position: absolute;
+  bottom: 0rem;
+  padding: 0.5rem 0.5rem 0rem 0.5rem;
+}
+
+.table-container-view {
+  height: 100%;
+  /* border: 1px solid rgba(0, 0, 0, 0.2); */
+  border-radius: 5px;
+}
+
+.table-container-view .table-container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 95%;
+}
+
+.table-container-view h2 {
+  /* padding-top: 1rem; */
+}
+
+.card-item-view {
+  line-height: 0.5rem;
+  text-align: justify;
+}
+
+.card-item-view > div {
+  float: right;
+}
+
+.ant-drawer-content {
+  top: 64px;
+  height: calc(100% - 64px) !important;
+}
+
+.venue-item {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  height: 5rem;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.venue-item-view {
+  margin: 1rem 0;
+}
+
+.venue-details {
+  height: 5rem;
+  line-height: 1.5rem;
+  padding: 1rem;
+}
+
+.venue-details span {
+  font-size: large;
+  font-weight: 400;
+  color: #6f5d30;
+}
+
+/* Ripple effect */
+.ripple {
+  background-position: center;
+  transition: background 0.8s;
+}
+.ripple:hover {
+  background: #eeeeee radial-gradient(circle, transparent 1%, #eeeeee 1%)
+    center/15000%;
+}
+.ripple:active {
+  background-color: #b8b2a6;
+  background-size: 100%;
+  transition: background 0s;
 }

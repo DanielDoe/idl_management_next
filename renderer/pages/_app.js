@@ -23,7 +23,7 @@ const openNotificationWithIcon = status => {
       className: "notification",
       // style: { top: '2rem'},
       description:
-        "Oop! we are having trouble with the connection... Please reconnect",
+        "Oops! we are having trouble with the connection... Please reconnect",
       duration: 0,
       icon: (
         <Icon type="warning" style={{ color: "red", fontSize: "1.5rem" }} />

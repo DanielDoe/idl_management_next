@@ -1,0 +1,183 @@
+#student {
+    height: 95%;
+    width: 95%;
+    background:white;
+    /* border: 1px solid #dddddd; */
+    margin: 30px auto;
+}
+
+/*=================================================================================================
+ = student list
+=================================================================================================*/
+#student .student-list {
+    width: calc(100% - 0rem);
+    height: 100%;
+    /* border-right: 1px solid #DDDDDD; */
+    padding: 1.25rem 2rem 0;
+}
+
+.student-list h2 {
+    padding-bottom: 0.5rem;
+}
+
+.student-list .table-container {
+    height: calc(100% - 2.6rem);
+    background-color: #FFFFFF;
+    border-radius: 0.25rem;
+    border: 1px solid #DDDDDD;
+}
+
+.student-list .student-list-table {
+    border-radius: 0;
+    border-collapse: collapse;
+}
+
+.student-list-table thead th {
+    border-radius: 0;
+    background-color: #118a7e;
+    color: #FFFFFF;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    padding: 1rem 0.45rem;
+    text-align: center;
+}
+
+.student-list-table tbody td {
+    padding: 0.75rem 0.45rem;
+    text-align: center;
+}
+
+.student-list-table tbody * {
+    font-family: 'Roboto-Regular', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+.student-list-table .ant-pagination.ant-table-pagination {
+    margin: 1rem 1rem 0;
+}
+
+.student-list-table .ant-pagination.ant-table-pagination .ant-pagination-item.ant-pagination-item-active {
+    background-color: #a7d7c5;
+    border-color: #a7d7c5;
+}
+
+.student-list-table tbody tr td:last-of-type {
+    width: 10rem;
+}
+
+.student-list-table .action-column {
+    width: 100%;
+}
+
+.student-list-table .action-column button {
+    width: 4rem;
+    margin: 0 0.275rem;
+    height: 1.5rem;
+    border: 1px solid transparent;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.student-list-table .action-column button.delete {
+    border-color: #D32F2F;
+    color: #D32F2F;
+}
+
+.student-list-table .action-column button.edit {
+    border-color: #a7d7c5;
+    background-color: #a7d7c5;
+    color: #FFFFFF;
+    transition: 100ms;
+}
+
+.student-list-table .action-column button.edit:hover {
+    border-color: #118a7e;
+    background-color: #118a7e;
+}
+
+
+/*=================================================================================================
+ = New student
+=================================================================================================*/
+#student .new-student {
+    height: 100%;
+    width: 80%;
+    margin: 0rem auto;
+}
+
+.new-student h2 {
+    font-size: 1.25rem;
+    color: #666666;
+    text-align: center;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid #999999;
+    margin-bottom: 2rem;
+}
+
+.new-student label {
+    font-size: 0.9rem;
+    display: block;
+    color: #AAAAAA;
+    margin-bottom: 0.6rem;
+}
+
+.new-student .form-input {
+    width: 100%;
+    display: block;
+    height: 2.5rem;
+    padding: 0 0.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.25rem;
+    border: 2px solid #DDDDDD;
+    background-color: #FFFFFF;
+    transition: 80ms;
+}
+
+.new-student .form-input:focus {
+    border-color: #AAAAAA;
+}
+
+.new-student .form-input:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.new-student button {
+    display: block;
+    width: calc(100% - 2rem);
+    background-color: #a7d7c5;
+    height: 2.5rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 0.25rem;
+    color: #FFFFFF;
+    font-family: 'Roboto-Medium', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    margin: 0 1rem;
+    cursor: pointer;
+    transition: 100ms;
+}
+
+.new-student button:hover, .new-student button:focus {
+    background-color: #118a7e;
+}
+
+.new-student .cancel-button {
+    margin-top: 1rem;
+    border: 1px solid #a7d7c5;
+    background: transparent;
+    color: #a7d7c5;
+}
+
+.student-search-container {
+    float: right;
+    width: 100%;
+    text-align: center;
+}
+
+.filter-options {
+    margin-bottom: 1rem;
+}
+
+.ant-tabs:not(.ant-tabs-vertical)>.ant-tabs-content>.ant-tabs-tabpane #student {
+    height: 100%;
+}

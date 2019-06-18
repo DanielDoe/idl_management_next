@@ -28,7 +28,10 @@ export default () => {
 			semester: semester,
 			year: year,
 		};
-		manageCourses({ ...newstate, url: routeCourses, headers, type: 'post' }).then(res => setCourses(res.data.courses));
+		manageCourses({ ...newstate, url: routeCourses, headers, type: 'post' }).then(res => {
+			console.log(res)
+			// setCourses(res.data.courses)
+		});
 		// setCourses([...courses, newstate]);
 	};
 
