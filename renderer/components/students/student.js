@@ -28,7 +28,15 @@ export default () => {
   };
 
   const addStudentElements = student => {
-    console.log(student);
+    console.log("student data: ", student);
+    const { center_id, index_number, programme, ref_number, student_name } = student;
+    let newstate = {
+        student_center: center_id,
+        student_programme: programme,
+        index_number: index_number,
+        ref_number: ref_number,
+        student_name: student_name
+    }
   };
 
   const removeStudentElements = student => {

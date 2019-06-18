@@ -199,6 +199,7 @@ export default () => {
     setfieldData(details);
   };
 
+
   useEffect(() => {
     // getData({ url: routeCenters, headers }).then(data => {
     //   data.centers !== undefined ? setcenters(data.centers) : setcenters([]);
@@ -225,6 +226,7 @@ export default () => {
       data.courses !== undefined ? setCourses(data.courses) : setCourses([]);
       console.log(data.courses);
     });
+    
 
     return () => {
       console.log("Unmounted component");
@@ -316,6 +318,7 @@ export default () => {
             <UserTimeTable
               venues={venues}
               courses={courses}
+              programmes={programmes}
               fieldData={fieldData}
               courses={courses}
               user={user}

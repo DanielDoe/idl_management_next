@@ -9,11 +9,14 @@ import {
   Button,
   Empty,
   Icon,
+  Tag,
   Avatar,
   Checkbox,
 } from "antd";
 import swal from "sweetalert";
 import Building from "../_shared/img/university.png";
+import user from "../users/user";
+import { element } from "prop-types";
 
 const { Option } = Select;
 let selection = [];
@@ -26,6 +29,9 @@ export default class UserTimeTable extends React.Component {
       visible: false,
       childrenDrawer: false,
       courses: [],
+      selectedVenue: null,
+      programmeCapacity: 0,
+      venueCapacity: 0,
     };
   }
 
@@ -44,12 +50,6 @@ export default class UserTimeTable extends React.Component {
 
   onChange = e => {
     const { checked, value } = e.target;
-    // this.setState({
-    //   checkedList,
-    //   indeterminate: !!checkedList.length && checkedList.length < plainOptions.length,
-    //   checkAll: checkedList.length === plainOptions.length,
-    // });
-    // console.log(e)
     if (checked) {
       selection.push(value);
       console.log(`Adding selection: `, selection);
@@ -70,6 +70,8 @@ export default class UserTimeTable extends React.Component {
   showChildrenDrawer = element => {
     this.setState({
       childrenDrawer: true,
+      selectedVenue: element,
+      programmeCapacity: 0,
     });
     console.log(element);
   };
@@ -79,6 +81,23 @@ export default class UserTimeTable extends React.Component {
       childrenDrawer: false,
       //   visible: false,
     });
+  };
+
+  renderCapacity = element => {
+    // console.log("element: ", element);
+    // if (element.venue_id === this.state.selectedVenue.venue_id) {
+    //   return (
+    //     <span>
+    //       {element.venue_capacity - this.state.programmeCapacity <= 0 ? (
+    //         <Tag color="#f50">Full</Tag>
+    //       ) : (
+    //         element.venue_capacity - this.state.programmeCapacity
+    //       )}
+    //     </span>
+    //   );
+    // } else {
+    //   return <spam>{element.venue_capacity}</spam>;
+    // }
   };
 
   renderVenue = () => {
@@ -106,9 +125,7 @@ export default class UserTimeTable extends React.Component {
                     <div>
                       Venue name: <span>{element.venue_name}</span>
                     </div>
-                    <div>
-                      Venue capacity: <span>{element.venue_capacity}</span>
-                    </div>
+                    <div>Venue capacity: {this.renderCapacity(element)}</div>
                   </div>
                 </Col>
               </Row>
@@ -124,15 +141,17 @@ export default class UserTimeTable extends React.Component {
   renderCourses = () => {
     return (
       <div>
-        {this.props.courses.map((element, id) => {
-          return (
-            <div key={"id" + id}>
-              <Checkbox value={element.course_id} onChange={this.onChange}>
-                {element.course_title}
-              </Checkbox>
-            </div>
-          );
-        })}
+        {this.props.programmes
+          .filter(element => element.center_id !== this.props.user.center_id)
+          .map((element, id) => {
+            return (
+              <div key={"id" + id}>
+                <Checkbox value={element.programme_id} onChange={this.onChange}>
+                  {`${element.programme_name} (${element.capacity})`}
+                </Checkbox>
+              </div>
+            );
+          })}
       </div>
     );
   };
@@ -141,15 +160,55 @@ export default class UserTimeTable extends React.Component {
     console.log(this.props);
   }
 
-  // check capacities 
+  // check capacities
   handleSubmit = () => {
-	  if(this.props.venues.venue_capacity){
-		this.setState({ visible: false, childrenDrawer: false})
-	  } else {
-		this.setState({ visible: false, childrenDrawer: false})
-	  }
-	
-  }
+    const { user, programmes, venues } = this.props;
+    const { selectedVenue } = this.state;
+    let capacity = 0;
+    selection.map(element => {
+      let newdata = programmes
+        .filter(
+          elem =>
+            elem.programme_id === element && elem.center_id === user.center_id
+        )
+        .map(item => {
+          capacity += item.capacity;
+        });
+    });
+    this.setState({ programmeCapacity: capacity });
+
+    let venueCapacity = venues.filter(
+      element =>
+        element.center_id === selectedVenue.center_id &&
+        element.venue_id === selectedVenue.venue_id
+    )[0].venue_capacity;
+
+    this.setState({ venueCapacity });
+
+    // console.log("selected venue capacity: ", venueCapacity);
+
+    if (venueCapacity >= capacity) {
+      swal({
+        title: "Good job!",
+        text: `Venue allocated successfully. You have ${venueCapacity -
+          capacity} space left to fill!`,
+        icon: "success",
+        timer: 3000,
+        button: "Ok",
+      });
+      this.setState({ visible: false, childrenDrawer: false });
+    } else {
+      swal({
+        title: "Well done!",
+        text: `Venue allocated successfully. But you need ${capacity -
+          venueCapacity} more space to fully allocate the selected course!`,
+        icon: "info",
+        timer: 3000,
+        button: "Ok",
+      });
+      this.setState({ childrenDrawer: false });
+    }
+  };
 
   renderContent = () => {
     const { fieldData } = this.props;
@@ -286,7 +345,9 @@ export default class UserTimeTable extends React.Component {
                   style={{
                     marginRight: 8,
                   }}
-                  onClick={() => this.setState({ visible: false, childrenDrawer: false})}
+                  onClick={() =>
+                    this.setState({ visible: false, childrenDrawer: false })
+                  }
                 >
                   Cancel
                 </Button>

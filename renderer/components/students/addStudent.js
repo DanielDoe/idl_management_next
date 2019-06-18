@@ -36,13 +36,13 @@ class AddStudentForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         if (this.props.editMode === false) {
-          // this.context.addstudentElements(values);
+          this.context.addStudentElements(values);
           // this.context.addstudentElements(values);
           // console.log('Added received values of form: ', values);
           this.handleReset();
           // this.props.onCancel()
         } else {
-          // this.context.updatestudentElements({student_id: this.props.fieldData.student_id, ...values});
+          this.context.updateStudentElements({student_id: this.props.fieldData.student_id, ...values});
           // console.log('Updated received values of form: ', values);
           this.handleReset();
           this.props.onCancel();
