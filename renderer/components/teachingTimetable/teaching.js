@@ -87,8 +87,6 @@ export default () => {
 
 			setevents(newSlot);
 		});
-		console.log(res);
-		console.log('added slots: ', item);
 	};
 
 	const removeTimetableItem = item => {

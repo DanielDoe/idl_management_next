@@ -13,6 +13,10 @@ import {
   Avatar,
   Checkbox,
 } from "antd";
+import {
+  routeExamTimeTableItem,
+  manageExamTimetableItem,
+} from "../_shared/axiosCalls";
 import swal from "sweetalert";
 import Building from "../_shared/img/university.png";
 import user from "../users/user";
@@ -21,17 +25,24 @@ import { element } from "prop-types";
 const { Option } = Select;
 let selection = [];
 const CheckboxGroup = Checkbox.Group;
+
 export default class UserTimeTable extends React.Component {
   constructor(props) {
     super(props);
-
+    // const { venues } = props;
     this.state = {
       visible: false,
       childrenDrawer: false,
       courses: [],
+      examTimeTable: [],
       selectedVenue: null,
       programmeCapacity: 0,
       venueCapacity: 0,
+      venues: props.venues,
+      programmes: props.programmes,
+
+      //   venues: props.venues,
+      //   programmes: this.props.programmes
     };
   }
 
@@ -83,26 +94,9 @@ export default class UserTimeTable extends React.Component {
     });
   };
 
-  renderCapacity = element => {
-    // console.log("element: ", element);
-    // if (element.venue_id === this.state.selectedVenue.venue_id) {
-    //   return (
-    //     <span>
-    //       {element.venue_capacity - this.state.programmeCapacity <= 0 ? (
-    //         <Tag color="#f50">Full</Tag>
-    //       ) : (
-    //         element.venue_capacity - this.state.programmeCapacity
-    //       )}
-    //     </span>
-    //   );
-    // } else {
-    //   return <spam>{element.venue_capacity}</spam>;
-    // }
-  };
-
   renderVenue = () => {
-    if (this.props.venues.length !== 0) {
-      return this.props.venues.map((element, id) => {
+    if (this.state.venues.length !== 0) {
+      return this.state.venues.map((element, id) => {
         return (
           <div
             className="venue-item"
@@ -125,7 +119,16 @@ export default class UserTimeTable extends React.Component {
                     <div>
                       Venue name: <span>{element.venue_name}</span>
                     </div>
-                    <div>Venue capacity: {this.renderCapacity(element)}</div>
+                    <div>
+                      Venue capacity:{" "}
+                      <span>
+                        {element.venue_capacity <= 0 ? (
+                          <Tag color="#f50">Full</Tag>
+                        ) : (
+                          element.venue_capacity
+                        )}
+                      </span>
+                    </div>
                   </div>
                 </Col>
               </Row>
@@ -157,13 +160,35 @@ export default class UserTimeTable extends React.Component {
   };
 
   componentDidMount() {
-    console.log(this.props);
+    // console.log(this.props);
+    const token = JSON.parse(localStorage.getItem("login")).tokenObtained;
+    const headers = {
+      "x-access-token": token,
+      "content-type": "application/json",
+    };
+    const { venues } = this.props;
+    this.setState({
+      venues,
+    });
+
+    const { exam_timetable_id, semester } = this.props.fieldData;
+    manageExamTimetableItem({
+      exam_timetable_id,
+      semester,
+      url: routeExamTimeTableItem,
+      headers,
+      type: "get",
+    }).then(res => {
+      console.log("timetable item: ", res);
+      this.setState({ examTimeTable: res.examTimeTableItems})
+    });
+
   }
 
   // check capacities
   handleSubmit = () => {
-    const { user, programmes, venues } = this.props;
-    const { selectedVenue } = this.state;
+    const { user, programmes } = this.props;
+    const { selectedVenue, venues } = this.state;
     let capacity = 0;
     selection.map(element => {
       let newdata = programmes
@@ -186,6 +211,12 @@ export default class UserTimeTable extends React.Component {
     this.setState({ venueCapacity });
 
     // console.log("selected venue capacity: ", venueCapacity);
+
+    let newstate = venues;
+    newstate.filter(
+      element => element.venue_id === selectedVenue.venue_id
+    )[0].venue_capacity = venueCapacity - capacity;
+    console.log("new state: ", newstate);
 
     if (venueCapacity >= capacity) {
       swal({
@@ -212,8 +243,9 @@ export default class UserTimeTable extends React.Component {
 
   renderContent = () => {
     const { fieldData } = this.props;
-    if (fieldData.courses.length !== 0) {
-      return fieldData.courses.map((element, id) => {
+    const { examTimeTable } = this.state
+    if (examTimeTable.length !== 0) {
+      return examTimeTable.map((element, id) => {
         return (
           <div className="column-timetable-edit">
             <div

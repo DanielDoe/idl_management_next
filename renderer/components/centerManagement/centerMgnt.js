@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Modal, notification } from "antd";
 import CenterMgntContext from "./centerMgnt-context";
 import { AddCenterMgnt } from "./newCenterMgnt";
 import {
@@ -7,12 +7,13 @@ import {
   manageProgrammeCenter,
   routeAllocations,
   routeCenters,
-  routeProgrammeCenters
+  routeProgrammeCenters,
 } from "../_shared/axiosCalls";
 import CenterMgntList from "./centerMgntList";
 import "./centerMgnt.css";
 
 export default () => {
+  const confirm = Modal.confirm;
   const [centerMgnts, setCenterMgnts] = useState([
     //make a db call for the already allocated programmes
   ]);
@@ -38,17 +39,48 @@ export default () => {
       capacity: capacity,
     };
 
-    manageProgrammeCenter({ ...newstate, url: routeProgrammeCenters, headers, type: 'post' }).then(res => {
-			setCenterMgnts(res.data.programmeCenterAllocations)
-		});
+    manageProgrammeCenter({
+      ...newstate,
+      url: routeProgrammeCenters,
+      headers,
+      type: "post",
+    }).then(res => {
+      setCenterMgnts(res.data.programmeCenterAllocations);
+      notification["success"]({
+        message: `Center programmes added successfully`,
+        description: `Programmes and its courses added to center successfully.`,
+      });
+    });
     // console.log("Adding CenterMgnts: ", newstate);
   };
 
   const removeCenterMgntElements = centerMgnt => {
-    console.log("Removing CenterMgnts", centerMgnt);
-    manageProgrammeCenter({ ...centerMgnt, url: routeProgrammeCenters, headers, type: 'delete' })
-    const newState = centerMgnts.filter(element => element.prog_cen_id !== centerMgnt.prog_cen_id);
-		setCenterMgnts(newState);
+    confirm({
+      title: `Are you sure you want to delete this programme?`,
+      content: `If you proceed, the selected programme will be deleted`,
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        manageProgrammeCenter({
+          ...centerMgnt,
+          url: routeProgrammeCenters,
+          headers,
+          type: "delete",
+        });
+        const newState = centerMgnts.filter(
+          element => element.prog_cen_id !== centerMgnt.prog_cen_id
+        );
+        setCenterMgnts(newState);
+        notification["success"]({
+          message: "Delete status",
+          description: `Programmes deleted successfully.`,
+        });
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
   };
 
   const updateCenterMgntElements = centerMgnt => {
@@ -75,9 +107,11 @@ export default () => {
       data.centers !== undefined ? setcenters(data.centers) : setcenters([]);
       //   console.log(data);
     });
-    	getData({ url: routeProgrammeCenters, headers }).then(data => {
-    		console.log('center programmes: ', data)
-    		data.programmeCenterAllocations !== undefined ? setCenterMgnts(data.programmeCenterAllocations) : setCenterMgnts([]);
+    getData({ url: routeProgrammeCenters, headers }).then(data => {
+      console.log("center programmes: ", data);
+      data.programmeCenterAllocations !== undefined
+        ? setCenterMgnts(data.programmeCenterAllocations)
+        : setCenterMgnts([]);
     });
   }, []);
 

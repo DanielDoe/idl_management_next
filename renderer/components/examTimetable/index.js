@@ -7,159 +7,26 @@ import {
   routeProgrammeCenters,
   routeVenues,
   routeCourses,
-  routeTeachingTimeTable,
+  routeExamTimeTableItem,
+  manageExamsTimetable,
+  routeExamTimetable,
 } from "../_shared/axiosCalls";
+import moment from "moment";
 import ExamContext from "./exams-context";
 import { AddExam } from "./newDataFields";
 import TimetableList from "./timetables";
 import UserTimeTable from "./time-table";
-import { Row, Col } from "antd";
+import { Row, Col, Modal } from "antd";
 import ExamTable from "./courseSelections";
 // import AdminSelection from "./adminSelections";
 import "./exam.css";
 
+const confirm = Modal.confirm;
 export default () => {
   const [programmes, setprogrammes] = useState([]);
-  const [dataSource, setdataSource] = useState([
-    {
-      end: "Sun Jun 16 2019 18:20:13",
-      semester: "1",
-      start: "Sat Jun 15 2019 18:20:09",
-      type: "End of Semester",
-      courses: [
-        {
-          course_id: 7,
-          course_title: "Basic Electronics",
-          // capacity: 45
-        },
-        {
-          course_id: 5,
-          course_title: "Basic Mechanics",
-          // capacity: 45
-        },
-        {
-          course_id: 6,
-          course_title: "Computer Graphics",
-          // capacity: 45
-        },
-        {
-          course_id: 3,
-          course_title: "Computer Network",
-          // capacity: 45
-        },
-        {
-          course_id: 7,
-          course_title: "Basic Electronics",
-          // capacity: 45
-        },
-        {
-          course_id: 5,
-          course_title: "Basic Mechanics",
-          // capacity: 45
-        },
-        {
-          course_id: 6,
-          course_title: "Computer Graphics",
-          // capacity: 45
-        },
-        {
-          course_id: 3,
-          course_title: "Computer Network",
-          // capacity: 45
-        },
-        {
-          course_id: 7,
-          course_title: "Basic Electronics",
-          // capacity: 45
-        },
-        {
-          course_id: 5,
-          course_title: "Basic Mechanics",
-          // capacity: 45
-        },
-        {
-          course_id: 6,
-          course_title: "Computer Graphics",
-          // capacity: 45
-        },
-        {
-          course_id: 3,
-          course_title: "Computer Network",
-          // capacity: 45
-        },
-        {
-          course_id: 7,
-          course_title: "Basic Electronics",
-          // capacity: 45
-        },
-        {
-          course_id: 5,
-          course_title: "Basic Mechanics",
-          // capacity: 45
-        },
-        {
-          course_id: 6,
-          course_title: "Computer Graphics",
-          // capacity: 45
-        },
-        {
-          course_id: 3,
-          course_title: "Computer Network",
-          // capacity: 45
-        },
-        {
-          course_id: 6,
-          course_title: "Computer Graphics",
-          // capacity: 45
-        },
-        {
-          course_id: 3,
-          course_title: "Computer Network",
-          // capacity: 45
-        },
-        {
-          course_id: 7,
-          course_title: "Basic Electronics",
-          // capacity: 45
-        },
-        {
-          course_id: 5,
-          course_title: "Basic Mechanics",
-          // capacity: 45
-        },
-        {
-          course_id: 6,
-          course_title: "Computer Graphics",
-          // capacity: 45
-        },
-        {
-          course_id: 3,
-          course_title: "Computer Network",
-          // capacity: 45
-        },
-        {
-          course_id: 7,
-          course_title: "Basic Electronics",
-          // capacity: 45
-        },
-        {
-          course_id: 5,
-          course_title: "Basic Mechanics",
-          // capacity: 45
-        },
-        {
-          course_id: 6,
-          course_title: "Computer Graphics",
-          // capacity: 45
-        },
-        {
-          course_id: 3,
-          course_title: "Computer Network",
-          // capacity: 45
-        },
-      ],
-    },
-  ]);
+  const [dataSource, setdataSource] = useState([]);
+  const [centers, setcenters] = useState([]);
+  const [examstimetableitems, setexamstimetableitems] = useState([]);
   const [courses, setCourses] = useState([]);
   const [venues, setvenues] = useState([]);
   const [fieldData, setfieldData] = useState([]);
@@ -175,12 +42,50 @@ export default () => {
     // setfieldData(exam)
     console.log(exam);
     const { start, end, semester, type } = exam;
-    setdataSource([...dataSource, { ...exam }]);
-    // console.log("datasource: ", data);
+    let newstate = {
+      date: moment(start).format("L"),
+      day: moment(start).format("dddd"),
+      end_time: moment(end).format("LLLL"),
+      semester: semester,
+      exam_type: type,
+      start_time: moment(start).format("LLLL"),
+    };
+
+    manageExamsTimetable({
+      ...newstate,
+      url: routeExamTimetable,
+      headers,
+      type: "post",
+    }).then(res => {
+      setdataSource(res.data.timetables);
+      // console.log("data: ", res);
+    });
+    // setdataSource([...dataSource, { ...exam }]);
   };
 
   const removeExamElements = exam => {
-    console.log("exam", exam);
+    confirm({
+      title: "Are you sure delete this item?",
+      content: "Your current timetable will be delete",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        manageExamsTimetable({
+          ...exam,
+          url: routeExamTimetable,
+          headers,
+          type: "delete",
+        });
+        const newstate = dataSource.filter(
+          element => element.exam_timetable_id !== exam.exam_timetable_id
+        );
+        setdataSource(newstate);
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
   };
 
   const updateExamElements = exam => {
@@ -193,18 +98,15 @@ export default () => {
   };
 
   const onButtonPressed = (selection, details) => {
-    // const { name } = e.target;
     setactiveSelection(selection);
-    console.log(details);
+    console.log("details: ", details);
     setfieldData(details);
   };
 
-
   useEffect(() => {
-    // getData({ url: routeCenters, headers }).then(data => {
-    //   data.centers !== undefined ? setcenters(data.centers) : setcenters([]);
-    //   //   console.log(data);
-    // });
+    getData({ url: routeCenters, headers }).then(data => {
+      data.centers !== undefined ? setcenters(data.centers) : setcenters([]);
+    });
 
     getData({ url: routeProgrammeCenters, headers }).then(data => {
       data.programmeCenterAllocations !== undefined
@@ -214,19 +116,18 @@ export default () => {
 
     getData({ url: routeVenues, headers }).then(data => {
       data.venues !== undefined ? setvenues(data.venues) : setvenues([]);
-      //   console.log(data);
     });
 
-    //   getData({ url: routeTeachingTimeTable, headers }).then(data => {
-    //     data.timetables !== undefined ? setdataSource(data.timetables) : setdataSource([]);
-    //       console.log(data);
-    //   });
+    getData({ url: routeExamTimetable, headers }).then(data => {
+      console.log(data);
+      data.timetables !== undefined
+        ? setdataSource(data.timetables)
+        : setdataSource([]);
+    });
 
     getData({ url: routeCourses, headers }).then(data => {
       data.courses !== undefined ? setCourses(data.courses) : setCourses([]);
-      console.log(data.courses);
     });
-    
 
     return () => {
       console.log("Unmounted component");

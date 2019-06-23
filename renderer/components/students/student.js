@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Modal, notification } from "antd";
 import StudentContext from "./student-context";
 import { AddStudent } from "./addStudent";
 import {
@@ -17,6 +17,7 @@ export default () => {
   // const [courses, setCourses] = useState([]);
   const [students, setstudents] = useState([]);
   const [programmes, setprogrammes] = useState([]);
+  const confirm = Modal.confirm;
   const [user, setuser] = useState(JSON.parse(localStorage.getItem("login")));
   const [centers, setcenters] = useState([]);
   const [editMode, seteditMode] = useState(false);
@@ -35,16 +36,54 @@ export default () => {
         student_programme: programme,
         index_number: index_number,
         ref_number: ref_number,
-        student_name: student_name
+        student_name: titleCase(student_name.trim())
     }
+    notification["success"]({
+      message: `${titleCase(student_name.trim())} added successfully`,
+      description: `${titleCase(
+        student_name.trim()
+      )} details also created successfully.`,
+    });
   };
 
   const removeStudentElements = student => {
     console.log(student);
+    // confirm({
+    //   title: `Are you sure you want to delete ${center_name}?`,
+    //   content: `If you proceed, ${center_name} will be deleted`,
+    //   okText: "Yes",
+    //   okType: "danger",
+    //   cancelText: "No",
+    //   onOk() {
+    //     manageCenters({
+    //       ...center,
+    //       url: routeCenters,
+    //       headers,
+    //       type: "delete",
+    //     });
+    //     const newCenters = centers.filter(
+    //       element => element.center_id !== center.center_id
+    //     );
+    //     setCenters(newCenters);
+    //     notification["success"]({
+    //       message: "Delete status",
+    //       description: `${center_name} details deleted successfully.`,
+    //     });
+    //   },
+    //   onCancel() {
+    //     console.log("Cancel");
+    //   },
+    // });
   };
 
   const updateStudentElements = student => {
     console.log("Update: ", student);
+    notification["success"]({
+      message: "Update status",
+      description: `${titleCase(
+        student.student_name.trim()
+      )} details updated successfully.`,
+    });
   };
 
   const onValueEditted = value => {
