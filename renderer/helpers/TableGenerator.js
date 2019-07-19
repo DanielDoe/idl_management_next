@@ -1,19 +1,19 @@
 export default class TableGenerator {
-	/**
-	 * Setup the table generator.
-	 * Requires the data to be rendered
-	 * @param {TableEntry[]} data
-	 */
-	constructor(data) {
-		this.data = data;
-	}
+  /**
+   * Setup the table generator.
+   * Requires the data to be rendered
+   * @param {TableEntry[]} data
+   */
+  constructor(data) {
+    this.data = data;
+  }
 
-	/**
-	 * Retrieve the CSS Styles
-	 * @returns {string}
-	 */
-	_getStyles() {
-		return `
+  /**
+   * Retrieve the CSS Styles
+   * @returns {string}
+   */
+  _getStyles() {
+    return `
 		body {
 			margin: 3rem;
 			font-family: Arial, sans-serif;
@@ -79,114 +79,137 @@ export default class TableGenerator {
 			font-size: 5pt;
 		  }
         `;
-	}
+  }
 
-	/**
-	 * Convert a date object to a simple ISO date string
-	 * @param {Date} date
-	 * TODO: Test out and use GMT Date string
-	 */
-	_getDateString(date) {
-		let month = date.getMonth() + 1;
-		month = month < 10 ? `0${month}` : month;
+  /**
+   * Convert a date object to a simple ISO date string
+   * @param {Date} date
+   * TODO: Test out and use GMT Date string
+   */
+  _getDateString(date) {
+    let month = date.getMonth() + 1;
+    month = month < 10 ? `0${month}` : month;
 
-		return `${date.getFullYear()}-${month}-${date.getDate()}`;
-	}
+    return `${date.getFullYear()}-${month}-${date.getDate()}`;
+  }
 
-	_getDayOfMonth(date) {
-		const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-		return days[new Date(date).getDay()];
-	}
+  _getDayOfMonth(date) {
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    return days[new Date(date).getDay()];
+  }
 
-	/**
-	 * Read and retrieve the index of a particular date object.
-	 * Indices are calculated based on the time of day
-	 * @param {Date} date
-	 */
-	_getIndex(date) {
-		const dateNum = date.getSeconds() + date.getMinutes() * 60 + date.getHours() * 3600;
-		switch (dateNum) {
-			case 25200: // 07:00:00
-				return 2;
-			case 34200:
-				return 4;
-			case 43200:
-				return 6;
-			case 52200:
-				return 8;
-			case 61200:
-				return 10;
-			default:
-				return null;
-		}
-	}
+  /**
+   * Read and retrieve the index of a particular date object.
+   * Indices are calculated based on the time of day
+   * @param {Date} date
+   */
+  _getIndex(date) {
+    const dateNum =
+      date.getSeconds() + date.getMinutes() * 60 + date.getHours() * 3600;
+    switch (dateNum) {
+      case 25200: // 07:00:00
+        return 2;
+      case 34200:
+        return 4;
+      case 43200:
+        return 6;
+      case 52200:
+        return 8;
+      case 61200:
+        return 10;
+      default:
+        return null;
+    }
+  }
 
-	/**
-	 * Retrieve all the dates in the data set and return them in ascending order
-	 * @param {Date[]} dates
-	 * @returns {string[]}
-	 */
-	_getUniqueDates(dates) {
-		const output = dates.map(this._getDateString);
-		return [...new Set(output)].sort((a, b) => new Date(a) - new Date(b));
-	}
+  /**
+   * Retrieve all the dates in the data set and return them in ascending order
+   * @param {Date[]} dates
+   * @returns {string[]}
+   */
+  _getUniqueDates(dates) {
+    const output = dates.map(this._getDateString);
+    return [...new Set(output)].sort((a, b) => new Date(a) - new Date(b));
+  }
 
-	/**
-	 * Render the tbody rows
-	 * @param {Object} data
-	 * @param {string[]} dates
-	 */
-	_renderBody(data, dates) {
-		let body = '';
-		dates.forEach((date, index) => {
-			/**
-			 * @type {TableEntry[]}
-			 */
-			const values = data[date];
+  /**
+   * Render the tbody rows
+   * @param {Object} data
+   * @param {string[]} dates
+   */
+  _renderBody(data, dates) {
+    let body = "";
+    dates.forEach((date, index) => {
+      /**
+       * @type {TableEntry[]}
+       */
+      const values = data[date];
 
-			const dayOfMonth = this._getDayOfMonth(date);
-			const toFill = [date, dayOfMonth, null, '', null, '', null, '', null, '', null];
+      const dayOfMonth = this._getDayOfMonth(date);
+      const toFill = [
+        date,
+        dayOfMonth,
+        null,
+        "",
+        null,
+        "",
+        null,
+        "",
+        null,
+        "",
+        null,
+      ];
 
-			values.forEach(value => {
-				const index = this._getIndex(value.start);
-				if (index) {
-					toFill[index] = value.title;
-				}
-			});
+      values.forEach(value => {
+        const index = this._getIndex(value.start);
+        if (index) {
+          toFill[index] = value.title;
+        }
+      });
 
-			let tr = '';
-			toFill.forEach((input, id) => {
-				if (input === '' && index === 0) {
-					tr += `<td rowspan="${dates.length}" class="break-col"><span>Break</span></td>`;
-					return;
-				}
+      let tr = "";
+      toFill.forEach((input, id) => {
+        if (input === "" && index === 0) {
+          tr += `<td rowspan="${
+            dates.length
+          }" class="break-col"><span>Break</span></td>`;
+          return;
+        }
 
-				if (id < 2) {
-					tr += `<td class="elem-col">${input}</td>`;
-					return;
-				}
+        if (id < 2) {
+          tr += `<td class="elem-col">${input}</td>`;
+          return;
+        }
 
-				if (input) {
-					tr += `<td>${input}</td>`;
-				}
+        if (input) {
+          tr += `<td>${input}</td>`;
+        }
 
-				if (input === null) {
-					tr += `<td></td>`;
-				}
-			});
+        if (input === null) {
+          tr += `<td></td>`;
+        }
+      });
 
-			body += `<tr>${tr}</tr>`;
-		});
+      body += `<tr>${tr}</tr>`;
+    });
 
-		return `<tbody>${body}</tbody>`;
-	}
+    return `<tbody>${body}</tbody>`;
+  }
 
-	/**
-	 * Renders the HTML header
-	 * @returns {string}
-	 */
-	_renderHeader() {
-		return `
+  /**
+   * Renders the HTML header
+   * @returns {string}
+   */
+  _renderHeader() {
+    return `
 		</div>
 		<thead>
         <tr>
@@ -203,30 +226,34 @@ export default class TableGenerator {
             <th>5:00 - 7:00</th>
         </tr>
         </thead>`;
-	}
+  }
 
-	/**
-	 * Renders the data and returns an HTML output which can be saved into
-	 * an HTML file inside the application's temporary folder
-	 * @returns {string}
-	 */
-	render() {
-		const dates = this._getUniqueDates(this.data.map(datum => datum.start));
-		const header = this._renderHeader();
-		const styles = this._getStyles();
+  /**
+   * Renders the data and returns an HTML output which can be saved into
+   * an HTML file inside the application's temporary folder
+   * @returns {string}
+   */
+  render() {
+    const dates = this._getUniqueDates(this.data.map(datum => datum.start));
+    const header = this._renderHeader();
+    const styles = this._getStyles();
 
-		const reducedData = this.data.reduce((acc, curr) => {
-			const key = this._getDateString(curr.start);
-			const source = {
-				[key]: acc[key] ? acc[key].concat(curr).sort((a, b) => a.start - b.start) : [curr],
-			};
+    const reducedData = this.data.reduce((acc, curr) => {
+      const key = this._getDateString(curr.start);
+      const source = {
+        [key]: acc[key]
+          ? acc[key].concat(curr).sort((a, b) => a.start - b.start)
+          : [curr],
+      };
 
-			return Object.assign(acc, source);
-		}, {});
+      return Object.assign(acc, source);
+    }, {});
 
-		const body = this._renderBody(reducedData, dates);
+    console.log("data: ", reducedData, "dates: ", dates);
 
-		return `
+    const body = this._renderBody(reducedData, dates);
+
+    return `
         <html>
         <head>
             <style>${styles}</style>
@@ -257,7 +284,7 @@ export default class TableGenerator {
         </body>
         </html>
         `;
-	}
+  }
 }
 
 /**

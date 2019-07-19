@@ -152,6 +152,7 @@ export default () => {
               span={8}
               style={{
                 height: "100%",
+                overflowY: "auto",
                 borderLeft: "1px solid rgba(0,0,0,0.12)",
               }}
             >
