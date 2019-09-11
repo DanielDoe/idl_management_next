@@ -36,7 +36,7 @@ class LoginForm extends React.Component {
               // console.log("Login unsuccessful..!")
               swal({
                 title: "Good job!",
-                text: "You are logged in sucessfully!",
+                text: "You are logged in successfully!",
                 icon: "success",
                 timer: 2000,
                 button: false,

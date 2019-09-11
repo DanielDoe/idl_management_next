@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 
 export const routeProgrammes = "https://idl-timetable.herokuapp.com/programme";
@@ -8,6 +7,7 @@ export const routeAllocations =
 export const routeUserLogin = "https://idl-timetable.herokuapp.com/userlogin";
 export const routeCenters = "https://idl-timetable.herokuapp.com/center";
 export const routeUsers = "https://idl-timetable.herokuapp.com/user";
+export const routeStudents = "https://idl-timetable.herokuapp.com/student";
 export const routeVenues = "https://idl-timetable.herokuapp.com/venue";
 export const routeProgrammeCenters =
   "https://idl-timetable.herokuapp.com/programmecenter";
@@ -438,6 +438,58 @@ export async function manageScripts(params) {
       axios({
         method: "delete",
         url: url + "?center_id=" + center_id,
+        headers: headers,
+      });
+    default:
+      break;
+  }
+}
+
+/**
+ *
+ * manage students :
+ * add new students
+ * update students
+ * delete students
+ */
+
+export async function manageStudents(params) {
+  const { email, student_name, index_number, ref_number, prog_cen_id,  url, headers, type } = params;
+  switch (type) {
+    case "post":
+      const request = axios({
+        method: "post",
+        url: url,
+        data: {
+          student_name: student_name,
+          email: email,
+          index_number: index_number,
+          ref_number: ref_number,
+          prog_cen_id: prog_cen_id,
+        },
+        headers: headers,
+      });
+      return request;
+    case "put":
+      axios({
+        method: "put",
+        url: url + "/u_id=" + ref_number,
+        data: {
+          full_name: full_name,
+          email: email,
+          status: status,
+          phone: phone,
+          center_id: center_id,
+        },
+        headers: headers,
+        // params: { u_id: id },
+      });
+      break;
+
+    case "delete":
+      axios({
+        method: "delete",
+        url: url + "?ref_number=" + ref_number,
         headers: headers,
       });
     default:

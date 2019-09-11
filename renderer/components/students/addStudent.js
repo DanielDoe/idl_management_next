@@ -42,7 +42,10 @@ class AddStudentForm extends React.Component {
           this.handleReset();
           // this.props.onCancel()
         } else {
-          this.context.updateStudentElements({student_id: this.props.fieldData.student_id, ...values});
+          this.context.updateStudentElements({
+            student_id: this.props.fieldData.student_id,
+            ...values,
+          });
           // console.log('Updated received values of form: ', values);
           this.handleReset();
           this.props.onCancel();
@@ -149,10 +152,12 @@ class AddStudentForm extends React.Component {
       isFieldTouched("programme") && getFieldError("programme");
     const studentCenterError =
       isFieldTouched("center_id") && getFieldError("center_id");
+    const studentEmailError = isFieldTouched("email") && getFieldError("email");
 
     // const othersError = getFieldError('otherSize');
 
     const studentName = getFieldValue("student_name");
+    const studentEmail = getFieldValue("email");
     const studentIndex = getFieldValue("index_number");
     const studentRef = getFieldValue("ref_number");
     const studentProgramme = getFieldValue("programme");
@@ -165,6 +170,7 @@ class AddStudentForm extends React.Component {
       !studentName ||
       !studentIndex ||
       !studentRef ||
+      !studentEmail ||
       !studentProgramme ||
       !centerID;
     // || !studentCapacity;
@@ -199,17 +205,23 @@ class AddStudentForm extends React.Component {
             </Select>
           )}
         </FormItem>
-        <label htmlFor="new-student-name">student name</label>
+        <label htmlFor="new-student-name">Reference number</label>
         <FormItem
           style={{ textAlign: "-webkit-student" }}
           hasFeedback
           // label="Username"
-          validateStatus={studentNameError ? "error" : ""}
-          help={studentNameError || ""}
+          validateStatus={studentRefError ? "error" : ""}
+          help={studentRefError || ""}
         >
-          {getFieldDecorator("student_name", {
-            rules: [{ required: true, message: "enter student name!" }],
-          })(<Input style={{ width: "100%" }} placeholder="e.g. John Doe" />)}
+          {getFieldDecorator("ref_number", {
+            rules: [{ required: true, message: "enter reference number!" }],
+          })(
+            <InputNumber
+              // onChange={}
+              style={{ width: "100%" }}
+              placeholder="e.g. 20376057"
+            />
+          )}
         </FormItem>
         <label htmlFor="new-student-std-cap">Index number</label>
         <FormItem
@@ -232,22 +244,30 @@ class AddStudentForm extends React.Component {
             />
           )}
         </FormItem>
-        <label htmlFor="new-student-name">Reference number</label>
+        <label htmlFor="new-student-name">student name</label>
         <FormItem
           style={{ textAlign: "-webkit-student" }}
           hasFeedback
           // label="Username"
-          validateStatus={studentRefError ? "error" : ""}
-          help={studentRefError || ""}
+          validateStatus={studentNameError ? "error" : ""}
+          help={studentNameError || ""}
         >
-          {getFieldDecorator("ref_number", {
-            rules: [{ required: true, message: "enter reference number!" }],
+          {getFieldDecorator("student_name", {
+            rules: [{ required: true, message: "enter student name!" }],
+          })(<Input style={{ width: "100%" }} placeholder="e.g. John Doe" />)}
+        </FormItem>
+        <label htmlFor="new-student-name">student email</label>
+        <FormItem
+          style={{ textAlign: "-webkit-student" }}
+          hasFeedback
+          // label="Username"
+          validateStatus={studentNameError ? "error" : ""}
+          help={studentNameError || ""}
+        >
+          {getFieldDecorator("email", {
+            rules: [{ required: true, message: "enter student email!" }],
           })(
-            <InputNumber
-              // onChange={}
-              style={{ width: "100%" }}
-              placeholder="e.g. 20376057"
-            />
+            <Input style={{ width: "100%" }} placeholder="e.g. johndoe@coe" />
           )}
         </FormItem>
         <label htmlFor="new-student-name">Programme</label>
@@ -277,7 +297,7 @@ class AddStudentForm extends React.Component {
             // className=""
             style={{ margin: "20px auto", width: "100%", backgroundColor: "" }}
             htmlType="submit"
-            disabled={this.hasErrors(getFieldsError()) || isEmpty}
+            // disabled={this.hasErrors(getFieldsError()) || isEmpty}
           >
             {buttonText + " student"}
           </Button>

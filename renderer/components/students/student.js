@@ -7,6 +7,8 @@ import {
   getData,
   routeCenters,
   routeProgrammeCenters,
+  routeStudents,
+  manageStudents,
 } from "../_shared/axiosCalls";
 import XLSX from "xlsx";
 import StudentList from "./studentLIst";
@@ -27,53 +29,74 @@ export default () => {
     "x-access-token": token,
     "content-type": "application/json",
   };
-
+  
   const addStudentElements = student => {
-    console.log("student data: ", student);
-    const { center_id, index_number, programme, ref_number, student_name } = student;
+    const {
+      center_id,
+      email,
+      index_number,
+      programme,
+      ref_number,
+      student_name,
+    } = student;
     let newstate = {
-        student_center: center_id,
-        student_programme: programme,
-        index_number: index_number,
-        ref_number: ref_number,
-        student_name: titleCase(student_name.trim())
-    }
-    notification["success"]({
-      message: `${titleCase(student_name.trim())} added successfully`,
-      description: `${titleCase(
-        student_name.trim()
-      )} details also created successfully.`,
+      student_center: center_id,
+      prog_cen_id: programme,
+      index_number: index_number,
+      ref_number: ref_number,
+      email: email,
+      student_name: titleCase(student_name.trim()),
+    };
+
+    manageStudents({
+      ...newstate,
+      url: routeStudents,
+      headers,
+      type: "post",
+    }).then(res => {
+      // console.log(res)
+      res.data.students !== undefined
+        ? setstudents(res.data.students)
+        : setstudents([]);
+      notification["success"]({
+        message: `${titleCase(student_name.trim())} added successfully`,
+        description: `${titleCase(
+          student_name.trim()
+        )} details also created successfully.`,
+        className: "notification-style",
+      });
     });
   };
 
   const removeStudentElements = student => {
-    console.log(student);
-    // confirm({
-    //   title: `Are you sure you want to delete ${center_name}?`,
-    //   content: `If you proceed, ${center_name} will be deleted`,
-    //   okText: "Yes",
-    //   okType: "danger",
-    //   cancelText: "No",
-    //   onOk() {
-    //     manageCenters({
-    //       ...center,
-    //       url: routeCenters,
-    //       headers,
-    //       type: "delete",
-    //     });
-    //     const newCenters = centers.filter(
-    //       element => element.center_id !== center.center_id
-    //     );
-    //     setCenters(newCenters);
-    //     notification["success"]({
-    //       message: "Delete status",
-    //       description: `${center_name} details deleted successfully.`,
-    //     });
-    //   },
-    //   onCancel() {
-    //     console.log("Cancel");
-    //   },
-    // });
+    const { student_name, ref_number } = student;
+    confirm({
+      title: `Are you sure you want to delete ${student_name}?`,
+      content: `If you proceed, ${student_name} will be deleted`,
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        manageStudents({
+          ...student,
+          url: routeStudents,
+          headers,
+          type: "delete",
+        });
+        const newStudents = students.filter(
+          element => element.ref_number !== ref_number
+        );
+        setstudents(newStudents);
+        notification["success"]({
+          message: "Delete status",
+          description: `${student_name} details deleted successfully.`,
+          className: "notification-style",
+        });
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
   };
 
   const updateStudentElements = student => {
@@ -83,6 +106,7 @@ export default () => {
       description: `${titleCase(
         student.student_name.trim()
       )} details updated successfully.`,
+      className: "notification-style",
     });
   };
 
@@ -106,9 +130,15 @@ export default () => {
         ? setprogrammes(data.programmeCenterAllocations)
         : setprogrammes([]);
     });
+    getData({ url: routeStudents, headers }).then(data => {
+      console.log("student data: ", data);
+      data.students !== undefined
+        ? setstudents(data.students)
+        : setstudents([]);
+    });
   }, []);
 
-  const openFileDialog = semester => {
+  const openFileDialog = programme => {
     // console.log(semester);
     const o = Dialog.showOpenDialog({ properties: ["openFile"] });
     const workbook = XLSX.readFile(o[0]);
@@ -119,9 +149,11 @@ export default () => {
     const newData = data
       .filter((array, i) => array.length > 0 && i > 0)
       .map(element => {
-        const newname = element[1];
-        console.log(element);
+        return element;
+        // console.log(element);
       });
+
+    console.log("students: ", newData);
   };
 
   return (
